@@ -9,6 +9,10 @@ Created on Mon Apr 20 13:31:53 2020
 from rdflib import Graph, Literal, RDF, OWL, URIRef, Namespace
 from rdflib.namespace import FOAF , XSD
 from SPARQLWrapper import SPARQLWrapper, JSON
+from urllib.parse import urlparse
+from pathlib import PurePosixPath
+
+sys.path.append(os.path.relpath("./AgentUtil"))
 
 import rdflib
 
@@ -35,14 +39,17 @@ if (PrOnt.ElectronicDevice , RDF.type, OWL.Class) in g:
 #    print(obj)
     
 qres = g.query("""
-              SELECT ?nombre
+              SELECT ?nombre ?precio ?tieneMarca
               WHERE {
               ?a PrOntPr:nombre ?nombre .
+              ?a PrOntPr:precio ?precio .
+              ?a PrOntPr:tieneMarca ?tieneMarca .
               ?a PrOntPr:peso ?peso .
-                  FILTER (?peso > 3000.0)
+                  FILTER (?peso > 10.0)
               }
               """, initNs = {'PrOntPr': PrOntPr})
 for row in qres:
-    print(row)
+    path = urlparse(row['tieneMarca']).path
+    print(PurePosixPath(path).parts[3])
 
 #print(g.serialize(format='turtle').decode("utf-8"))
