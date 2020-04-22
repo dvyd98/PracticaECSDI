@@ -26,14 +26,14 @@ g.parse("./Ontologies/product.owl", format="xml")
 
 # Iterate over triples in store and print them out.
 #print("--- printing raw triples ---")
-for s, p, o in g:
-    print((p))
+#for s, p, o in g:
+    #print((p))
     
 #print("--- printing mboxes ---")
 #for triple in g:
 #    print(triple)
         
-if (PrOnt.ElectronicDevice , RDF.type, OWL.Class) in g:
+if (PrOnt.ElectronicDevice, RDF.type, OWL.Class) in g:
     print("El grafo contiene electronic devices")
 
 #for obj in g.subject_predicates(PrOnt.Phone):
@@ -46,11 +46,11 @@ qres = g.query("""
               ?a PrOntPr:precio ?precio .
               ?a PrOntPr:tieneMarca ?tieneMarca .
               ?a PrOntPr:peso ?peso .
-                  FILTER (?peso > 10.0)
+                  FILTER (?nombre = "nombre_IZ0670")
               }
               """, initNs = {'PrOntPr': PrOntPr})
 for row in qres:
-    path = urlparse(row['tieneMarca']).path
-    print(PurePosixPath(path).parts[3])
+   path = urlparse(row['tieneMarca']).path
+   print(PurePosixPath(path).parts[3])
 
 #print(g.serialize(format='turtle').decode("utf-8"))
