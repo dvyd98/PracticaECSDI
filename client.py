@@ -55,7 +55,7 @@ content.add((cerca_obj, REQ.Filters, filters_obj))
 content.add((cerca_obj, REQ.KeyWord, keyword_obj))
 
 #passem cerca hardcoded ( de moment xd)
-content.add((filters_obj, REQ.Nombre, Literal("Blender")))
+content.add((filters_obj, REQ.Nombre, Literal("nombre_Blender")))
 content.add((filters_obj, REQ.Precio, Literal(500)))
 
 g = Graph()

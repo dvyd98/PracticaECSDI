@@ -168,3 +168,206 @@ INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:09:28] "[37mGET /comm?content=%3C%3
 INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
 INFO:log:Processem la cerca
 INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:10:33] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message-8099303133515913277-0000%22%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++++%3Creq%3ANombre%3EBlender%3C%2Freq%3ANombre%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+ERROR:AgentCercador:Exception on /comm [GET]
+Traceback (most recent call last):
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\Dvyd\Documents\ECSDI\AgentCercador.py", line 144, in comunicacion
+    getProductes()
+  File "C:\Users\Dvyd\Documents\ECSDI\AgentCercador.py", line 104, in getProductes
+    """, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\rdflib\graph.py", line 1089, in query
+    query_object, initBindings, initNs, **kwargs))
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\rdflib\plugins\sparql\processor.py", line 74, in query
+    parsetree = parseQuery(strOrQuery)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\rdflib\plugins\sparql\parser.py", line 1058, in parseQuery
+    return Query.parseString(q, parseAll=True)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1947, in parseString
+    raise exc
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1937, in parseString
+    loc, tokens = self._parse(instring, 0)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4052, in parseImpl
+    loc, exprtokens = e._parse(instring, loc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4252, in parseImpl
+    raise maxException
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4237, in parseImpl
+    ret = e._parse(instring, loc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4445, in parseImpl
+    return self.expr._parse(instring, loc, doActions, callPreParse=False)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4052, in parseImpl
+    loc, exprtokens = e._parse(instring, loc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4445, in parseImpl
+    return self.expr._parse(instring, loc, doActions, callPreParse=False)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4445, in parseImpl
+    return self.expr._parse(instring, loc, doActions, callPreParse=False)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4052, in parseImpl
+    loc, exprtokens = e._parse(instring, loc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1681, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4445, in parseImpl
+    return self.expr._parse(instring, loc, doActions, callPreParse=False)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1681, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 2883, in parseImpl
+    raise ParseException(instring, loc, self.errmsg, self)
+pyparsing.ParseException: Expected {SelectQuery | ConstructQuery | DescribeQuery | AskQuery}, found 'F'  (at char 190), (line:7, col:15)
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:18:23] "[35m[1mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message--2959979842917800684-0000%22%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++++%3Creq%3ANombre%3EBlender%3C%2Freq%3ANombre%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:20:33] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message-3116157271776532229-0000%22%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3ANombre%3EBlender%3C%2Freq%3ANombre%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:21:32] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message-3680401639168792025-0000%22%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3ANombre%3EBlender%3C%2Freq%3ANombre%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:22:08] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message-8276281312742369931-0000%22%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3ANombre%3EBlender%3C%2Freq%3ANombre%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:22:33] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message-8377820168688350099-0000%22%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++++%3Creq%3ANombre%3Enombre_Phone%3C%2Freq%3ANombre%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:23:16] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message--2010677504145060501-0000%22%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++++%3Creq%3ANombre%3Enombre_Phone%3C%2Freq%3ANombre%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:23:42] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message--3340766467794948533-0000%22%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3ANombre%3Enombre_Phone%3C%2Freq%3ANombre%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:26:48] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++++%3Creq%3ANombre%3Enombre_Phone%3C%2Freq%3ANombre%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message-7248689346216726395-0000%22%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:27:16] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3ANombre%3Enombre_Phone%3C%2Freq%3ANombre%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message--1512931782470033502-0000%22%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+ERROR:AgentCercador:Exception on /comm [GET]
+Traceback (most recent call last):
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\Dvyd\Documents\ECSDI\AgentCercador.py", line 145, in comunicacion
+    getProductes()
+  File "C:\Users\Dvyd\Documents\ECSDI\AgentCercador.py", line 105, in getProductes
+    qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\rdflib\graph.py", line 1089, in query
+    query_object, initBindings, initNs, **kwargs))
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\rdflib\plugins\sparql\processor.py", line 74, in query
+    parsetree = parseQuery(strOrQuery)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\rdflib\plugins\sparql\parser.py", line 1058, in parseQuery
+    return Query.parseString(q, parseAll=True)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1947, in parseString
+    raise exc
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1937, in parseString
+    loc, tokens = self._parse(instring, 0)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4052, in parseImpl
+    loc, exprtokens = e._parse(instring, loc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4252, in parseImpl
+    raise maxException
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4237, in parseImpl
+    ret = e._parse(instring, loc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4445, in parseImpl
+    return self.expr._parse(instring, loc, doActions, callPreParse=False)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4052, in parseImpl
+    loc, exprtokens = e._parse(instring, loc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4445, in parseImpl
+    return self.expr._parse(instring, loc, doActions, callPreParse=False)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4445, in parseImpl
+    return self.expr._parse(instring, loc, doActions, callPreParse=False)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1677, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4052, in parseImpl
+    loc, exprtokens = e._parse(instring, loc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1681, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 4445, in parseImpl
+    return self.expr._parse(instring, loc, doActions, callPreParse=False)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1838, in _parseCache
+    value = self._parseNoCache(instring, loc, doActions, callPreParse)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 1681, in _parseNoCache
+    loc, tokens = self.parseImpl(instring, preloc, doActions)
+  File "C:\Users\Dvyd\anaconda3\lib\site-packages\pyparsing.py", line 2883, in parseImpl
+    raise ParseException(instring, loc, self.errmsg, self)
+pyparsing.ParseException: Expected {SelectQuery | ConstructQuery | DescribeQuery | AskQuery}, found 'F'  (at char 190), (line:7, col:15)
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:33:54] "[35m[1mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++++%3Creq%3ANombre%3Enombre_Phone%3C%2Freq%3ANombre%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message-4566144411472794347-0000%22%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://localhost:9000/ (Press CTRL+C to quit)
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:38:37] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++++%3Creq%3ANombre%3Enombre_Phone%3C%2Freq%3ANombre%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message--516348594052986767-0000%22%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -
+INFO:log:Processem la cerca
+INFO:werkzeug:127.0.0.1 - - [23/Apr/2020 01:38:53] "[37mGET /comm?content=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%0A%3Crdf%3ARDF%0A+++xmlns%3Aacl%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23%22%0A+++xmlns%3Ardf%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%22%0A+++xmlns%3Areq%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23%22%0A%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23message--3239767094318658061-0000%22%3E%0A++++%3Cacl%3Acontent+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%2F%3E%0A++++%3Cacl%3Asender+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23Client%22%2F%3E%0A++++%3Cacl%3Aperformative+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23request%22%2F%3E%0A++++%3Cacl%3Areceiver+rdf%3Aresource%3D%22http%3A%2F%2Fwww.agentes.org%23AgentCercador%22%2F%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.nuin.org%2Fontology%2Ffipa%2Facl%23FipaAclMessage%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%3E%0A++++%3Creq%3ANombre%3Enombre_Blender%3C%2Freq%3ANombre%3E%0A++++%3Creq%3APrecio+rdf%3Adatatype%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23integer%22%3E500%3C%2Freq%3APrecio%3E%0A++%3C%2Frdf%3ADescription%3E%0A++%3Crdf%3ADescription+rdf%3Aabout%3D%22http%3A%2F%2Fwww.agentes.org%23cerca%22%3E%0A++++%3Crdf%3Atype+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23PeticioCerca%22%2F%3E%0A++++%3Creq%3AFilters+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23Filters_filters%22%2F%3E%0A++++%3Creq%3AKeyWord+rdf%3Aresource%3D%22http%3A%2F%2Fwww.semanticweb.org%2Fdvyd%2Fontologies%2F2020%2F3%2FOntologiaRequests%23KeyWord_keyword%22%2F%3E%0A++%3C%2Frdf%3ADescription%3E%0A%3C%2Frdf%3ARDF%3E%0A HTTP/1.1[0m" 200 -

@@ -28,7 +28,7 @@ from flask import Flask, request
 from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
-from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ
+from OntoNamespaces import ACL, DSO, RDF, PrOnt, PrOntPr, PrOntRes, REQ
 from AgentUtil.Logging import config_logger
 
 __author__ = 'javier'
@@ -90,7 +90,23 @@ def comunicacion():
         nombre_filter = gm.value(subject=filters_obj, predicate=REQ.Nombre)
         precio_filter = gm.value(subject=filters_obj, predicate=REQ.Precio)
         marca_filter = gm.value(subject=filters_obj, predicate=REQ.Marca)
-
+        
+        g=Graph()
+        g.parse("./Ontologies/product.owl", format="xml")
+        nombre_filter = '"' + nombre_filter + '"'
+        query = """
+              SELECT ?nombre
+              WHERE {
+              ?a PrOntPr:nombre ?nombre .
+              ?a PrOntPr:tieneMarca ?b .
+              ?b PrOntPr:nombre ?marca .
+              FILTER ( contains(?nombre,%s))
+              }
+              """ % (nombre_filter)
+        qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})              
+        for row in qres:
+            print(row['nombre'])
+            
         print(nombre_filter, precio_filter, marca_filter)
         return "placeholder"
     
