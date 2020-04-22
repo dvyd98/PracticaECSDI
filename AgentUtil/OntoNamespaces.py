@@ -38,3 +38,12 @@ GEO = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
 # Directory Service Ontology
 DSO = Namespace('http://www.semanticweb.org/directory-service-ontology#')
 
+# Ontologia de productes
+
+PrOnt = Namespace("http://www.products.org/ontology/")
+PrOntPr = Namespace("http://www.products.org/ontology/property/")
+PrOntRes = Namespace("http://www.products.org/ontology/resource/")
+
+# Ontologia dels requests dels msgs del sistema
+
+REQ = Namespace('http://www.semanticweb.org/Ontologiarequests#')   
