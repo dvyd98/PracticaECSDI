@@ -46,4 +46,4 @@ PrOntRes = Namespace("http://www.products.org/ontology/resource/")
 
 # Ontologia dels requests dels msgs del sistema
 
-REQ = Namespace('http://www.semanticweb.org/Ontologiarequests#')   
+REQ = Namespace('http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#')   

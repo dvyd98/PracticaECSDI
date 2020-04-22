@@ -22,7 +22,7 @@ from flask import Flask
 from FlaskServer import shutdown_server
 from Agent import Agent
 from ACLMessages import build_message, send_message
-from OntoNamespaces import ACL, DSO, RDF, PrOnt
+from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ
 
 # Configuration stuff
 hostname = "localhost"
@@ -45,6 +45,22 @@ Client = Agent('Client', agn.Client, '', '')
 
 content = Graph()
 content.bind('req', REQ)
+cerca_obj = agn['cerca']
+
+filters_obj = REQ.Filters + '_filters'
+keyword_obj = REQ.KeyWord + '_keyword'
+
+content.add((cerca_obj, RDF.type, REQ.PeticioCerca))
+content.add((cerca_obj, REQ.Filters, filters_obj))
+content.add((cerca_obj, REQ.KeyWord, keyword_obj))
+
+#passem cerca hardcoded ( de moment xd)
+content.add((filters_obj, REQ.Nombre, Literal("Blender")))
+content.add((filters_obj, REQ.Precio, Literal(500)))
 
 g = Graph()
-g = build_message
+#construim el missatge com una req al agent cercador
+g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentCercador.uri, content=cerca_obj)
+#enviem el msg
+response = send_message(g, AgentCercador.address)
+print(response)

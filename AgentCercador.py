@@ -29,6 +29,7 @@ from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
 from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ
+from AgentUtil.Logging import config_logger
 
 __author__ = 'javier'
 
@@ -37,6 +38,9 @@ __author__ = 'javier'
 hostname = "localhost"
 ip = 'localhost'
 port = 9000
+
+#logger = config_logger(level=1, file="./logs/AgentCercador")
+logger = config_logger(level=1)
 
 agn = Namespace("http://www.agentes.org#")
 
@@ -91,6 +95,7 @@ def comunicacion():
     #Mirem si es un msg FIPA ACL
     if not msgdic:
         #Si no ho es, responem not understood
+        logger.info('Msg no es FIPA ACL')
         gr = build_message(Graph(),
                            ACL['not-understood'],
                            sender=AgentCercador.uri,
@@ -99,6 +104,7 @@ def comunicacion():
         #Si ho es obtenim la performativa
         if msgdic['performative'] != ACL.request:
             #No es un request, not understood
+            logger.info('Msg no es una request')
             gr = build_message(Graph(),
                            ACL['not-understood'],
                            sender=AgentCercador.uri,
@@ -109,9 +115,14 @@ def comunicacion():
             action = gm.value(subject=content, predicate=RDF.type)
             
             #placeholder
-            if action == DSO.Register:
-                gr = getProductes()
+            if action == REQ.PeticioCerca:
+                logger.info('Processem la cerca')
+                gr = build_message(Graph(),
+                           ACL['not-understood'],
+                           sender=AgentCercador.uri,
+                           msgcnt=mss_cnt)
             else:
+                logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
                            ACL['not-understood'],
                            sender=AgentCercador.uri,
