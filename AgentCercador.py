@@ -28,7 +28,7 @@ from flask import Flask, request
 from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
-from OntoNamespaces import ACL, DSO, RDF, PrOnt
+from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ
 
 __author__ = 'javier'
 

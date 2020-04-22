@@ -44,3 +44,6 @@ PrOnt = Namespace("http://www.products.org/ontology/")
 PrOntPr = Namespace("http://www.products.org/ontology/property/")
 PrOntRes = Namespace("http://www.products.org/ontology/resource/")
 
+# Ontologia dels requests dels msgs del sistema
+
+REQ = Namespace('http://www.semanticweb.org/Ontologiarequests#')   
