@@ -7,42 +7,150 @@ Created on Mon Apr 20 18:32:44 2020
 
 from multiprocessing import Process, Queue
 import socket
-import argparse
+import sys
+import os
+import datetime
+sys.path.append(os.path.relpath("./AgentUtil"))
+sys.path.append(os.path.relpath("./Utils"))
 
+from rdflib import Namespace, Graph, RDF, RDFS
 from flask import Flask, request
-from rdflib import Graph, Namespace, Literal
-from rdflib.namespace import FOAF, RDF
 
-from AgentUtil.OntoNamespaces import ACL, DSO
+from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
-from AgentUtil.ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.Agent import Agent
+from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ
 from AgentUtil.Logging import config_logger
+
+# Configuration stuff
+hostname = "localhost"
+ip = 'localhost'
+port = 9000
+
+#logger = config_logger(level=1, file="./logs/AgentCercador")
+logger = config_logger(level=1)
+
+agn = Namespace("http://www.agentes.org#")
+
+# Contador de mensajes
+mss_cnt = 0
+
+# Datos del Agente
+PlataformaAgent = Agent('PlataformaAgent',
+                        agn.AgentCercador,
+                        'http://%s:%d/comm' % (hostname, port),
+                        'http://%s:%d/Stop' % (hostname, port))
+#Cargar los centros logisticos
+listaCentrosLogisticos = []
+
+
+# Global triplestore graph
+dsgraph = Graph()
+
+cola1 = Queue()
 
 # Flask stuff
 app = Flask(__name__)
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--comprar', type=int , default='None', help="Accio de comprar producte")
+@app.route("/")
+def testing():
+    return "testing connection"
+
+@app.route("/comm")
+def comunicacion():
     
-    logger = config_logger(level=1)
+    """
+    Entrypoint de comunicacion
+    """
+    def getProductes():
+        print("placeholder")
+        return "placeholder"
     
-    args = parser.parse_args()
-    
-    comprar_aux = 0
-    if args.comprar is None:
-        comprar_aux = 0
-    else:
-        comprar_aux = 1
+    global dsgraph
+    global mss_cnt
         
-    agn = Namespace("http://www.agentes.org#")
+    message = request.args['content']
+    gm = Graph()
+    gm.parse(data=message)
+    msgdic = get_message_properties(gm)
     
-    mss_cnt = 0
-    
-    PlataformaAgent = Agent('PlataformaAgent',
-                            agn.Plataforma,
-                            "adreça per iniciar",
-                            "adreça per acabar")
+    #Mirem si es un msg FIPA ACL
+    if not msgdic:
+        #Si no ho es, responem not understood
+        logger.info('Msg no es FIPA ACL')
+        gr = build_message(Graph(),
+                           ACL['not-understood'],
+                           sender=AgentCercador.uri,
+                           msgcnt=mss_cnt)
+    else:
+        #Si ho es obtenim la performativa
+        if msgdic['performative'] != ACL.request:
+            #No es un request, not understood
+            logger.info('Msg no es una request')
+            gr = build_message(Graph(),
+                           ACL['not-understood'],
+                           sender=AgentCercador.uri,
+                           msgcnt=mss_cnt)
+        else:
+            #Mirem tipus request
+            content = msgdic['content']
+            action = gm.value(subject=content, predicate=RDF.type)
+            
+            #placeholder
+            if action == REQ.PeticioCerca:
+                logger.info('Processem la cerca')
+                gr = build_message(Graph(),
+                           ACL['not-understood'],
+                           sender=AgentCercador.uri,
+                           msgcnt=mss_cnt)
+            else:
+                logger.info('Es una request que no entenem')
+                gr = build_message(Graph(),
+                           ACL['not-understood'],
+                           sender=AgentCercador.uri,
+                           msgcnt=mss_cnt)
+    mss_cnt += 1
+    return gr.serialize(format='xml')
+pass
+
+@app.route("/Stop")
+def stop():
+    """
+    Entrypoint que para el agente
+
+    :return:
+    """
+    tidyup()
+    shutdown_server()
+    return "Parando Servidor"
+
+
+def tidyup():
+    """
+    Acciones previas a parar el agente
+
+    """
+    pass
+
+
+def agentbehavior1(cola):
+    """
+    Un comportamiento del agente
+
+    :return:
+    """
+    pass
+
+if __name__ == '__main__':
+    # Ponemos en marcha los behaviors
+    ab1 = Process(target=agentbehavior1, args=(cola1,))
+    ab1.start()
+
+    # Ponemos en marcha el servidor
+    app.run(host=hostname, port=port)
+
+    # Esperamos a que acaben los behaviors
+    ab1.join()
+    print('The End')
     
     
