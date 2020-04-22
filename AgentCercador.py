@@ -81,6 +81,9 @@ def comunicacion():
     Entrypoint de comunicacion
     """
     def getProductes():
+        global mss_cnt
+        #Obtenir parametres de cerca (filtre + keyword)
+        filters_obj = gm.value(subj=)
         print("placeholder")
         return "placeholder"
     
@@ -117,10 +120,7 @@ def comunicacion():
             #placeholder
             if action == REQ.PeticioCerca:
                 logger.info('Processem la cerca')
-                gr = build_message(Graph(),
-                           ACL['not-understood'],
-                           sender=AgentCercador.uri,
-                           msgcnt=mss_cnt)
+                gr = getProductes()
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),

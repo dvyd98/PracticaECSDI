@@ -36,21 +36,21 @@ g.parse("./Ontologies/product.owl", format="xml")
 if (PrOnt.ElectronicDevice, RDF.type, OWL.Class) in g:
     print("El grafo contiene electronic devices")
 
+for s, p, o in g[PrOntPr.Phone]:
+    print(s,p,o)
 #for obj in g.subject_predicates(PrOnt.Phone):
 #    print(obj)
-    
+test= Namespace("http://www.products.org/ontology/resource/Marca_Blender_OWM78C")
 qres = g.query("""
-              SELECT ?nombre ?precio ?tieneMarca
+              SELECT ?nombre ?b ?marca
               WHERE {
               ?a PrOntPr:nombre ?nombre .
-              ?a PrOntPr:precio ?precio .
-              ?a PrOntPr:tieneMarca ?tieneMarca .
-              ?a PrOntPr:peso ?peso .
-                  FILTER (?nombre = "nombre_IZ0670")
+              ?a PrOntPr:tieneMarca ?b .
+              ?b PrOntPr:nombre ?marca
               }
-              """, initNs = {'PrOntPr': PrOntPr})
+              """, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
+#?tieneMarca = {marca}
 for row in qres:
-   path = urlparse(row['tieneMarca']).path
-   print(PurePosixPath(path).parts[3])
+   print(row['marca'])
 
 #print(g.serialize(format='turtle').decode("utf-8"))
