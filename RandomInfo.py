@@ -158,7 +158,7 @@ if __name__ == '__main__':
                     val = Literal(random_attribute(prop, attr[1:]))
                 # el atributo es string
                 elif prop == 's':
-                    val = Literal(random_name(attr[0]))
+                    val = Literal(random_name(attr[0] + '_' + prc))
                 else:
                     val = PrOntRes[random.choice(dclases[prop])]
                 products_graph.add((PrOntRes[rproduct], PrOntPr[attr[0]], val))

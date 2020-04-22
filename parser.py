@@ -51,6 +51,6 @@ qres = g.query("""
               """, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
 #?tieneMarca = {marca}
 for row in qres:
-   print(row['marca'])
+   print(row['nombre'])
 
 #print(g.serialize(format='turtle').decode("utf-8"))

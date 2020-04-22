@@ -83,8 +83,15 @@ def comunicacion():
     def getProductes():
         global mss_cnt
         #Obtenir parametres de cerca (filtre + keyword)
-        filters_obj = gm.value(subj=)
-        print("placeholder")
+        content = msgdic['content']
+        filters_obj = gm.value(subject=content, predicate=REQ.Filters)
+        keyword_obj = gm.value(subject=content, predicate=REQ.KeyWord)
+        
+        nombre_filter = gm.value(subject=filters_obj, predicate=REQ.Nombre)
+        precio_filter = gm.value(subject=filters_obj, predicate=REQ.Precio)
+        marca_filter = gm.value(subject=filters_obj, predicate=REQ.Marca)
+
+        print(nombre_filter, precio_filter, marca_filter)
         return "placeholder"
     
     global dsgraph
@@ -120,7 +127,11 @@ def comunicacion():
             #placeholder
             if action == REQ.PeticioCerca:
                 logger.info('Processem la cerca')
-                gr = getProductes()
+                getProductes()
+                gr = build_message(Graph(),
+                           ACL['not-understood'],
+                           sender=AgentCercador.uri,
+                           msgcnt=mss_cnt)
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
