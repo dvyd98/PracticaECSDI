@@ -23,6 +23,14 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Categoria -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Categoria">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#Filters"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#Filters -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#Filters">

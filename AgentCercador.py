@@ -85,29 +85,35 @@ def comunicacion():
         #Obtenir parametres de cerca (filtre + keyword)
         content = msgdic['content']
         filters_obj = gm.value(subject=content, predicate=REQ.Filters)
-        keyword_obj = gm.value(subject=content, predicate=REQ.KeyWord)
         
+        categoria_filter = gm.value(subject=filters_obj, predicate=REQ.Categoria)
         nombre_filter = gm.value(subject=filters_obj, predicate=REQ.Nombre)
         precio_filter = gm.value(subject=filters_obj, predicate=REQ.Precio)
-        marca_filter = gm.value(subject=filters_obj, predicate=REQ.Marca)
+        marca_filter = gm.value(subject=filters_obj, predicate=REQ.TieneMarca)
         
         g=Graph()
         g.parse("./Ontologies/product.owl", format="xml")
-        nombre_filter = '"' + nombre_filter + '"'
+        if (nombre_filter != "None"):
+            nombre_filter = '"' + nombre_filter + '"'
+        if (marca_filter != "None"):
+            marca_filter = '"' + marca_filter + '"'
+        print(nombre_filter, precio_filter, marca_filter, categoria_filter)
         query = """
               SELECT ?nombre
               WHERE {
               ?a PrOntPr:nombre ?nombre .
+              ?a PrOntPr:precio ?precio .
               ?a PrOntPr:tieneMarca ?b .
-              ?b PrOntPr:nombre ?marca .
-              FILTER ( contains(?nombre,%s))
+              ?b PrOntPr:nombre %s .
+              FILTER ( ?precio < %s && contains(?nombre,%s))
               }
-              """ % (nombre_filter)
+              """ % (marca_filter, precio_filter, nombre_filter)
+              #FILTER ( contains(?nombre,%s))
         qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})              
         for row in qres:
             print(row['nombre'])
             
-        print(nombre_filter, precio_filter, marca_filter)
+        
         return "placeholder"
     
     global dsgraph

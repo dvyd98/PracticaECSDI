@@ -7,7 +7,7 @@ Created on Mon Apr 20 13:31:53 2020
 import sys
 import os
 
-from rdflib import Graph, Literal, RDF, OWL, URIRef, Namespace
+from rdflib import Graph, Literal, RDF, RDFS, OWL, URIRef, Namespace
 from rdflib.namespace import FOAF , XSD
 from SPARQLWrapper import SPARQLWrapper, JSON
 from urllib.parse import urlparse
@@ -26,8 +26,9 @@ g.parse("./Ontologies/product.owl", format="xml")
 
 # Iterate over triples in store and print them out.
 #print("--- printing raw triples ---")
-#for s, p, o in g:
-    #print((p))
+p1= PrOnt.Phone
+for p, o in g[p1]:
+    print(p,o)
     
 #print("--- printing mboxes ---")
 #for triple in g:
@@ -42,20 +43,23 @@ if (PrOnt.ElectronicDevice, RDF.type, OWL.Class) in g:
 #    print(obj)
 test= Namespace("http://www.products.org/ontology/resource/Marca_Blender_OWM78C")
 nombre_filter = '"nombre_Phone"'
-query = """SELECT ?nombre
+query = """SELECT ?nombre ?class ?n
               WHERE {
+              ?a rdf:type ?class .
+              ?class rdfs:subClassOf ?n .
               ?a PrOntPr:nombre ?nombre .
               ?a PrOntPr:tieneMarca ?b .
               ?b PrOntPr:nombre ?marca .
-              FILTER ( contains(?nombre,%s))
+              
               }
-              """ % (nombre_filter)
-print(query)
+              """
+#print(query)
 qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
-#?tieneMarca = {marca}
+
 for row in qres:
-   print(row['nombre'])
+   print(row['class'])
 name="this"
-print("testing %s" % (name))
+other="that"
+#print("testing %s and %s" % (name,other))
 
 #print(g.serialize(format='turtle').decode("utf-8"))
