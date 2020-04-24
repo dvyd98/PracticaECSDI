@@ -92,7 +92,17 @@ if __name__ == '__main__':
     # Declaramos espacios de nombres de nuestra ontologia, al estilo DBPedia (clases, propiedades, recursos)
     CenOnt = Namespace("http://www.centresProd.org/ontology/")
     CenOntPr = Namespace("http://www.centresProd.org/ontology/property/")
-    CenOntRes = Namespace("http://www.centresProd.org/ontology/resource/")
+    OntResources = []
+    Cen1OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl1")
+    Cen2OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl2")
+    Cen3OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl3")
+    Cen4OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl4")
+    Cen5OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl5")
+    OntResources.append(Cen1OntRes)
+    OntResources.append(Cen2OntRes)
+    OntResources.append(Cen3OntRes)
+    OntResources.append(Cen4OntRes)
+    OntResources.append(Cen5OntRes)
 
     # lista de tipos XSD datatypes para los rangos de las propiedades
     xsddatatypes = {'s': XSD.string, 'i': XSD.int, 'f': XSD.float}
@@ -128,7 +138,11 @@ if __name__ == '__main__':
     # A�adimos los espacios de nombres al grafo
     products_graph.bind('cont', CenOnt)
     products_graph.bind('contp', CenOntPr)
-    products_graph.bind('contr', CenOntRes)
+    products_graph.bind('contr1', Cen1OntRes)
+    products_graph.bind('contr2', Cen2OntRes)
+    products_graph.bind('contr3', Cen3OntRes)
+    products_graph.bind('contr4', Cen4OntRes)
+    products_graph.bind('contr5', Cen5OntRes)
 
     # Clase padre de los productos
     products_graph.add((CenOnt.CentresLogistics, RDF.type, OWL.Class))
@@ -142,7 +156,7 @@ if __name__ == '__main__':
             products_graph.add((CenOntPr[prop], RDF.type, OWL.ObjectProperty))
             products_graph.add((CenOntPr[prop], RDFS.range, CenOnt[product_properties[prop]]))
 
-
+    clase = 0
     for prc in product_classes:
         products_graph.add((CenOnt[prc], RDFS.subClassOf, CenOnt.CentresLogistics))
 
@@ -151,6 +165,7 @@ if __name__ == '__main__':
         for prop in product_classes[prc]:
             products_graph.add((CenOntPr[prop[0]], RDFS.domain, CenOnt[prc]))
 
+        CenOntRes = OntResources[clase]
         #generar instancies productes
         for x in allProducts:
             product = x
@@ -167,6 +182,7 @@ if __name__ == '__main__':
                 else:
                     break
                 products_graph.add((CenOntRes[product], CenOntPr[attr[0]], val))
+        clase = clase + 1
 
     # Resultado en Turtle
     print(products_graph.serialize(format='turtle'))
