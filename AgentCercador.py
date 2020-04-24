@@ -111,7 +111,7 @@ def comunicacion():
         gresult.bind('req', REQ)
         cerca_obj = agn['cerca']
         #result_obj = REQ.Results + '_results'
-        gresult.add((cerca_obj, RDF.type, REQ.ResultCerca))
+        #gresult.add((cerca_obj, RDF.type, REQ.ResultCerca))
         
         for row in qres:
             result_obj = REQ.Result + '_' + row['nombre']

@@ -67,11 +67,20 @@ g = Graph()
 g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentCercador.uri, content=cerca_obj)
 #enviem el msg
 response = send_message(g, AgentCercador.address)
-results_obj = response.value(subject=cerca_obj, predicate=REQ.Results)
-result_nombre = response.value(subject=results_obj, predicate=REQ.Nombre)
-for s,p,o in response:
-    print(o)
-#print(response.serialize(format='turtle').decode("utf-8"))
+#mirem que hem rebut
+query = """
+              SELECT ?nombre ?precio ?marca ?categoria
+              WHERE {
+              ?a REQ:Nombre ?nombre .
+              ?a REQ:Precio ?precio .
+              ?a REQ:Marca ?marca .
+              ?a REQ:Categoria ?categoria .
+              }
+              """
+qres = response.query(query, initNs = {'REQ': REQ})  
+for row in qres:
+    print(row['nombre'])
+#ho guardem
 ofile  = open('output.owl', "w")
 encoding = 'iso-8859-1'
 ofile.write(str(response.serialize(), encoding))
