@@ -31,6 +31,28 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Nombre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Nombre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Results"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ResultCerca -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ResultCerca"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Results -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Results">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ResultCerca"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#Filters -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#Filters">

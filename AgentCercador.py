@@ -84,8 +84,9 @@ def comunicacion():
         global mss_cnt
         #Obtenir parametres de cerca (filtre + keyword)
         content = msgdic['content']
+        print(content)
         filters_obj = gm.value(subject=content, predicate=REQ.Filters)
-        
+        print(filters_obj)
         categoria_filter = gm.value(subject=filters_obj, predicate=REQ.Categoria)
         nombre_filter = gm.value(subject=filters_obj, predicate=REQ.Nombre)
         precio_filter = gm.value(subject=filters_obj, predicate=REQ.Precio)
@@ -105,15 +106,13 @@ def comunicacion():
               """
         qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})  
             
+        
         gresult = Graph()
         gresult.bind('req', REQ)
         cerca_obj = agn['cerca']
-        
-        results_obj = REQ.Cerca + '_results'
-        
-        gresult.add((cerca_obj, RDF.type, REQ.PeticioCerca))
-        gresult.add((cerca_obj, REQ.Cerca, results_obj))
-        
+        result_obj = REQ.Results + '_results'
+        gresult.add((cerca_obj, RDF.type, REQ.ResultCerca))
+        gresult.add((cerca_obj, REQ.Results, result_obj))
         for row in qres:
             count = 0
             i = 0
@@ -148,9 +147,9 @@ def comunicacion():
                 i += 1
             
             if (count == 4):
-                print(row[0], row[1], row[2], row[3])
+                #print(row[0], row[1], row[2], row[3])
                 #t = term.URIRef(PrOntPr.nombre + "_" + row[0])
-                gresult.add((results_obj, REQ.Nombre, row[0]))
+                gresult.add((result_obj, REQ.Nombre, row[0]))
             
             
         

@@ -15,7 +15,7 @@ import os
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, Literal
+from rdflib import Namespace, Graph, Literal, term
 from rdflib.namespace import FOAF, RDF
 from flask import Flask
 
@@ -57,11 +57,22 @@ content.add((filters_obj, REQ.Categoria, PrOnt.Phone))
 content.add((filters_obj, REQ.Nombre, Literal("Blender")))
 content.add((filters_obj, REQ.Precio, Literal(500)))
 #content.add((filters_obj, REQ.TieneMarca, Literal("Marca_Blender_1UI0FG")))
+ofile  = open('request.owl', "w")
+encoding = 'iso-8859-1'
+ofile.write(str(content.serialize(), encoding))
+ofile.close()
 
 g = Graph()
 #construim el missatge com una req al agent cercador
 g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentCercador.uri, content=cerca_obj)
 #enviem el msg
 response = send_message(g, AgentCercador.address)
-results_obj = response.value(subject=response, predicate=REQ.Cerca)
-print(results_obj)
+results_obj = response.value(subject=cerca_obj, predicate=REQ.Results)
+result_nombre = response.value(subject=results_obj, predicate=REQ.Nombre)
+for s,p,o in response:
+    print(o)
+#print(response.serialize(format='turtle').decode("utf-8"))
+ofile  = open('output.owl', "w")
+encoding = 'iso-8859-1'
+ofile.write(str(response.serialize(), encoding))
+ofile.close()
