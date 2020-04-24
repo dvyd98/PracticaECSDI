@@ -110,10 +110,11 @@ def comunicacion():
         gresult = Graph()
         gresult.bind('req', REQ)
         cerca_obj = agn['cerca']
-        result_obj = REQ.Results + '_results'
+        #result_obj = REQ.Results + '_results'
         gresult.add((cerca_obj, RDF.type, REQ.ResultCerca))
-        gresult.add((cerca_obj, REQ.Results, result_obj))
+        
         for row in qres:
+            result_obj = REQ.Results + '_' + row['nombre']
             count = 0
             i = 0
             while(i < 4):
@@ -149,7 +150,11 @@ def comunicacion():
             if (count == 4):
                 #print(row[0], row[1], row[2], row[3])
                 #t = term.URIRef(PrOntPr.nombre + "_" + row[0])
+                #gresult.add((cerca_obj, REQ.Results, result_obj))
                 gresult.add((result_obj, REQ.Nombre, row[0]))
+                gresult.add((result_obj, REQ.Precio, row[1]))
+                gresult.add((result_obj, REQ.Marca, row[2]))
+                gresult.add((result_obj, REQ.Categoria, row[3]))
             
             
         

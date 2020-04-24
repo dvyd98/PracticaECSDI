@@ -70,7 +70,7 @@ response = send_message(g, AgentCercador.address)
 results_obj = response.value(subject=cerca_obj, predicate=REQ.Results)
 result_nombre = response.value(subject=results_obj, predicate=REQ.Nombre)
 for s,p,o in response:
-    print(o)
+    print(s,p,o)
 #print(response.serialize(format='turtle').decode("utf-8"))
 ofile  = open('output.owl', "w")
 encoding = 'iso-8859-1'
