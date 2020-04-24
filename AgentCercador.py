@@ -114,7 +114,7 @@ def comunicacion():
         gresult.add((cerca_obj, RDF.type, REQ.ResultCerca))
         
         for row in qres:
-            result_obj = REQ.Results + '_' + row['nombre']
+            result_obj = REQ.Result + '_' + row['nombre']
             count = 0
             i = 0
             while(i < 4):
