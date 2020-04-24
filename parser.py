@@ -12,6 +12,7 @@ from rdflib.namespace import FOAF , XSD
 from SPARQLWrapper import SPARQLWrapper, JSON
 from urllib.parse import urlparse
 from pathlib import PurePosixPath
+from SPARQLWrapper import SPARQLWrapper, JSON, XML
 
 sys.path.append(os.path.relpath("./AgentUtil"))
 
@@ -57,9 +58,22 @@ query = """SELECT ?nombre ?class ?n
 qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
 
 for row in qres:
-   print(row['class'])
+   print(row['nombre'])
+   
+
 name="this"
 other="that"
 #print("testing %s and %s" % (name,other))
 
 #print(g.serialize(format='turtle').decode("utf-8"))
+
+#SELECT ?nombre ?precio ?nombreMarca ?categoria
+ #             WHERE {
+  #            ?a rdf:type ?categoria .
+   #           ?a PrOntPr:nombre ?nombre .
+    #          ?a PrOntPr:precio ?precio .
+     #         ?a PrOntPr:tieneMarca ?nombreMarca .
+      #        ?b PrOntPr:nombre %s .
+       #       FILTER ( ?precio < %s && contains(?nombre,%s))
+        #      }
+         #     """ % (marca_filter, precio_filter, nombre_filter)

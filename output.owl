@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#"
+>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Cerca_results">
+    <req:Nombre>nombre_Blender_DHYMM4</req:Nombre>
+    <req:Nombre>nombre_Blender_1FU0NR</req:Nombre>
+    <req:Nombre>nombre_Blender_L482M7</req:Nombre>
+    <req:Nombre>nombre_Blender_L3P0GG</req:Nombre>
+    <req:Nombre>nombre_Blender_8DZMMO</req:Nombre>
+    <req:Nombre>nombre_Blender_GIAH36</req:Nombre>
+    <req:Nombre>nombre_Blender_C09WLE</req:Nombre>
+    <req:Nombre>nombre_Blender_MYTKBL</req:Nombre>
+    <req:Nombre>nombre_Blender_AI840K</req:Nombre>
+    <req:Nombre>nombre_Blender_B9NMBU</req:Nombre>
+    <req:Nombre>nombre_Blender_P8TFKU</req:Nombre>
+    <req:Nombre>nombre_Blender_RP0JD0</req:Nombre>
+    <req:Nombre>nombre_Blender_AHKRNC</req:Nombre>
+    <req:Nombre>nombre_Blender_3I0WDK</req:Nombre>
+    <req:Nombre>nombre_Blender_974KI5</req:Nombre>
+    <req:Nombre>nombre_Blender_1F3CND</req:Nombre>
+    <req:Nombre>nombre_Blender_1BZM1W</req:Nombre>
+    <req:Nombre>nombre_Blender_XD4OPP</req:Nombre>
+    <req:Nombre>nombre_Blender_L1WR8N</req:Nombre>
+    <req:Nombre>nombre_Blender_QJI1A6</req:Nombre>
+    <req:Nombre>nombre_Blender_21SHBG</req:Nombre>
+    <req:Nombre>nombre_Blender_49EV8O</req:Nombre>
+    <req:Nombre>nombre_Blender_E4FS58</req:Nombre>
+    <req:Nombre>nombre_Blender_BYYMIU</req:Nombre>
+    <req:Nombre>nombre_Blender_GAIC5P</req:Nombre>
+    <req:Nombre>nombre_Blender_T12EG3</req:Nombre>
+    <req:Nombre>nombre_Blender_YRCI4O</req:Nombre>
+    <req:Nombre>nombre_Blender_CJRWQV</req:Nombre>
+    <req:Nombre>nombre_Blender_L6B8K3</req:Nombre>
+    <req:Nombre>nombre_Blender_5XG48M</req:Nombre>
+    <req:Nombre>nombre_Blender_8DWRG5</req:Nombre>
+    <req:Nombre>nombre_Blender_J4QXBT</req:Nombre>
+    <req:Nombre>nombre_Blender_Q7QQRP</req:Nombre>
+    <req:Nombre>nombre_Blender_HSDEBW</req:Nombre>
+    <req:Nombre>nombre_Blender_LGRSMD</req:Nombre>
+    <req:Nombre>nombre_Blender_ZTXHMB</req:Nombre>
+    <req:Nombre>nombre_Blender_0933C0</req:Nombre>
+    <req:Nombre>nombre_Blender_6KT2VI</req:Nombre>
+    <req:Nombre>nombre_Blender_NTL9OT</req:Nombre>
+    <req:Nombre>nombre_Blender_LK7C2P</req:Nombre>
+    <req:Nombre>nombre_Blender_7OMSXZ</req:Nombre>
+    <req:Nombre>nombre_Blender_X5WR7W</req:Nombre>
+    <req:Nombre>nombre_Blender_OMJJ01</req:Nombre>
+    <req:Nombre>nombre_Blender_UQM4Q7</req:Nombre>
+    <req:Nombre>nombre_Blender_V2IY42</req:Nombre>
+    <req:Nombre>nombre_Blender_4ARQ13</req:Nombre>
+    <req:Nombre>nombre_Blender_0FUO3Q</req:Nombre>
+    <req:Nombre>nombre_Blender_A7JYCZ</req:Nombre>
+    <req:Nombre>nombre_Blender_S6VK45</req:Nombre>
+    <req:Nombre>nombre_Blender_X9P1C9</req:Nombre>
+    <req:Nombre>nombre_Blender_Z8VNWB</req:Nombre>
+    <req:Nombre>nombre_Blender_2VFR6C</req:Nombre>
+    <req:Nombre>nombre_Blender_RCJYEM</req:Nombre>
+    <req:Nombre>nombre_Blender_BGY1S7</req:Nombre>
+    <req:Nombre>nombre_Blender_D5RFWM</req:Nombre>
+    <req:Nombre>nombre_Blender_TMYO1N</req:Nombre>
+    <req:Nombre>nombre_Blender_S1Q39Y</req:Nombre>
+    <req:Nombre>nombre_Blender_4JWIW6</req:Nombre>
+    <req:Nombre>nombre_Blender_HWA7E0</req:Nombre>
+    <req:Nombre>nombre_Blender_X9PYQC</req:Nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.agentes.org#cerca">
+    <req:Cerca rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Cerca_results"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioCerca"/>
+  </rdf:Description>
+</rdf:RDF>

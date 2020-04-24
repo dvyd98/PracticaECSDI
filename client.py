@@ -56,11 +56,12 @@ content.add((cerca_obj, REQ.Filters, filters_obj))
 content.add((filters_obj, REQ.Categoria, PrOnt.Phone))
 content.add((filters_obj, REQ.Nombre, Literal("Blender")))
 content.add((filters_obj, REQ.Precio, Literal(500)))
-content.add((filters_obj, REQ.TieneMarca, Literal("Marca_Blender_1UI0FG")))
+#content.add((filters_obj, REQ.TieneMarca, Literal("Marca_Blender_1UI0FG")))
 
 g = Graph()
 #construim el missatge com una req al agent cercador
 g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentCercador.uri, content=cerca_obj)
 #enviem el msg
 response = send_message(g, AgentCercador.address)
-print(response)
+results_obj = response.value(subject=response, predicate=REQ.Cerca)
+print(results_obj)

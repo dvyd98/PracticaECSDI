@@ -39,14 +39,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#KeyWord -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#KeyWord">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#PeticioCerca"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#Nombre -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/untitled-ontology-6#Nombre">

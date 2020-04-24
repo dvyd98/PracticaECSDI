@@ -22,7 +22,7 @@ import datetime
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, RDF, RDFS
+from rdflib import Namespace, Graph, RDF, RDFS, Literal, term
 from flask import Flask, request
 
 from ACLMessages import build_message, send_message, get_message_properties
@@ -93,28 +93,68 @@ def comunicacion():
         
         g=Graph()
         g.parse("./Ontologies/product.owl", format="xml")
-        if (nombre_filter != "None"):
-            nombre_filter = '"' + nombre_filter + '"'
-        if (marca_filter != "None"):
-            marca_filter = '"' + marca_filter + '"'
-        print(nombre_filter, precio_filter, marca_filter, categoria_filter)
         query = """
-              SELECT ?nombre
+              SELECT ?nombre ?precio ?nombreMarca ?categoria
               WHERE {
+              ?a rdf:type ?categoria .
               ?a PrOntPr:nombre ?nombre .
               ?a PrOntPr:precio ?precio .
               ?a PrOntPr:tieneMarca ?b .
-              ?b PrOntPr:nombre %s .
-              FILTER ( ?precio < %s && contains(?nombre,%s))
+              ?b PrOntPr:nombre ?nombreMarca .
               }
-              """ % (marca_filter, precio_filter, nombre_filter)
-              #FILTER ( contains(?nombre,%s))
-        qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})              
+              """
+        qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})  
+            
+        gresult = Graph()
+        gresult.bind('req', REQ)
+        cerca_obj = agn['cerca']
+        
+        results_obj = REQ.Cerca + '_results'
+        
+        gresult.add((cerca_obj, RDF.type, REQ.PeticioCerca))
+        gresult.add((cerca_obj, REQ.Cerca, results_obj))
+        
         for row in qres:
-            print(row['nombre'])
+            count = 0
+            i = 0
+            while(i < 4):
+                product_pr = row[i]
+                if (i == 0):
+                    if (nombre_filter != None):
+                        if (nombre_filter in product_pr):
+                            count += 1
+                    else:
+                        count += 1
+                if (i == 1):
+                    if (precio_filter != None):
+                        if (product_pr <= precio_filter):
+                            count += 1
+                    else:
+                        count += 1
+                if (i == 2):
+                    if (marca_filter != None):
+                        if (marca_filter in product_pr):
+                            count += 1
+                    else:
+                        count += 1
+                if (i == 3):
+                    if (categoria_filter != None):
+                        if (1):
+                            count += 1
+                            #print("pepega")
+                    else:
+                        count += 1
+                        
+                i += 1
+            
+            if (count == 4):
+                print(row[0], row[1], row[2], row[3])
+                #t = term.URIRef(PrOntPr.nombre + "_" + row[0])
+                gresult.add((results_obj, REQ.Nombre, row[0]))
+            
             
         
-        return "placeholder"
+        return gresult
     
     global dsgraph
     global mss_cnt
@@ -150,10 +190,7 @@ def comunicacion():
             if action == REQ.PeticioCerca:
                 logger.info('Processem la cerca')
                 getProductes()
-                gr = build_message(Graph(),
-                           ACL['not-understood'],
-                           sender=AgentCercador.uri,
-                           msgcnt=mss_cnt)
+                gr = getProductes()
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
