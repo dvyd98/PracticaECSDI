@@ -11,7 +11,7 @@ Diversos namespaces utiles y algunas clases y propiedades de esos namespaces
 """
 __author__ = 'bejar'
 
-from rdflib import Graph, RDF, RDFS, OWL, Namespace, Literal
+from rdflib import Graph, RDF, RDFS, XSD, OWL, Namespace, Literal
 
 # FIPA ACL Ontology
 ACL = Namespace("http://www.nuin.org/ontology/fipa/acl#")
@@ -46,4 +46,4 @@ PrOntRes = Namespace("http://www.products.org/ontology/resource/")
 
 # Ontologia dels requests dels msgs del sistema
 
-REQ = Namespace('http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#')   
+REQ = Namespace("(http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/")   

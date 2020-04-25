@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#"
+   xmlns:req="(http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Filters_filters">
+  <rdf:Description rdf:about="http://www.agentes.org#cerca">
+    <rdf:type rdf:resource="(http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/PeticioCerca"/>
+    <req:Filters rdf:resource="(http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="(http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
     <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">500</req:Precio>
     <req:Nombre>Blender</req:Nombre>
     <req:Categoria rdf:resource="http://www.products.org/ontology/Phone"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.agentes.org#cerca">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioCerca"/>
-    <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Filters_filters"/>
   </rdf:Description>
 </rdf:RDF>
