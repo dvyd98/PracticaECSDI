@@ -30,6 +30,8 @@ from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
 from OntoNamespaces import ACL, DSO, RDF, XSD, OWL, PrOnt, PrOntPr, PrOntRes, REQ
 from AgentUtil.Logging import config_logger
+from urllib.parse import urlparse
+from pathlib import PurePosixPath
 
 __author__ = 'javier'
 
@@ -150,9 +152,10 @@ def comunicacion():
                         count += 1
                 if (i == 3):
                     if (categoria_filter != None):
-                        if (1):
+                        categoriaURI = urlparse(row['categoria']).path
+                        categoria = PurePosixPath(categoriaURI).parts[2]
+                        if (categoria_filter in categoria):
                             count += 1
-                            #print("pepega")
                     else:
                         count += 1
                         

@@ -53,9 +53,9 @@ content.add((cerca_obj, RDF.type, REQ.PeticioCerca))
 content.add((cerca_obj, REQ.Filters, filters_obj))
 
 #passem cerca hardcoded ( de moment xd)
-content.add((filters_obj, REQ.Categoria, PrOnt.Phone))
-content.add((filters_obj, REQ.Nombre, Literal("Blender")))
-content.add((filters_obj, REQ.Precio, Literal(500)))
+content.add((filters_obj, REQ.Categoria, Literal("Blender")))
+#content.add((filters_obj, REQ.Nombre, Literal("Blender")))
+#content.add((filters_obj, REQ.Precio, Literal(500)))
 #content.add((filters_obj, REQ.TieneMarca, Literal("Marca_Blender_1UI0FG")))
 ofile  = open('request.owl', "w")
 encoding = 'iso-8859-1'

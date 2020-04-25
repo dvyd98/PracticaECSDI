@@ -8,8 +8,6 @@
     <req:Filters rdf:resource="(http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
   </rdf:Description>
   <rdf:Description rdf:about="(http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">500</req:Precio>
-    <req:Nombre>Blender</req:Nombre>
-    <req:Categoria rdf:resource="http://www.products.org/ontology/Phone"/>
+    <req:Categoria>Blender</req:Categoria>
   </rdf:Description>
 </rdf:RDF>
