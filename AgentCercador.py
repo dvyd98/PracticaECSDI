@@ -28,7 +28,7 @@ from flask import Flask, request
 from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
-from OntoNamespaces import ACL, DSO, RDF, PrOnt, PrOntPr, PrOntRes, REQ
+from OntoNamespaces import ACL, DSO, RDF, XSD, OWL, PrOnt, PrOntPr, PrOntRes, REQ
 from AgentUtil.Logging import config_logger
 
 __author__ = 'javier'
@@ -110,11 +110,22 @@ def comunicacion():
         gresult = Graph()
         gresult.bind('req', REQ)
         cerca_obj = agn['cerca']
-        #result_obj = REQ.Results + '_results'
-        #gresult.add((cerca_obj, RDF.type, REQ.ResultCerca))
+        xsddatatypes = {'s': XSD.string, 'i': XSD.int, 'f': XSD.float}
+        result_properties = {'Marca': 's',
+                          'Precio': 'i',
+                          'Peso': 'f',
+                          'Categoria': 'Categoria',
+                          'Nombre': 's'}
+        for prop in result_properties:
+            if result_properties[prop] in ['s', 'i', 'f']:
+                gresult.add((REQ[prop], RDF.type, OWL.DatatypeProperty))
+                gresult.add((REQ[prop], RDFS.range, xsddatatypes[result_properties[prop]]))
+            else:
+                gresult.add((REQ[prop], RDF.type, OWL.ObjectProperty))
+                gresult.add((REQ[prop], RDFS.range, REQ[result_properties[prop]]))
         
         for row in qres:
-            result_obj = REQ.Result + '_' + row['nombre']
+            result_obj = REQ[row['nombre']]
             count = 0
             i = 0
             while(i < 4):
@@ -151,10 +162,11 @@ def comunicacion():
                 #print(row[0], row[1], row[2], row[3])
                 #t = term.URIRef(PrOntPr.nombre + "_" + row[0])
                 #gresult.add((cerca_obj, REQ.Results, result_obj))
-                gresult.add((result_obj, REQ.Nombre, row[0]))
-                gresult.add((result_obj, REQ.Precio, row[1]))
-                gresult.add((result_obj, REQ.Marca, row[2]))
-                gresult.add((result_obj, REQ.Categoria, row[3]))
+                gresult.add((result_obj, RDF.type, REQ.Result))
+                gresult.add((result_obj, REQ['Nombre'], row[0]))
+                gresult.add((result_obj, REQ['Precio'], row[1]))
+                gresult.add((result_obj, REQ['Marca'], row[2]))
+                gresult.add((result_obj, REQ['Categoria'], row[3]))
             
             
         
