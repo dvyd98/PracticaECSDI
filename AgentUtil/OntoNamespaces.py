@@ -56,3 +56,8 @@ Cen2OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl2")
 Cen3OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl3")
 Cen4OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl4")
 Cen5OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl5")
+
+#Ontologia localitzacio centres logistics
+LocCenOnt = Namespace("http://www.centresLoc.org/ontology/")
+LocCenOntPr = Namespace("http://www.centresLoc.org/ontology/property/")
+LocCenOntRes = Namespace("http://www.centresLoc.org/ontology/resource/")

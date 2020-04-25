@@ -199,9 +199,9 @@ if __name__ == '__main__':
     
     Locations = [[41.390205, 2.154007], [41.11667, 1.25], [41.979401, 2.821426], [41.617592, 0.620015], [42.3167, 2.3667]]
     
-    LocCenOnt = Namespace("http://www.centresProd.org/ontology/")
-    LocCenOntPr = Namespace("http://www.centresProd.org/ontology/property/")
-    LocCenOntRes = Namespace("http://www.centresProd.org/ontology/resource/")
+    LocCenOnt = Namespace("http://www.centresLoc.org/ontology/")
+    LocCenOntPr = Namespace("http://www.centresLoc.org/ontology/property/")
+    LocCenOntRes = Namespace("http://www.centresLoc.org/ontology/resource/")
     
     center_properties = {'latitud': 'f',
                           'longitud': 'f'}
