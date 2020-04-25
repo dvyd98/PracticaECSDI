@@ -6,6 +6,7 @@ Created on Mon Apr 20 18:32:44 2020
 """
 
 from multiprocessing import Process, Queue
+import rdflib
 import socket
 import sys
 import os
@@ -153,9 +154,29 @@ def agentbehavior1(cola):
 
     :return:
     """
+    print('Hola')
     pass
 
 if __name__ == '__main__':
+    
+    print('Hola!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    g=rdflib.Graph()
+    g.parse("output.owl", format="xml")
+
+    query = """
+              SELECT ?nombre
+              WHERE {
+              ?a REQ:Nombre ?nombre .
+
+              }
+              """
+    qres = g.query(query, initNs = {'REQ': REQ})  
+    for row in qres:
+        print(row['nombre'])
+    print('Hola!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    
+    
+    
     # Ponemos en marcha los behaviors
     ab1 = Process(target=agentbehavior1, args=(cola1,))
     ab1.start()
