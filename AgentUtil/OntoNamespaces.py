@@ -46,4 +46,13 @@ PrOntRes = Namespace("http://www.products.org/ontology/resource/")
 
 # Ontologia dels requests dels msgs del sistema
 
-REQ = Namespace('http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#')   
+REQ = Namespace('http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#') 
+                
+# Ontologia dels centres logistics - productes
+CenOnt = Namespace("http://www.centresProd.org/ontology/")
+CenOntPr = Namespace("http://www.centresProd.org/ontology/property/")
+Cen1OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl1")
+Cen2OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl2")
+Cen3OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl3")
+Cen4OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl4")
+Cen5OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl5")

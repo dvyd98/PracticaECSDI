@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:loccontp="http://www.centresProd.org/ontology/property/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/resource/LocCentreLog5">
+    <loccontp:longitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">42.3167</loccontp:longitud>
+    <loccontp:latitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">42.3167</loccontp:latitud>
+    <rdf:type rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/property/latitud">
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic2"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic5"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic3"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic4"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic1"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/resource/LocCentreLog3">
+    <loccontp:longitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41.979401</loccontp:longitud>
+    <loccontp:latitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41.979401</loccontp:latitud>
+    <rdf:type rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/Loc_CentreLogistic1">
+    <rdfs:subClassOf rdf:resource="http://www.centresProd.org/ontology/CentresLogistics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/resource/LocCentreLog4">
+    <rdf:type rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic4"/>
+    <loccontp:latitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41.617592</loccontp:latitud>
+    <loccontp:longitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41.617592</loccontp:longitud>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/Loc_CentreLogistic3">
+    <rdfs:subClassOf rdf:resource="http://www.centresProd.org/ontology/CentresLogistics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/property/longitud">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic2"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic5"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic1"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic4"/>
+    <rdfs:domain rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/Loc_CentreLogistic2">
+    <rdfs:subClassOf rdf:resource="http://www.centresProd.org/ontology/CentresLogistics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/Loc_CentreLogistic5">
+    <rdfs:subClassOf rdf:resource="http://www.centresProd.org/ontology/CentresLogistics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/resource/LocCentreLog1">
+    <loccontp:longitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41.390205</loccontp:longitud>
+    <rdf:type rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic1"/>
+    <loccontp:latitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41.390205</loccontp:latitud>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/Loc_CentreLogistic4">
+    <rdfs:subClassOf rdf:resource="http://www.centresProd.org/ontology/CentresLogistics"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/resource/LocCentreLog2">
+    <loccontp:longitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41.11667</loccontp:longitud>
+    <rdf:type rdf:resource="http://www.centresProd.org/ontology/Loc_CentreLogistic2"/>
+    <loccontp:latitud rdf:datatype="http://www.w3.org/2001/XMLSchema#double">41.11667</loccontp:latitud>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.centresProd.org/ontology/CentresLogistics">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+</rdf:RDF>

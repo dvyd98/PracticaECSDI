@@ -37,11 +37,21 @@ mss_cnt = 0
 
 # Datos del Agente
 PlataformaAgent = Agent('PlataformaAgent',
-                        agn.AgentCercador,
+                        agn.PlataformaAgent,
                         'http://%s:%d/comm' % (hostname, port),
                         'http://%s:%d/Stop' % (hostname, port))
+
 #Cargar los centros logisticos
-listaCentrosLogisticos = []
+CentroLogistico1 = Agent('CentroLogistico1',
+                        agn.CentroLogistico1,
+                        'http://%s:%d/comm' % (hostname, port+1),
+                        'http://%s:%d/Stop' % (hostname, port+1))
+CentroLogistico2 = Agent('CentroLogistico2',
+                        agn.CentroLogistico2,
+                        'http://%s:%d/comm' % (hostname, port+2),
+                        'http://%s:%d/Stop' % (hostname, port+2))
+
+listaCentrosLogisticos = [CentroLogistico1,CentroLogistico2]
 
 
 # Global triplestore graph
@@ -62,9 +72,6 @@ def comunicacion():
     """
     Entrypoint de comunicacion
     """
-    def getProductes():
-        print("placeholder")
-        return "placeholder"
     
     global dsgraph
     global mss_cnt
@@ -80,7 +87,7 @@ def comunicacion():
         logger.info('Msg no es FIPA ACL')
         gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCercador.uri,
+                           sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
     else:
         #Si ho es obtenim la performativa
@@ -89,7 +96,7 @@ def comunicacion():
             logger.info('Msg no es una request')
             gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCercador.uri,
+                           sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
         else:
             #Mirem tipus request
@@ -97,17 +104,24 @@ def comunicacion():
             action = gm.value(subject=content, predicate=RDF.type)
             
             #placeholder
-            if action == REQ.PeticioCerca:
-                logger.info('Processem la cerca')
+            if action == REQ.PeticioCompra:
+                logger.info('Processem la compra')
+                #agafar el nom del producte i la quantitat, i la localitzacio del client
+                nombreProd = 'nombre_Blender_0FUO3Q'
+                quant = 1
+                
+                #cercar el millor centre logistic que tingui aquest producte
+                
+                #fer peticio enviament a centre logistic
                 gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCercador.uri,
+                           sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCercador.uri,
+                           sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
     mss_cnt += 1
     return gr.serialize(format='xml')

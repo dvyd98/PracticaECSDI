@@ -36,6 +36,11 @@ mss_cnt = 0
 
 # Datos del Agente
 
+PlataformaAgent = Agent('PlataformaAgent',
+                        agn.PlataformaAgent,
+                        'http://%s:%d/comm' % (hostname, port),
+                        'http://%s:%d/Stop' % (hostname, port))
+
 AgentCercador = Agent('AgentCercador',
                        agn.AgentCercador,
                        'http://%s:%d/comm' % (hostname, port),
