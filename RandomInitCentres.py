@@ -194,3 +194,72 @@ if __name__ == '__main__':
     encoding = 'iso-8859-1'
     ofile.write(str(products_graph.serialize(), encoding))
     ofile.close()
+    
+    #----------------Localitzacio dels centres--------------------
+    
+    Locations = [[41.390205, 2.154007], [41.11667, 1.25], [41.979401, 2.821426], [41.617592, 0.620015], [42.3167, 2.3667]]
+    
+    LocCenOnt = Namespace("http://www.centresLoc.org/ontology/")
+    LocCenOntPr = Namespace("http://www.centresLoc.org/ontology/property/")
+    LocCenOntRes = Namespace("http://www.centresLoc.org/ontology/resource/")
+    
+    center_properties = {'latitud': 'f',
+                          'longitud': 'f'}
+    
+    loc_cent_classes = {'Loc_CentreLogistic1': [['latitud'],
+                                 ['longitud']],
+                       'Loc_CentreLogistic2': [['latitud'],
+                                 ['longitud']],
+                       'Loc_CentreLogistic3': [['latitud'],
+                                 ['longitud']],
+                       'Loc_CentreLogistic4': [['latitud'],
+                                 ['longitud']],
+                       'Loc_CentreLogistic5': [['latitud'],
+                                 ['longitud']],
+                       }
+    
+    loc_graph = Graph()
+    
+    loc_graph.bind('loccont', LocCenOnt)
+    loc_graph.bind('loccontp', LocCenOntPr)
+    loc_graph.bind('loccontr', LocCenOntRes)
+    
+    loc_graph.add((LocCenOnt.CentresLogistics, RDF.type, OWL.Class))
+    
+    for prop in center_properties:
+        if center_properties[prop] in ['s', 'i', 'f']:
+            loc_graph.add((LocCenOntPr[prop], RDF.type, OWL.DatatypeProperty))
+            loc_graph.add((LocCenOntPr[prop], RDFS.range, xsddatatypes[center_properties[prop]]))
+        else:
+            loc_graph.add((LocCenOntPr[prop], RDF.type, OWL.ObjectProperty))
+            loc_graph.add((LocCenOntPr[prop], RDFS.range, LocCenOnt[center_properties[prop]]))
+    
+    clase = 0
+    for prc in loc_cent_classes:
+        loc_graph.add((LocCenOnt[prc], RDFS.subClassOf, LocCenOnt.CentresLogistics))
+    
+        for prop in loc_cent_classes[prc]:
+            loc_graph.add((LocCenOntPr[prop[0]], RDFS.domain, LocCenOnt[prc]))
+        
+        lc = 'LocCentreLog' + str(clase+1)
+        loc_graph.add((LocCenOntRes[lc], RDF.type, LocCenOnt[prc]))
+        
+        first = True
+        for attr in loc_cent_classes[prc]:
+                prop = center_properties[attr[0]]
+                # el atributo es real o entero
+                if prop == 'f' and first:
+                    val = Literal(Locations[clase][0])
+                # el atributo es string
+                elif prop == 'f' and not first:
+                    val = Literal(Locations[clase][1])
+                else:
+                    val = 0
+                loc_graph.add((LocCenOntRes[lc], LocCenOntPr[attr[0]], val))
+        clase = clase +1
+    
+    ofile  = open('locCentres.owl', "w")
+    encoding = 'iso-8859-1'
+    ofile.write(str(loc_graph.serialize(), encoding))
+    ofile.close()
+        
