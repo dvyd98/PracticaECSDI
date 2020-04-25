@@ -1,34 +1,37 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr 20 18:32:44 2020
+Created on Thu Apr 23 13:51:30 2020
 
-@author: gpoltra98
+@author: pball
 """
 
+#Template
 from multiprocessing import Process, Queue
-import rdflib
 import socket
+
 import sys
 import os
-import datetime
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, RDF, RDFS
+from rdflib import Namespace, Graph, RDF, REQ
 from flask import Flask, request
 
-from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
-from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ
 from AgentUtil.Logging import config_logger
 
-# Configuration stuff
-hostname = "localhost"
-ip = 'localhost'
-port = 9000
+from ACLMessages import build_message, get_message_properties
+from OntoNamespaces import ACL
 
-#logger = config_logger(level=1, file="./logs/AgentCercador")
+__author__ = 'pball'
+
+
+# Configuration stuff
+hostname = socket.gethostname()
+port = 9010
+
+#logger = config_logger(level=1, file="./logs/AgentCentreLogistic")
 logger = config_logger(level=1)
 
 agn = Namespace("http://www.agentes.org#")
@@ -37,22 +40,17 @@ agn = Namespace("http://www.agentes.org#")
 mss_cnt = 0
 
 # Datos del Agente
-PlataformaAgent = Agent('PlataformaAgent',
-                        agn.PlataformaAgent,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
 
-#Cargar los centros logisticos
-CentroLogistico1 = Agent('CentroLogistico1',
-                        agn.CentroLogistico1,
-                        'http://%s:%d/comm' % (hostname, port+1),
-                        'http://%s:%d/Stop' % (hostname, port+1))
-CentroLogistico2 = Agent('CentroLogistico2',
-                        agn.CentroLogistico2,
-                        'http://%s:%d/comm' % (hostname, port+2),
-                        'http://%s:%d/Stop' % (hostname, port+2))
+AgentCentreLogistic = Agent('AgentCentreLogistic',
+                       agn.AgentCentreLogistic,
+                       'http://%s:%d/comm' % (hostname, port),
+                       'http://%s:%d/Stop' % (hostname, port))
 
-listaCentrosLogisticos = [CentroLogistico1,CentroLogistico2]
+# Directory agent address
+DirectoryAgent = Agent('DirectoryAgent',
+                       agn.Directory,
+                       'http://%s:9000/Register' % hostname,
+                       'http://%s:9000/Stop' % hostname)
 
 
 # Global triplestore graph
@@ -63,32 +61,31 @@ cola1 = Queue()
 # Flask stuff
 app = Flask(__name__)
 
-@app.route("/")
-def testing():
-    return "testing connection"
 
 @app.route("/comm")
 def comunicacion():
-    
     """
     Entrypoint de comunicacion
     """
-    
     global dsgraph
     global mss_cnt
-        
+    
+    logger.info('Peticion de informacion recibida')
+    
+    # Extraemos el mensaje y creamos un grafo con el
     message = request.args['content']
     gm = Graph()
     gm.parse(data=message)
+
     msgdic = get_message_properties(gm)
-    
+
     #Mirem si es un msg FIPA ACL
     if not msgdic:
         #Si no ho es, responem not understood
         logger.info('Msg no es FIPA ACL')
         gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=PlataformaAgent.uri,
+                           sender=AgentCentreLogistic.uri,
                            msgcnt=mss_cnt)
     else:
         #Si ho es obtenim la performativa
@@ -97,42 +94,37 @@ def comunicacion():
             logger.info('Msg no es una request')
             gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=PlataformaAgent.uri,
+                           sender=AgentCentreLogistic.uri,
                            msgcnt=mss_cnt)
         else:
             #Mirem tipus request
             content = msgdic['content']
             action = gm.value(subject=content, predicate=RDF.type)
             
-            #placeholder
-            if action == REQ.PeticioCompra:
-                logger.info('Processem la compra')
-                #agafar el nom del producte i la quantitat, i la localitzacio del client
-                nombreProd = 'nombre_Blender_0FUO3Q'
-                quant = 1
-                
-                #cercar el millor centre logistic que tingui aquest producte
-                
-                #fer peticio enviament a centre logistic
+            #Peticiocerca agafat de l'agent cercador CORRETGIR
+            if action == REQ.PeticioCerca:
+                logger.info('Processem la cerca')
                 gr = build_message(Graph(),
-                           ACL['not-understood'],
-                           sender=PlataformaAgent.uri,
+                           ACL['inform-done'],
+                           sender=AgentCentreLogistic.uri,
                            msgcnt=mss_cnt)
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=PlataformaAgent.uri,
+                           sender=AgentCentreLogistic.uri,
                            msgcnt=mss_cnt)
-    mss_cnt += 1
-    return gr.serialize(format='xml')
-pass
+                
+        mss_cnt += 1
+        return gr.serialize(format='xml')
+
+    pass
+
 
 @app.route("/Stop")
 def stop():
     """
     Entrypoint que para el agente
-
     :return:
     """
     tidyup()
@@ -143,7 +135,6 @@ def stop():
 def tidyup():
     """
     Acciones previas a parar el agente
-
     """
     pass
 
@@ -151,32 +142,12 @@ def tidyup():
 def agentbehavior1(cola):
     """
     Un comportamiento del agente
-
     :return:
     """
-    print('Hola')
     pass
 
+
 if __name__ == '__main__':
-    
-    print('Hola!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    g=rdflib.Graph()
-    g.parse("output.owl", format="xml")
-
-    query = """
-              SELECT ?nombre
-              WHERE {
-              ?a REQ:Nombre ?nombre .
-
-              }
-              """
-    qres = g.query(query, initNs = {'REQ': REQ})  
-    for row in qres:
-        print(row['nombre'])
-    print('Hola!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    
-    
-    
     # Ponemos en marcha los behaviors
     ab1 = Process(target=agentbehavior1, args=(cola1,))
     ab1.start()
@@ -187,5 +158,3 @@ if __name__ == '__main__':
     # Esperamos a que acaben los behaviors
     ab1.join()
     print('The End')
-    
-    
