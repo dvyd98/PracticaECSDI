@@ -116,7 +116,7 @@ def comunicacion():
         result_properties = {'Marca': 's',
                           'Precio': 'i',
                           'Peso': 'f',
-                          'Categoria': 'Categoria',
+                          'Categoria': 's',
                           'Nombre': 's'}
         for prop in result_properties:
             if result_properties[prop] in ['s', 'i', 'f']:
@@ -126,6 +126,7 @@ def comunicacion():
                 gresult.add((REQ[prop], RDF.type, OWL.ObjectProperty))
                 gresult.add((REQ[prop], RDFS.range, REQ[result_properties[prop]]))
         
+        gresult.add((REQ.Result, RDF.type, OWL.Class))
         for row in qres:
             result_obj = REQ[row['nombre']]
             count = 0
@@ -169,7 +170,7 @@ def comunicacion():
                 gresult.add((result_obj, REQ['Nombre'], row[0]))
                 gresult.add((result_obj, REQ['Precio'], row[1]))
                 gresult.add((result_obj, REQ['Marca'], row[2]))
-                gresult.add((result_obj, REQ['Categoria'], row[3]))
+                gresult.add((result_obj, REQ['Categoria'], Literal(PurePosixPath(urlparse(row[3]).path).parts[2])))
             
             
         
