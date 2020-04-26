@@ -51,11 +51,7 @@ REQ = Namespace('http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequ
 # Ontologia dels centres logistics - productes
 CenOnt = Namespace("http://www.centresProd.org/ontology/")
 CenOntPr = Namespace("http://www.centresProd.org/ontology/property/")
-Cen1OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl1")
-Cen2OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl2")
-Cen3OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl3")
-Cen4OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl4")
-Cen5OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl5")
+CenOntRes = Namespace("http://www.centresProd.org/ontology/resource/")
 
 #Ontologia localitzacio centres logistics
 LocCenOnt = Namespace("http://www.centresLoc.org/ontology/")

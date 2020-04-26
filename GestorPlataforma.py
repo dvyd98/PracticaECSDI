@@ -14,13 +14,14 @@ import datetime
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, RDF, RDFS
+from rdflib import Namespace, Graph, RDF, RDFS, FOAF, Literal
 from flask import Flask, request
 
 from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
-from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ, PrOntPr, PrOntRes
+from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ, PrOntPr, PrOntRes, CenOntRes, CenOntPr, CenOnt
+from OntoNamespaces import LocCenOntRes, LocCenOntPr, LocCenOnt
 from AgentUtil.Logging import config_logger
 
 # Configuration stuff
@@ -59,6 +60,46 @@ listaCentrosLogisticos = [CentroLogistico1,CentroLogistico2]
 dsgraph = Graph()
 
 cola1 = Queue()
+
+def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
+    centresDisponibles = []
+    #buscar els centres logistics que tinguin el producte disponible
+    #query que retorni nombreProducte, nombreCentreLogistico, stock
+    gProd=rdflib.Graph()
+    gProd.parse("./Ontologies/centresProd.owl", format="xml")
+        
+    query = """SELECT ?nombre ?nombreCentreLogistic ?stock
+                  WHERE {
+                  ?a CenOntPr:nombre ?nombre .
+                  ?a CenOntPr:nombreCentreLogistic ?nombreCentreLogistic .
+                  ?a CenOntPr:stock ?stock .
+                  }
+                  """
+    qres = gProd.query(query, initNs = {'CenOnt': CenOnt, 'CenOntPr': CenOntPr, 'CenOntRes' : CenOntRes})
+    for row in qres:
+        if row['nombre'] == Literal(nombreProd) and row['stock'] >= Literal(quant):
+            centresDisponibles.append(row['nombreCentreLogistic'])
+    
+    #dels disponibles, retornar el que estigui mes aprop del client
+    gCent = rdflib.Graph()
+    gCent.parse("./Ontologies/locCentres.owl", format="xml")
+    
+    query = """SELECT ?nombreCentreLogistic ?latitud ?longitud
+                  WHERE {
+                  ?a LocCenOntPr:latitud ?latitud .
+                  ?a LocCenOntPr:nombreCentreLogistic ?nombreCentreLogistic .
+                  ?a LocCenOntPr:longitud ?longitud .
+                  }
+                  """
+    qres = gProd.query(query, initNs = {'LocCenOnt': LocCenOnt, 'LocCenOntPr': LocCenOntPr, 'LocCenOntRes' : LocCenOntRes})
+    lat = radians(0)
+    long = radians(0)
+    R = 6373.0 #radi terra
+    cl = None
+    for row in qres:
+        https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+        
+    return cl
 
 # Flask stuff
 app = Flask(__name__)
@@ -112,9 +153,20 @@ def comunicacion():
                 quant = 1
                 
                 #cercar el millor centre logistic que tingui aquest producte
+                cl = buscarCentreLogistic(nombreProd, quant, latClient, longClient)
                 
                 #fer peticio enviament a centre logistic
-                gr = build_message(Graph(),
+                envGraph = Graph()
+                peticioEnviament = REQ.PeticioEnviament
+                
+                envGraph.add((peticioEnviament, RDF.type, FOAF.PeticioEnviament))
+                
+                envGraph.add((peticioEnviament, FOAF.prod, Literal("IntroduirNombreProducte")))
+                envGraph.add((peticioEnviament, FOAF.latClient, Literal("introduirLatClient")))
+                envGraph.add((peticioEnviament, FOAF.longClient, Literal("introduirLongClient")))
+                envGraph.add((peticioEnviament, FOAF.quant, Literal("introduirquantitatProducteClient")))
+                
+                gr = build_message(envGraph,
                            ACL['not-understood'],
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
@@ -158,23 +210,9 @@ def agentbehavior1(cola):
     pass
 
 if __name__ == '__main__':
-    
-    print('Hola!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    g=rdflib.Graph()
-    g.parse("./output.owl", format="xml")
-    query = """SELECT ?class ?nombre
-              WHERE {
-              ?a rdf:type ?class .
-              ?a REQ:Nombre ?nombre
-              }
-              """
-    qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes, 'REQ' : REQ})
-
-    for row in qres:
-        print(row['nombre'])
-    print('Hola!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    
-    
+      
+    print('BuscarCentreLogistic:')
+    buscarCentreLogistic('nombre_Blender_0FUO3Q', 1, 42.20064, 2.19033)
     
     # Ponemos en marcha los behaviors
     ab1 = Process(target=agentbehavior1, args=(cola1,))
