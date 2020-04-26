@@ -20,7 +20,7 @@ from flask import Flask, request
 from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
-from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ
+from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ, PrOntPr, PrOntRes
 from AgentUtil.Logging import config_logger
 
 # Configuration stuff
@@ -161,16 +161,15 @@ if __name__ == '__main__':
     
     print('Hola!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     g=rdflib.Graph()
-    g.parse("output.owl", format="xml")
-
-    query = """
-              SELECT ?nombre
+    g.parse("./output.owl", format="xml")
+    query = """SELECT ?class ?nombre
               WHERE {
-              ?a REQ:Nombre ?nombre .
-
+              ?a rdf:type ?class .
+              ?a REQ:Nombre ?nombre
               }
               """
-    qres = g.query(query, initNs = {'REQ': REQ})  
+    qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes, 'REQ' : REQ})
+
     for row in qres:
         print(row['nombre'])
     print('Hola!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
