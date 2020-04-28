@@ -26,451 +26,339 @@
         <Literal datatypeIRI="&rdf;PlainLiteral">Ontologia de la pràctica de ECSDI Q2 2019-2020</Literal>
     </Annotation>
     <Declaration>
-        <Class IRI="#AbstractActorsExterns"/>
+        <Class IRI="#BuscarProducte"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#AbstractAgent"/>
+        <Class IRI="#CentreLogistic"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#CentreLogisticAgent"/>
+        <Class IRI="#ComprarProducte"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#EmpresaTransportista"/>
+        <Class IRI="#EmpresaTransport"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#GestorCercaAgent"/>
+        <Class IRI="#Enviament"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#GestorProductesExternsAgent"/>
+        <Class IRI="#EnviarProducte"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#InvestigadorAgent"/>
+        <Class IRI="#EscollirEmpresaTransport"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PlataformaAgent"/>
+        <Class IRI="#Filtre"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OferirInformacioProducte"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Producte"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TesoreriaAgent"/>
+        <Class IRI="#Usuari"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#EnviamentProperty"/>
+        <Class IRI="#decidirCentreLogistic"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#LocalitzacioDesti"/>
+        <Class IRI="#delegarEnviament"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Marca"/>
+        <Class IRI="#processarCompra"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Nom"/>
+        <ObjectProperty IRI="#aComprar"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Pes"/>
+        <ObjectProperty IRI="#aDelegar"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#PesLotProductes"/>
+        <ObjectProperty IRI="#aEnviar"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#PlaçMaximEntrega"/>
+        <ObjectProperty IRI="#aEscollirCentre"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#Preu"/>
+        <ObjectProperty IRI="#aEscollirEmpresa"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#ProducteProperties"/>
+        <ObjectProperty IRI="#aFiltrar"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#confirmacio"/>
+        <ObjectProperty IRI="#buscatPer"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#confirmarDevolucio"/>
+        <ObjectProperty IRI="#compostPer"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#confirmarProducteAfegit"/>
+        <ObjectProperty IRI="#delegarA"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#criterisDeCerca"/>
+        <ObjectProperty IRI="#enviatPer"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#idCompra"/>
+        <ObjectProperty IRI="#introduitPer"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#idCompraClient"/>
+        <ObjectProperty IRI="#negociatPer"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#idCompraPerDevolucio"/>
+        <ObjectProperty IRI="#resultatCerca"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#idUsuari"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#llistaProductesComprats"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#missatgeAfegirProducte"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#missatgeCobrarProducte"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#missatgeConfirmacioCompra"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#missatgeConfirmarDevolucio"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#missatgeConfirmarProducteAfegit"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#missatgeExigirDevolucio"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#missatgeFactura"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#preuTotal"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#preuTotalCobrat"/>
+        <DataProperty IRI="#Categoria"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#CentreLogisticProperties"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#Filtres"/>
+        <DataProperty IRI="#EnviamentProperties"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#GestorCercaProperties"/>
+        <DataProperty IRI="#FiltreProperties"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#LatitudClient"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#LongitudClient"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Marca"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Nombre"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#PlataformaProperties"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#llistaCentreLogistics"/>
+        <DataProperty IRI="#PlaçEntrega"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#llistaEnviaments"/>
+        <DataProperty IRI="#Preu"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#latitudCentreLogistic"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#llistaCentreLogistics"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#llistaProductes-Stock"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#localitzacioCentreLogistic"/>
+        <DataProperty IRI="#longitudCentreLogistic"/>
     </Declaration>
     <SubClassOf>
-        <Class IRI="#CentreLogisticAgent"/>
-        <Class IRI="#AbstractAgent"/>
+        <Class IRI="#BuscarProducte"/>
+        <Class IRI="#OferirInformacioProducte"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#EmpresaTransportista"/>
-        <Class IRI="#AbstractActorsExterns"/>
+        <Class IRI="#Enviament"/>
+        <Class IRI="#ComprarProducte"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#GestorCercaAgent"/>
-        <Class IRI="#AbstractAgent"/>
+        <Class IRI="#EnviarProducte"/>
+        <Class IRI="#ComprarProducte"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#GestorProductesExternsAgent"/>
-        <Class IRI="#AbstractAgent"/>
+        <Class IRI="#EscollirEmpresaTransport"/>
+        <Class IRI="#ComprarProducte"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#InvestigadorAgent"/>
-        <Class IRI="#AbstractAgent"/>
+        <Class IRI="#Filtre"/>
+        <Class IRI="#OferirInformacioProducte"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PlataformaAgent"/>
-        <Class IRI="#AbstractAgent"/>
+        <Class IRI="#decidirCentreLogistic"/>
+        <Class IRI="#ComprarProducte"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TesoreriaAgent"/>
-        <Class IRI="#AbstractAgent"/>
+        <Class IRI="#delegarEnviament"/>
+        <Class IRI="#ComprarProducte"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#processarCompra"/>
+        <Class IRI="#ComprarProducte"/>
     </SubClassOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#LocalitzacioDesti"/>
-        <ObjectProperty IRI="#EnviamentProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#Marca"/>
-        <ObjectProperty IRI="#ProducteProperties"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#Nom"/>
-        <ObjectProperty IRI="#ProducteProperties"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#Pes"/>
-        <ObjectProperty IRI="#ProducteProperties"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#PesLotProductes"/>
-        <ObjectProperty IRI="#EnviamentProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#PlaçMaximEntrega"/>
-        <ObjectProperty IRI="#EnviamentProperty"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#Preu"/>
-        <ObjectProperty IRI="#ProducteProperties"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#confirmacio"/>
-        <ObjectProperty IRI="#missatgeConfirmacioCompra"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#confirmarDevolucio"/>
-        <ObjectProperty IRI="#missatgeConfirmarDevolucio"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#confirmarProducteAfegit"/>
-        <ObjectProperty IRI="#missatgeConfirmarProducteAfegit"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#idCompra"/>
-        <ObjectProperty IRI="#missatgeCobrarProducte"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#idCompraClient"/>
-        <ObjectProperty IRI="#missatgeFactura"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#idCompraPerDevolucio"/>
-        <ObjectProperty IRI="#missatgeExigirDevolucio"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#idUsuari"/>
-        <ObjectProperty IRI="#missatgeCobrarProducte"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#llistaProductesComprats"/>
-        <ObjectProperty IRI="#missatgeFactura"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#missatgeExigirDevolucio"/>
+        <ObjectProperty IRI="#aComprar"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#preuTotal"/>
-        <ObjectProperty IRI="#missatgeCobrarProducte"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#preuTotalCobrat"/>
-        <ObjectProperty IRI="#missatgeFactura"/>
+        <ObjectProperty IRI="#aDelegar"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#EnviamentProperty"/>
-        <Class IRI="#PlataformaAgent"/>
+        <ObjectProperty IRI="#aComprar"/>
+        <Class IRI="#processarCompra"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#ProducteProperties"/>
-        <Class IRI="#GestorCercaAgent"/>
+        <ObjectProperty IRI="#aDelegar"/>
+        <Class IRI="#delegarEnviament"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#ProducteProperties"/>
-        <Class IRI="#PlataformaAgent"/>
+        <ObjectProperty IRI="#aEnviar"/>
+        <Class IRI="#EnviarProducte"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#missatgeCobrarProducte"/>
-        <Class IRI="#PlataformaAgent"/>
+        <ObjectProperty IRI="#aEscollirCentre"/>
+        <Class IRI="#decidirCentreLogistic"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#missatgeConfirmacioCompra"/>
-        <Class IRI="#TesoreriaAgent"/>
+        <ObjectProperty IRI="#aEscollirEmpresa"/>
+        <Class IRI="#EscollirEmpresaTransport"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#missatgeConfirmarDevolucio"/>
-        <Class IRI="#PlataformaAgent"/>
+        <ObjectProperty IRI="#aFiltrar"/>
+        <Class IRI="#BuscarProducte"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#missatgeConfirmarProducteAfegit"/>
-        <Class IRI="#GestorProductesExternsAgent"/>
+        <ObjectProperty IRI="#buscatPer"/>
+        <Class IRI="#Producte"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#missatgeFactura"/>
-        <Class IRI="#PlataformaAgent"/>
+        <ObjectProperty IRI="#compostPer"/>
+        <Class IRI="#Enviament"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#delegarA"/>
+        <Class IRI="#decidirCentreLogistic"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#enviatPer"/>
+        <Class IRI="#Enviament"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#introduitPer"/>
+        <Class IRI="#Filtre"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#negociatPer"/>
+        <Class IRI="#EscollirEmpresaTransport"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#resultatCerca"/>
+        <Class IRI="#Producte"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#EnviamentProperty"/>
-        <Class IRI="#CentreLogisticAgent"/>
+        <ObjectProperty IRI="#aComprar"/>
+        <Class IRI="#Producte"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#ProducteProperties"/>
-        <Class IRI="#CentreLogisticAgent"/>
+        <ObjectProperty IRI="#aDelegar"/>
+        <Class IRI="#Enviament"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#missatgeCobrarProducte"/>
-        <Class IRI="#TesoreriaAgent"/>
+        <ObjectProperty IRI="#aEnviar"/>
+        <Class IRI="#Enviament"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#missatgeConfirmacioCompra"/>
-        <Class IRI="#PlataformaAgent"/>
+        <ObjectProperty IRI="#aEscollirCentre"/>
+        <Class IRI="#CentreLogistic"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#missatgeConfirmarProducteAfegit"/>
-        <Class IRI="#PlataformaAgent"/>
+        <ObjectProperty IRI="#aEscollirEmpresa"/>
+        <Class IRI="#EmpresaTransport"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#missatgeExigirDevolucio"/>
-        <Class IRI="#PlataformaAgent"/>
+        <ObjectProperty IRI="#aFiltrar"/>
+        <Class IRI="#Filtre"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#buscatPer"/>
+        <Class IRI="#BuscarProducte"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#compostPer"/>
+        <Class IRI="#Producte"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#delegarA"/>
+        <Class IRI="#CentreLogistic"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#enviatPer"/>
+        <Class IRI="#EmpresaTransport"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#introduitPer"/>
+        <Class IRI="#Usuari"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#negociatPer"/>
+        <Class IRI="#CentreLogistic"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#resultatCerca"/>
+        <Class IRI="#Usuari"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
-        <DataProperty IRI="#Filtres"/>
-        <DataProperty IRI="#GestorCercaProperties"/>
+        <DataProperty IRI="#Categoria"/>
+        <DataProperty IRI="#FiltreProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#LatitudClient"/>
+        <DataProperty IRI="#EnviamentProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#LongitudClient"/>
+        <DataProperty IRI="#EnviamentProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#Marca"/>
+        <DataProperty IRI="#FiltreProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#Nombre"/>
+        <DataProperty IRI="#FiltreProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#PlaçEntrega"/>
+        <DataProperty IRI="#EnviamentProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#Preu"/>
+        <DataProperty IRI="#FiltreProperties"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#latitudCentreLogistic"/>
+        <DataProperty IRI="#CentreLogisticProperties"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
         <DataProperty IRI="#llistaCentreLogistics"/>
         <DataProperty IRI="#PlataformaProperties"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#llistaEnviaments"/>
-        <DataProperty IRI="#CentreLogisticProperties"/>
-    </SubDataPropertyOf>
-    <SubDataPropertyOf>
         <DataProperty IRI="#llistaProductes-Stock"/>
         <DataProperty IRI="#llistaCentreLogistics"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
-        <DataProperty IRI="#localitzacioCentreLogistic"/>
+        <DataProperty IRI="#longitudCentreLogistic"/>
         <DataProperty IRI="#CentreLogisticProperties"/>
     </SubDataPropertyOf>
-    <DataPropertyDomain>
-        <DataProperty IRI="#CentreLogisticProperties"/>
-        <Class IRI="#CentreLogisticAgent"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#Filtres"/>
-        <Class IRI="#GestorCercaAgent"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#GestorCercaProperties"/>
-        <Class IRI="#GestorCercaAgent"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#PlataformaProperties"/>
-        <Class IRI="#PlataformaAgent"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#llistaCentreLogistics"/>
-        <Class IRI="#PlataformaAgent"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#llistaEnviaments"/>
-        <Class IRI="#CentreLogisticAgent"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#llistaProductes-Stock"/>
-        <Class IRI="#PlataformaAgent"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#localitzacioCentreLogistic"/>
-        <Class IRI="#CentreLogisticAgent"/>
-    </DataPropertyDomain>
     <DataPropertyRange>
-        <DataProperty IRI="#Filtres"/>
+        <DataProperty IRI="#Categoria"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#localitzacioCentreLogistic"/>
+        <DataProperty IRI="#Marca"/>
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#CentreLogisticAgent</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">S&apos;encarrega de negociar amb les empreses transportistes i gestionar el enviament.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#EnviamentProperty</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">El objecte que representa un enviament, que la plataforma li envia al centre logistic</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Filtres</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Representa el tipus de filtre de la cerca. Pots cercar per marca, preu o nom.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#GestorCercaAgent</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">S&apos;encarrega de la gestió de la cerca de un producte</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#GestorProductesExternsAgent</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">S&apos;encarrega de gestionar la posada a la venta dels productes de venedors externs.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#InvestigadorAgent</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">S&apos;encarrega d&apos;investigar què és el que li ha agradat més a cada usuari per mostrar el que li interessa.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#PlataformaAgent</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">S&apos;encarrega de processar una petició de compra d&apos;un client, delegant el enviament a un centre logísitc i comunicant-se amb la tesoreria. S&apos;encarrega també de la gestió de devolucions de productes.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ProducteProperties</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">El objecte que representa un producte de la base de dades</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TesoreriaAgent</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">S&apos;encarrega de controlar les finances del sistema.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#criterisDeCerca</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Representa el format que ha d&apos;introduir el client per a cercar els productes.</Literal>
-    </AnnotationAssertion>
+    <DataPropertyRange>
+        <DataProperty IRI="#Nombre"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Preu"/>
+        <Datatype abbreviatedIRI="xsd:double"/>
+    </DataPropertyRange>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#llistaCentreLogistics</IRI>
         <Literal datatypeIRI="&rdf;PlainLiteral">Un JSON que representa un array dels centres logisitics. Per a cada centre logistic, un array de producte-stock disponible en el centre.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#llistaEnviaments</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Llista amb els enviaments que te pendents el centre logistic
-</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#missatgeAfegirProducte</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Objecte que representa el missatge que el GestorProductesExterns envia a la Plataforma per afegir un missatge.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#missatgeCobrarProducte</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Objecte que representa el missatge que la Plataforma li envia a la Tesoreria quan un client fa una compra.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#missatgeConfirmacioCompra</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Objecte que representa la confirmacio de la compra que la Tesoreria envia a la Plataforma.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#missatgeConfirmarDevolucio</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">La Plataforma li comunica al Client si la seva devolució ha estat acceptada o no.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#missatgeConfirmarProducteAfegit</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Objecte que representa el missatge que envia la plataforma com a confirmacio de si el producte s&apos;ha afegit o no.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#missatgeExigirDevolucio</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Objecte que representa el missatge que el client envia a la Plataforma per exigir una devolucio.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#missatgeFactura</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Objecte que representa la factura que la Plataforma envia al Client quan ha comprat un producte.</Literal>
     </AnnotationAssertion>
 </Ontology>
 
