@@ -92,17 +92,7 @@ if __name__ == '__main__':
     # Declaramos espacios de nombres de nuestra ontologia, al estilo DBPedia (clases, propiedades, recursos)
     CenOnt = Namespace("http://www.centresProd.org/ontology/")
     CenOntPr = Namespace("http://www.centresProd.org/ontology/property/")
-    OntResources = []
-    Cen1OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl1")
-    Cen2OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl2")
-    Cen3OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl3")
-    Cen4OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl4")
-    Cen5OntRes = Namespace("http://www.centresProd.org/ontology/resource/cl5")
-    OntResources.append(Cen1OntRes)
-    OntResources.append(Cen2OntRes)
-    OntResources.append(Cen3OntRes)
-    OntResources.append(Cen4OntRes)
-    OntResources.append(Cen5OntRes)
+    CenOntRes = Namespace("http://www.centresProd.org/ontology/resource/")
 
     # lista de tipos XSD datatypes para los rangos de las propiedades
     xsddatatypes = {'s': XSD.string, 'i': XSD.int, 'f': XSD.float}
@@ -118,19 +108,20 @@ if __name__ == '__main__':
 
     # Diccionario de atributos f= tipo float, i= tipo int, s= tipo string, otro => clase existente en la ontologia
     product_properties = {'stock': 'i',
-                          'nombre': 's'}
+                          'nombre': 's',
+                          'nombreCentreLogistic': 's'}
 
     # Diccionario con clases, cada clase tiene una lista con los atributos y en el caso de necesitarlo, su rango min/max
     product_classes = {'Producte_CentreLogistic1': [['stock', 0, 5],
-                                 ['nombre']],
+                                 ['nombre'], ['nombreCentreLogistic']],
                        'Producte_CentreLogistic2': [['stock', 0, 5],
-                                 ['nombre']],
+                                 ['nombre'], ['nombreCentreLogistic']],
                        'Producte_CentreLogistic3': [['stock', 0, 5],
-                                 ['nombre']],
+                                 ['nombre'], ['nombreCentreLogistic']],
                        'Producte_CentreLogistic4': [['stock', 0, 5],
-                                 ['nombre']],
+                                 ['nombre'], ['nombreCentreLogistic']],
                        'Producte_CentreLogistic5': [['stock', 0, 5],
-                                 ['nombre']],
+                                 ['nombre'], ['nombreCentreLogistic']],
                        }
 
     products_graph = Graph()
@@ -138,11 +129,7 @@ if __name__ == '__main__':
     # A�adimos los espacios de nombres al grafo
     products_graph.bind('cont', CenOnt)
     products_graph.bind('contp', CenOntPr)
-    products_graph.bind('contr1', Cen1OntRes)
-    products_graph.bind('contr2', Cen2OntRes)
-    products_graph.bind('contr3', Cen3OntRes)
-    products_graph.bind('contr4', Cen4OntRes)
-    products_graph.bind('contr5', Cen5OntRes)
+    products_graph.bind('contr', CenOntRes)
 
     # Clase padre de los productos
     products_graph.add((CenOnt.CentresLogistics, RDF.type, OWL.Class))
@@ -165,20 +152,23 @@ if __name__ == '__main__':
         for prop in product_classes[prc]:
             products_graph.add((CenOntPr[prop[0]], RDFS.domain, CenOnt[prc]))
 
-        CenOntRes = OntResources[clase]
         #generar instancies productes
         for x in allProducts:
-            product = x
+            product = x + '_' + str(clase+1)
             products_graph.add((CenOntRes[product], RDF.type, CenOnt[prc]))
             
+            first = True
             for attr in product_classes[prc]:
                 prop = product_properties[attr[0]]
                 # el atributo es real o entero
                 if prop == 'i':
                     val = Literal(random_attribute(prop, attr[1:]))
                 # el atributo es string
-                elif prop == 's':
-                    val = product
+                elif prop == 's' and first:
+                    val = x
+                    first = False
+                elif prop == 's' and not first:
+                    val = Literal('cl'+str(clase+1))
                 else:
                     break
                 products_graph.add((CenOntRes[product], CenOntPr[attr[0]], val))
@@ -204,18 +194,19 @@ if __name__ == '__main__':
     LocCenOntRes = Namespace("http://www.centresLoc.org/ontology/resource/")
     
     center_properties = {'latitud': 'f',
-                          'longitud': 'f'}
+                          'longitud': 'f',
+                          'nombreCentreLogistic': 's'}
     
     loc_cent_classes = {'Loc_CentreLogistic1': [['latitud'],
-                                 ['longitud']],
+                                 ['longitud'], ['nombreCentreLogistic']],
                        'Loc_CentreLogistic2': [['latitud'],
-                                 ['longitud']],
+                                 ['longitud'], ['nombreCentreLogistic']],
                        'Loc_CentreLogistic3': [['latitud'],
-                                 ['longitud']],
+                                 ['longitud'], ['nombreCentreLogistic']],
                        'Loc_CentreLogistic4': [['latitud'],
-                                 ['longitud']],
+                                 ['longitud'], ['nombreCentreLogistic']],
                        'Loc_CentreLogistic5': [['latitud'],
-                                 ['longitud']],
+                                 ['longitud'], ['nombreCentreLogistic']],
                        }
     
     loc_graph = Graph()
@@ -250,9 +241,12 @@ if __name__ == '__main__':
                 # el atributo es real o entero
                 if prop == 'f' and first:
                     val = Literal(Locations[clase][0])
+                    first = False
                 # el atributo es string
                 elif prop == 'f' and not first:
                     val = Literal(Locations[clase][1])
+                elif prop == 's':
+                    val = Literal('cl'+str(clase+1))
                 else:
                     val = 0
                 loc_graph.add((LocCenOntRes[lc], LocCenOntPr[attr[0]], val))
