@@ -78,8 +78,11 @@ def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
                   """
     qres = gProd.query(query, initNs = {'CenOnt': CenOnt, 'CenOntPr': CenOntPr, 'CenOntRes' : CenOntRes})
     for row in qres:
-        if row['nombre'] == Literal(nombreProd) and row['stock'] >= Literal(quant):
+        if row['nombre'] == nombreProd and row['stock'] >= quant:
             centresDisponibles.append(row['nombreCentreLogistic'])
+    print('\n')       
+    print('CentresDisponibles:', centresDisponibles)
+    print('\n') 
     
     #dels disponibles, retornar el que estigui mes aprop del client
     gCent = rdflib.Graph()
@@ -96,13 +99,23 @@ def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
     d = 9999999.0
     R = 6373.0 #radi terra
     cl = None
+    first = True
+    #inicialitzar cl amb el primer element
+    for row in qres2:
+        if first:
+            candidat = row['nombreCentreLogistic']
+            if candidat in centresDisponibles:
+                cl = row['nombreCentreLogistic']
+                first = False
+                break
+    
     for row in qres2:
         latAux = row['latitud']
         longAux = row['longitud']
         lat1 = radians(float(latAux))
         lon1 = radians(float(longAux))
-        lat2 = radians(latClient)
-        lon2 = radians(longClient)
+        lat2 = radians(float(latClient))
+        lon2 = radians(float(longClient))
         
         dlon = lon2 - lon1
         dlat = lat2 - lat1
@@ -161,28 +174,36 @@ def comunicacion():
             #Mirem tipus request
             content = msgdic['content']
             action = gm.value(subject=content, predicate=RDF.type)
+            print('La action es:', action)
+            print('La action hauria de ser:', REQ.PeticioCompra)
             
             #placeholder
             if action == REQ.PeticioCompra:
                 logger.info('Processem la compra')
                 #agafar el nom del producte i la quantitat, i la localitzacio del client
-                nombreProd = 'nombre_Blender_0FUO3Q'
-                quant = 1
-                latClient = 42.20064
-                longClient = 2.19033
+                content = msgdic['content']
+                nombreProd = gm.value(subject=content, predicate=REQ.NombreProducte)
+                print('HE agafat el nomProducte:', nombreProd)
+                quant = gm.value(subject=content, predicate=REQ.QuantitatProducte)
+                latClient = gm.value(subject=content, predicate=REQ.LatitudClient)
+                longClient = gm.value(subject=content, predicate=REQ.LongitudClient)
                 
                 #cercar el millor centre logistic que tingui aquest producte
                 cl = buscarCentreLogistic(nombreProd, quant, latClient, longClient)
                 if cl is None:
                     logger.info('No hi ha aquest producte en ningun centre')
+                    print('No hi ha aquest producte en ningun centre')
                     gr = build_message(Graph(),
                            ACL['not-understood'],
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
+                else:
+                    print('El millor centre logistic es:', cl)
                     
                 #cl sera el reciever del message
                 
                 #fer peticio enviament a centre logistic
+                
                 envGraph = Graph()
                 peticioEnviament = REQ.PeticioEnviament
                 
@@ -238,8 +259,8 @@ def agentbehavior1(cola):
 
 if __name__ == '__main__':
       
-    print('BuscarCentreLogistic:')
-    print(buscarCentreLogistic('nombre_Blender_0FUO3Q', 1, 42.20064, 2.19033))
+    #print('BuscarCentreLogistic:')
+    #print(buscarCentreLogistic('nombre_Blender_0FUO3Q', 1, 42.20064, 2.19033))
     
     # Ponemos en marcha los behaviors
     ab1 = Process(target=agentbehavior1, args=(cola1,))
