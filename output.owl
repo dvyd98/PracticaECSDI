@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
+   xmlns:acl="http://www.nuin.org/ontology/fipa/acl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-   xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
+<<<<<<< HEAD
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_C09WLE">
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
     <req:Marca>Marca_Blender_K27OOM</req:Marca>
@@ -446,5 +446,11 @@
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+=======
+  <rdf:Description rdf:about="http://www.nuin.org/ontology/fipa/acl#message-3153780059455521567-0001">
+    <rdf:type rdf:resource="http://www.nuin.org/ontology/fipa/acl#FipaAclMessage"/>
+    <acl:sender rdf:resource="http://www.agentes.org#PlataformaAgent"/>
+    <acl:performative rdf:resource="http://www.nuin.org/ontology/fipa/acl#not-understood"/>
+>>>>>>> 7bd48ecb44633e44b7d5ae3bc885f46785acb860
   </rdf:Description>
 </rdf:RDF>

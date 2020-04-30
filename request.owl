@@ -7,7 +7,12 @@
     <req:Categoria>Blender</req:Categoria>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.agentes.org#cerca">
+<<<<<<< HEAD
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/PeticioCerca"/>
     <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
+=======
+    <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/PeticioCerca"/>
+>>>>>>> 7bd48ecb44633e44b7d5ae3bc885f46785acb860
   </rdf:Description>
 </rdf:RDF>

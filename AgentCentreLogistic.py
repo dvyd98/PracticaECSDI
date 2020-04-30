@@ -21,7 +21,7 @@ from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
 from AgentUtil.Logging import config_logger
 
-from ACLMessages import build_message, get_message_properties
+from ACLMessages import build_message, get_message_properties, send_message
 from OntoNamespaces import ACL
 
 __author__ = 'pball'
@@ -46,11 +46,7 @@ AgentCentreLogistic = Agent('AgentCentreLogistic',
                        'http://%s:%d/comm' % (hostname, port),
                        'http://%s:%d/Stop' % (hostname, port))
 
-# Directory agent address
-DirectoryAgent = Agent('DirectoryAgent',
-                       agn.Directory,
-                       'http://%s:9000/Register' % hostname,
-                       'http://%s:9000/Stop' % hostname)
+EmpresaTransportista = Agent('EmpresaTransportista', agn.EmpresaTransportista, '', '')
 
 
 # Global triplestore graph
@@ -67,6 +63,28 @@ def comunicacion():
     """
     Entrypoint de comunicacion
     """
+    
+    def negociarTransport(pes, ciutatDesti, diaMaxim):
+        result = Graph()
+        
+        #construeix el graph per passar a l'empresa
+        contentPeticioEmpresa = Graph()
+        contentPeticioEmpresa.bind('req', REQ)
+        enviament_obj = agn['enviament']
+        
+        contentPeticioEmpresa.add((enviament_obj, RDF.type, REQ.PeticioEmpresa))
+        contentPeticioEmpresa.add((enviament_obj, REQ.PesProductes, pes))
+        contentPeticioEmpresa.add((enviament_obj, REQ.CiutatDesti, ciutatDesti))
+        contentPeticioEmpresa.add((enviament_obj, REQ.DiaMaxim, diaMaxim))
+        
+        messageEmpresa = Graph()
+        messageEmpresa = build_message(contentPeticioEmpresa, perf=ACL.request, sender=AgentCentreLogistic.uri, msgcnt=0, receiver=EmpresaTransportista.uri, content=enviament_obj)
+        
+        #envia missatge a EmpresaTransportista
+        response = send_message(messageEmpresa, EmpresaTransportista.address)
+        
+        return result
+    
     global dsgraph
     global mss_cnt
     
@@ -101,10 +119,24 @@ def comunicacion():
             content = msgdic['content']
             action = gm.value(subject=content, predicate=RDF.type)
             
-            #Peticiocerca agafat de l'agent cercador CORRETGIR
-            if action == REQ.PeticioCerca:
-                logger.info('Processem la cerca')
-                gr = build_message(Graph(),
+            if action == REQ.PeticioEnviament:
+                logger.info('Es delega enviament')
+                
+                #obtenir info per passar empresa HARDCODED DE MOMENT
+                pes = 2
+                ciutatDesti = 'Barcelona'
+                diaMaxim = '15/10/2021'
+                
+                #Encara no es pot fer
+#               content = msgdic['content']
+#               pes = gm.value(subject=content, predicate=REQ.PesProducte)
+#               ciutatDesti = gm.value(subject=content, predicate=REQ.CiutatDesti)
+#               diaMaxim = gm.value(subject=content, predicate=REQ.DiaMaxim)
+            
+                #escollir millor empresa
+                gResposta = negociarTransport(pes, ciutatDesti, diaMaxim)
+                
+                gr = build_message(gResposta,
                            ACL['inform-done'],
                            sender=AgentCentreLogistic.uri,
                            msgcnt=mss_cnt)

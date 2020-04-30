@@ -90,6 +90,30 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#LatitudClient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#LatitudClient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioCompra"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#LongitudClient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#LongitudClient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioCompra"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Nombre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Nombre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Results"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#NombreProducte -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#NombreProducte">
@@ -101,6 +125,12 @@
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioCompra -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioCompra"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioEnviament -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioEnviament"/>
     
 
 
@@ -136,6 +166,38 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ResultsCompres">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ResultCompra"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#latClient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#latClient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioEnviament"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#longClient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#longClient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioEnviament"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#prod -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#prod">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioEnviament"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#quant -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#quant">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioEnviament"/>
     </owl:Class>
     
 

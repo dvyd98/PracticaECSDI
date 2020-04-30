@@ -48,6 +48,23 @@ AgentCercador = Agent('AgentCercador',
 
 Client = Agent('Client', agn.Client, '', '')
 
+#enviar peticio compra
+print('IniciemPeticioCompra')
+contentPeticioCompra = Graph()
+contentPeticioCompra.bind('req', REQ)
+compra_obj = agn['compra']
+contentPeticioCompra.add((compra_obj, RDF.type, REQ.PeticioCompra))
+contentPeticioCompra.add((compra_obj, REQ.NombreProducte, Literal("nombre_Blender_21SHBG")))
+contentPeticioCompra.add((compra_obj, REQ.QuantitatProducte, Literal(2)))
+contentPeticioCompra.add((compra_obj, REQ.LatitudClient, Literal(42.20064)))
+contentPeticioCompra.add((compra_obj, REQ.LongitudClient, Literal(2.19033)))
+messageCompra = Graph()
+messageCompra = build_message(contentPeticioCompra, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=compra_obj)
+print('EnviemPeticioCompra')
+response = send_message(messageCompra, PlataformaAgent.address)
+print('FinalitzemPeticioCompra')
+
+'''
 content = Graph()
 content.bind('req', REQ)
 cerca_obj = agn['cerca']
@@ -90,3 +107,4 @@ ofile  = open('output.owl', "w")
 encoding = 'iso-8859-1'
 ofile.write(str(response.serialize(), encoding))
 ofile.close()
+'''
