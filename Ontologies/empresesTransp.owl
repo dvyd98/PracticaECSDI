@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:contp="http://www.empreses.org/ontology/property/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/resource/em5">
+    <rdf:type rdf:resource="http://www.empreses.org/ontology/Empresa_transportista5"/>
+    <contp:nombre>empresa_5</contp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/resource/em1">
+    <contp:nombre>empresa_1</contp:nombre>
+    <rdf:type rdf:resource="http://www.empreses.org/ontology/Empresa_transportista1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/property/nombre">
+    <rdfs:domain rdf:resource="http://www.empreses.org/ontology/Empresa_transportista1"/>
+    <rdfs:domain rdf:resource="http://www.empreses.org/ontology/Empresa_transportista5"/>
+    <rdfs:domain rdf:resource="http://www.empreses.org/ontology/Empresa_transportista3"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.empreses.org/ontology/Empresa_transportista2"/>
+    <rdfs:domain rdf:resource="http://www.empreses.org/ontology/Empresa_transportista4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/Empresa_transportista2">
+    <rdfs:subClassOf rdf:resource="http://www.empreses.org/ontology/EmpresesTransportistes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/resource/em2">
+    <rdf:type rdf:resource="http://www.empreses.org/ontology/Empresa_transportista2"/>
+    <contp:nombre>empresa_2</contp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/EmpresesTransportistes">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/resource/em3">
+    <rdf:type rdf:resource="http://www.empreses.org/ontology/Empresa_transportista3"/>
+    <contp:nombre>empresa_3</contp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/Empresa_transportista3">
+    <rdfs:subClassOf rdf:resource="http://www.empreses.org/ontology/EmpresesTransportistes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/resource/em4">
+    <rdf:type rdf:resource="http://www.empreses.org/ontology/Empresa_transportista4"/>
+    <contp:nombre>empresa_4</contp:nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/Empresa_transportista5">
+    <rdfs:subClassOf rdf:resource="http://www.empreses.org/ontology/EmpresesTransportistes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/Empresa_transportista1">
+    <rdfs:subClassOf rdf:resource="http://www.empreses.org/ontology/EmpresesTransportistes"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.empreses.org/ontology/Empresa_transportista4">
+    <rdfs:subClassOf rdf:resource="http://www.empreses.org/ontology/EmpresesTransportistes"/>
+  </rdf:Description>
+</rdf:RDF>

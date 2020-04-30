@@ -57,3 +57,8 @@ CenOntRes = Namespace("http://www.centresProd.org/ontology/resource/")
 LocCenOnt = Namespace("http://www.centresLoc.org/ontology/")
 LocCenOntPr = Namespace("http://www.centresLoc.org/ontology/property/")
 LocCenOntRes = Namespace("http://www.centresLoc.org/ontology/resource/")
+
+#Ontologia de les empreses de transport
+EmOnt = Namespace("http://www.empreses.org/ontology/")
+EmOntPr = Namespace("http://www.empreses.org/ontology/property/")
+EmOntRes = Namespace("http://www.empreses.org/ontology/resource/")

@@ -9,12 +9,13 @@ Created on Thu Apr 23 13:51:30 2020
 from multiprocessing import Process, Queue
 import socket
 
+import rdflib
 import sys
 import os
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, RDF, REQ
+from rdflib import Namespace, Graph, RDF
 from flask import Flask, request
 
 from AgentUtil.FlaskServer import shutdown_server
@@ -22,7 +23,7 @@ from AgentUtil.Agent import Agent
 from AgentUtil.Logging import config_logger
 
 from ACLMessages import build_message, get_message_properties, send_message
-from OntoNamespaces import ACL
+from OntoNamespaces import ACL, EmOnt, EmOntPr, EmOntRes, REQ
 
 __author__ = 'pball'
 
@@ -65,7 +66,25 @@ def comunicacion():
     """
     
     def negociarTransport(pes, ciutatDesti, diaMaxim):
-        result = Graph()
+        
+        conjuntEmpreses = []
+        
+        gProd=rdflib.Graph()
+        gProd.parse("./Ontologies/empresesTransp.owl", format="xml")
+        
+        query = """SELECT?nombre
+                    WHERE {
+                            ?a EmOntPr:nombre ?nombre .
+                    }
+                """
+                  
+        qres = gProd.query(query, initNs = {'EmOnt': EmOnt, 'EmOntPr': EmOntPr, 'EmOntRes' : EmOntRes})
+        for row in qres:
+            conjuntEmpreses.append(row['nombre'])
+            
+        print('\n')       
+        print('conjuntEmpreses:', conjuntEmpreses)
+        print('\n')  
         
         #construeix el graph per passar a l'empresa
         contentPeticioEmpresa = Graph()
@@ -83,6 +102,7 @@ def comunicacion():
         #envia missatge a EmpresaTransportista
         response = send_message(messageEmpresa, EmpresaTransportista.address)
         
+        result = Graph()
         return result
     
     global dsgraph
@@ -180,6 +200,7 @@ def agentbehavior1(cola):
 
 
 if __name__ == '__main__':
+    
     # Ponemos en marcha los behaviors
     ab1 = Process(target=agentbehavior1, args=(cola1,))
     ab1.start()
