@@ -17,7 +17,7 @@ import os
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, Literal, term
+from rdflib import Namespace, Graph, Literal, term, RDFS
 from rdflib.namespace import FOAF, RDF
 from flask import Flask, request
 
@@ -25,7 +25,7 @@ from FlaskServer import shutdown_server
 from Agent import Agent
 from AgentUtil.Logging import config_logger
 from ACLMessages import build_message, get_message_properties, send_message
-from OntoNamespaces import ACL, DSO, RDF, REQ
+from OntoNamespaces import ACL, DSO, RDF, REQ, XSD, OWL
 
 limR = [1, 6]  
     
@@ -43,7 +43,7 @@ mss_cnt = 0
 
 # Datos del Agente
 
-AgentCentreLogistic = Agent('AgentCentreLogistic',
+AgentCentreLogistic = Agent('CentreLogistic1',
                         agn.AgentCentreLogistic,
                         'http://%s:%d/comm' % (hostname, port),
                         'http://%s:%d/Stop' % (hostname, port))
@@ -105,16 +105,32 @@ def comunicacion():
                 pes = 2
                 ciutatDesti = 'Barcelona'
                 diaMaxim = '15/10/2021'
-                
-                #calcula preu
-                preu = pes * random.uniform(limR[0], limR[1])
+                conjuntEmpreses = ['empresa_1', 'empresa_2', 'empresa_3', 'empresa_4', 'empresa_5']
                 
                 gResposta = Graph()
                 gResposta.bind('req', REQ)
-                resposta_obj = agn['preu']
+                resposta_obj = agn['resposta']
+        
+                xsddatatypes = {'s': XSD.string, 'i': XSD.int, 'f': XSD.float}
+                result_properties = {'Nombre': 's',
+                          'Precio': 'i'}
                 
-                gResposta.add((resposta_obj, RDF.type, REQ.RespostaEmpresa))
-                gResposta.add((resposta_obj, REQ.PreuEnviament, preu))
+                for prop in result_properties:
+                    if result_properties[prop] in ['s', 'i', 'f']:
+                        gResposta.add((REQ[prop], RDF.type, OWL.DatatypeProperty))
+                        gResposta.add((REQ[prop], RDFS.range, xsddatatypes[result_properties[prop]]))
+                    else:
+                        gResposta.add((REQ[prop], RDF.type, OWL.ObjectProperty))
+                        gResposta.add((REQ[prop], RDFS.range, REQ[result_properties[prop]]))
+    
+                gResposta.add((REQ.RespostaEmpresa, RDF.type, OWL.Class))
+                
+                
+                for row in conjuntEmpreses:
+                    preu = pes * random.uniform(limR[0], limR[1])
+                    gResposta.add((resposta_obj, RDF.type, REQ.RespostaEmpresa))
+                    gResposta.add((resposta_obj, REQ['Nombre'], row))
+                    gResposta.add((resposta_obj, REQ['Precio'], preu))
                 
                 gr = build_message(gResposta,
                            ACL['inform-done'],

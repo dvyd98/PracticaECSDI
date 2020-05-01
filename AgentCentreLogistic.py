@@ -96,14 +96,48 @@ def comunicacion():
         contentPeticioEmpresa.add((enviament_obj, REQ.PesProductes, pes))
         contentPeticioEmpresa.add((enviament_obj, REQ.CiutatDesti, ciutatDesti))
         contentPeticioEmpresa.add((enviament_obj, REQ.DiaMaxim, diaMaxim))
+        contentPeticioEmpresa.add((enviament_obj, REQ.ConjuntEmpreses, conjuntEmpreses))
         
         messageEmpresa = Graph()
         messageEmpresa = build_message(contentPeticioEmpresa, perf=ACL.request, sender=AgentCentreLogistic.uri, msgcnt=0, receiver=EmpresaTransportista.uri, content=enviament_obj)
         
-        #envia missatge a EmpresaTransportista
+        #envia missatge a l'Agent EmpresaTransportista
         response = send_message(messageEmpresa, EmpresaTransportista.address)
         
+        #obtenir la resposta de l'Agent EmpresaTransportista
+        query = """
+              SELECT ?nombre ?precio 
+              WHERE {
+              ?a REQ:Nombre ?nombre .
+              ?a REQ:Precio ?precio .
+              }
+              """
+        qres = response.query(query, initNs = {'REQ': REQ})  
+        
+        #busca el preu de la empresa més baix
+        first = True
+        preuMesBaix = None
+        nomEmpresaAmbPreuMesBaix = None
+        
+        for row in qres:
+            if first:
+                nomEmpresaAmbPreuMesBaix = row['nombre']
+                preuMesBaix = row['precio']
+                first = False
+            else:
+                if preuMesBaix > row['precio']:
+                    nomEmpresaAmbPreuMesBaix = row['nombre']
+                    preuMesBaix = row['precio']
+            
+                    
         result = Graph()
+        result.bind('req', REQ)
+        result_obj = agn['result']
+        
+        result.add((result_obj, RDF.type, REQ.ResultEnviament))
+        result.add((result_obj, REQ.NomEmpresa, nomEmpresaAmbPreuMesBaix))
+        result.add((result_obj, REQ.Preu, preuMesBaix))
+        
         return result
     
     global dsgraph
