@@ -62,6 +62,7 @@ messageCompra = Graph()
 messageCompra = build_message(contentPeticioCompra, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=compra_obj)
 print('EnviemPeticioCompra')
 response = send_message(messageCompra, PlataformaAgent.address)
+print('Resposta: ', response)
 print('FinalitzemPeticioCompra')
 
 '''
