@@ -42,10 +42,11 @@ mss_cnt = 0
 
 # Datos del Agente
 
-AgentCentreLogistic = Agent('AgentCentreLogistic',
+#AgentCentreLogistic = None
+AgentCentreLogistic = Agent('CentreLogistic1',
                        agn.AgentCentreLogistic,
-                       'http://%s:%d/comm' % (hostname, port),
-                       'http://%s:%d/Stop' % (hostname, port))
+                      'http://%s:%d/comm' % (hostname, port),
+                      'http://%s:%d/Stop' % (hostname, port))
 
 EmpresaTransportista = Agent('EmpresaTransportista', agn.EmpresaTransportista, '', '')
 
@@ -192,22 +193,34 @@ def tidyup():
 
 
 def agentbehavior1(cola):
-    """
-    Un comportamiento del agente
-    :return:
-    """
+    
+#    AgentCentreLogistic = Agent('CentreLogistic1',
+#                       agn.AgentCentreLogistic,
+#                       'http://%s:%d/comm' % (hostname, port),
+#                       'http://%s:%d/Stop' % (hostname, port))
+#    return
     pass
 
+#def agentbehavior2(cola):
+#    
+#    AgentCentreLogistic = Agent('CentreLogistic2',
+#                       agn.AgentCentreLogistic,
+#                       'http://%s:%d/comm' % (hostname, port+1),
+#                       'http://%s:%d/Stop' % (hostname, port+1))
+#    return
 
 if __name__ == '__main__':
     
     # Ponemos en marcha los behaviors
     ab1 = Process(target=agentbehavior1, args=(cola1,))
+    #ab2 = Process(target=agentbehavior2, args=(cola1,))
     ab1.start()
+    #ab2.start()
 
     # Ponemos en marcha el servidor
     app.run(host=hostname, port=port)
 
     # Esperamos a que acaben los behaviors
     ab1.join()
+    #ab2.join()
     print('The End')
