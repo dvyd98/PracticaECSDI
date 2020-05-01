@@ -47,14 +47,25 @@ PlataformaAgent = Agent('PlataformaAgent',
 #Cargar los centros logisticos
 CentroLogistico1 = Agent('CentroLogistico1',
                         agn.cl1,
-                        'http://%s:%d/comm' % (hostname, port+1),
-                        'http://%s:%d/Stop' % (hostname, port+1))
+                        'http://%s:%d/comm' % (hostname, port),
+                        'http://%s:%d/Stop' % (hostname, port))
 CentroLogistico2 = Agent('CentroLogistico2',
                         agn.cl2,
-                        'http://%s:%d/comm' % (hostname, port+2),
-                        'http://%s:%d/Stop' % (hostname, port+2))
+                        'http://%s:%d/comm' % (hostname, port),
+                        'http://%s:%d/Stop' % (hostname, port))
+CentroLogistico3 = Agent('CentroLogistico3',
+                        agn.cl3,
+                        'http://%s:%d/comm' % (hostname, port),
+                        'http://%s:%d/Stop' % (hostname, port))
+CentroLogistico4 = Agent('CentroLogistico4',
+                        agn.cl4,
+                        'http://%s:%d/comm' % (hostname, port),
+                        'http://%s:%d/Stop' % (hostname, port))
 
-listaCentrosLogisticos = [CentroLogistico1,CentroLogistico2]
+CentroLogistico5 = Agent('CentroLogistico5',
+                        agn.cl5,
+                        'http://%s:%d/comm' % (hostname, port),
+                        'http://%s:%d/Stop' % (hostname, port))
 
 
 # Global triplestore graph
@@ -205,19 +216,69 @@ def comunicacion():
                 #fer peticio enviament a centre logistic
                 
                 envGraph = Graph()
-                peticioEnviament = REQ.PeticioEnviament
+                envGraph.bind('req', REQ)
+                env_obj = agn['delegarEnviament']
+                envGraph.add((env_obj, RDF.type, REQ.PeticioEnviament)) 
+                envGraph.add((env_obj, REQ.prod, nombreProd))
+                envGraph.add((env_obj, REQ.quant, quant))
                 
-                envGraph.add((peticioEnviament, RDF.type, FOAF.PeticioEnviament))
+                missatgeEnviament = Graph()
+                centreReciever = None
+                if str(cl) == 'cl1':
+                    centreReciever = CentroLogistico1
+                elif str(cl) == 'cl2':
+                    centreReciever = CentroLogistico2
+                elif str(cl) == 'cl3':
+                    centreReciever = CentroLogistico3
+                elif str(cl) == 'cl4':
+                    centreReciever = CentroLogistico4
+                elif str(cl) == 'cl5':
+                    centreReciever = CentroLogistico5
+                    
+                missatgeEnviament = build_message(envGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=centreReciever.uri, content=env_obj)
+                response = send_message(missatgeEnviament, centreReciever.address)
                 
-                envGraph.add((peticioEnviament, FOAF.prod, Literal("IntroduirNombreProducte")))
-                envGraph.add((peticioEnviament, FOAF.latClient, Literal("introduirLatClient")))
-                envGraph.add((peticioEnviament, FOAF.longClient, Literal("introduirLongClient")))
-                envGraph.add((peticioEnviament, FOAF.quant, Literal("introduirquantitatProducteClient")))
+                #mirar el preu que envia centre logistic a la response i enviarlo al client
+                message = request.args['content']
+                gm = Graph()
+                gm.parse(data=message)
+                msgdic = get_message_properties(gm)
                 
-                gr = build_message(envGraph,
-                           ACL['not-understood'],
-                           sender=PlataformaAgent.uri,
-                           msgcnt=mss_cnt)
+                #Mirem si es un msg FIPA ACL
+                if not msgdic:
+                    #Si no ho es, responem not understood
+                    logger.info('Msg no es FIPA ACL')
+                    gr = build_message(Graph(),
+                                       ACL['not-understood'],
+                                       sender=PlataformaAgent.uri,
+                                       msgcnt=mss_cnt)
+                else:
+                    #Si ho es obtenim la performativa
+                    if msgdic['performative'] != ACL.request:
+                        #No es un request, not understood
+                        logger.info('Msg no es una request')
+                        gr = build_message(Graph(),
+                                       ACL['not-understood'],
+                                       sender=PlataformaAgent.uri,
+                                       msgcnt=mss_cnt)
+                    else:
+                        #Mirem tipus request
+                        content = msgdic['content']
+                        action = gm.value(subject=content, predicate=RDF.type)
+                        print('La action es:', action)
+                        print('La action hauria de ser:', REQ.PeticioCompra)
+                        
+                        #placeholder
+                        if action == REQ.confirmarEnviament:
+                            content = msgdic['content']
+                            preuEnvio = gm.value(subject=content, predicate=REQ.preuEnvioProd)
+                            #enviar factura a client
+                        else:
+                            logger.info('Es una request que no entenem')
+                            gr = build_message(Graph(),
+                                       ACL['not-understood'],
+                                       sender=PlataformaAgent.uri,
+                                       msgcnt=mss_cnt)
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
