@@ -26,13 +26,13 @@ from Agent import Agent
 from AgentUtil.Logging import config_logger
 from ACLMessages import build_message, get_message_properties, send_message
 from OntoNamespaces import ACL, DSO, RDF, REQ, XSD, OWL
+from Agent import portAgentEmpresa
 
 limR = [1, 6]  
     
 # Configuration stuff
 hostname = "localhost"
 ip = 'localhost'
-port = 9000
 
 agn = Namespace("http://www.agentes.org#")
                 
@@ -43,13 +43,13 @@ mss_cnt = 0
 
 # Datos del Agente
 
-AgentCentreLogistic = Agent('CentreLogistic1',
-                        agn.AgentCentreLogistic,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
+EmpresaTransportista = Agent('EmpresaTransportista',
+                             agn.EmpresaTransportista,
+                             'http://%s:%d/comm' % (hostname, portAgentEmpresa),
+                             'http://%s:%d/comm' % (hostname, portAgentEmpresa))
 
+print(portAgentEmpresa)
 
-EmpresaTransportista = Agent('EmpresaTransportista', agn.EmpresaTransportista, '', '')
 
 # Global triplestore graph
 dsgraph = Graph()
@@ -97,15 +97,27 @@ def comunicacion():
             #Mirem tipus request
             content = msgdic['content']
             action = gm.value(subject=content, predicate=RDF.type)
+            print('La action es:', action)
+            print('La action hauria de ser:', REQ.PeticioEmpresa)
             
             if action == REQ.PeticioEmpresa:
                 logger.info('Es demana preu')
+                print('------------------------Rebem peticio------------------------')
                 
                 #obté pes, ciutat desti i plaç màxim d'entrega per ara HARDCODED
-                pes = 2
+                
+                content = msgdic['content']
+                pes = gm.value(subject=content, predicate=REQ.PesProductes)
+                #pes = 2
                 ciutatDesti = 'Barcelona'
                 diaMaxim = '15/10/2021'
-                conjuntEmpreses = ['empresa_1', 'empresa_2', 'empresa_3', 'empresa_4', 'empresa_5']
+                #conjuntEmpreses = ['empresa_1', 'empresa_2', 'empresa_3', 'empresa_4', 'empresa_5']
+                conjuntEmpreses = []
+                conjuntEmpreses.append(str(gm.value(subject=content, predicate=REQ.CJE1)))
+                conjuntEmpreses.append(str(gm.value(subject=content, predicate=REQ.CJE2)))
+                conjuntEmpreses.append(str(gm.value(subject=content, predicate=REQ.CJE3)))
+                conjuntEmpreses.append(str(gm.value(subject=content, predicate=REQ.CJE4)))
+                conjuntEmpreses.append(str(gm.value(subject=content, predicate=REQ.CJE5)))
                 
                 gResposta = Graph()
                 gResposta.bind('req', REQ)
@@ -113,7 +125,9 @@ def comunicacion():
         
                 xsddatatypes = {'s': XSD.string, 'i': XSD.int, 'f': XSD.float}
                 result_properties = {'Nombre': 's',
-                          'Precio': 'i'}
+                          'Precio': 'f'}
+                
+                print('HOLA1')
                 
                 for prop in result_properties:
                     if result_properties[prop] in ['s', 'i', 'f']:
@@ -125,12 +139,28 @@ def comunicacion():
     
                 gResposta.add((REQ.RespostaEmpresa, RDF.type, OWL.Class))
                 
+                print('HOLA2')
+                print('Conjunt empreses:', conjuntEmpreses)
+                print('Tamany empreses:', len(conjuntEmpreses))
                 
-                for row in conjuntEmpreses:
-                    preu = pes * random.uniform(limR[0], limR[1])
+                for i in range(0, len(conjuntEmpreses)):
+                    print('Estic dins: ', i)
+                    preu = int(pes) * random.uniform(limR[0], limR[1])
                     gResposta.add((resposta_obj, RDF.type, REQ.RespostaEmpresa))
-                    gResposta.add((resposta_obj, REQ['Nombre'], row))
-                    gResposta.add((resposta_obj, REQ['Precio'], preu))
+                    print('Estic a dins del bucle:', conjuntEmpreses[i])
+                    gResposta.add((resposta_obj, REQ['Nombre'], Literal(conjuntEmpreses[i])))
+                    print('Estic a dins del bucle2:', conjuntEmpreses[i])
+                    gResposta.add((resposta_obj, REQ['Precio'], Literal(preu)))
+                    print(preu)
+                    
+#                for row in conjuntEmpreses:
+#                    print('Estic dins bucle:', row)
+#                    preu = pes * random.uniform(limR[0], limR[1])
+#                    gResposta.add((resposta_obj, RDF.type, REQ.RespostaEmpresa))
+#                    gResposta.add((resposta_obj, REQ['Nombre'], row))
+#                    gResposta.add((resposta_obj, REQ['Precio'], preu))
+                
+                print('------------------------Preparat per retornar resposta------------------------')
                 
                 gr = build_message(gResposta,
                            ACL['inform-done'],
@@ -182,7 +212,7 @@ if __name__ == '__main__':
     ab1.start()
 
     # Ponemos en marcha el servidor
-    app.run(host=hostname, port=port)
+    app.run(host=hostname, port=portAgentEmpresa)
 
     # Esperamos a que acaben los behaviors
     ab1.join()

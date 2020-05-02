@@ -24,11 +24,12 @@ from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ, PrOntPr, PrOntRes, CenOntR
 from OntoNamespaces import LocCenOntRes, LocCenOntPr, LocCenOnt
 from AgentUtil.Logging import config_logger
 from math import sin, cos, sqrt, atan2, radians
+from Agent import portGestorPlataforma, portCentreLogistic
 
 # Configuration stuff
 hostname = "localhost"
 ip = 'localhost'
-port = 9000
+port = 9070
 
 #logger = config_logger(level=1, file="./logs/AgentCercador")
 logger = config_logger(level=1)
@@ -41,14 +42,14 @@ mss_cnt = 0
 # Datos del Agente
 PlataformaAgent = Agent('PlataformaAgent',
                         agn.PlataformaAgent,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
+                        'http://%s:%d/comm' % (hostname, portGestorPlataforma),
+                        'http://%s:%d/Stop' % (hostname, portGestorPlataforma))
 
 #Cargar los centros logisticos
 CentroLogistico1 = Agent('CentroLogistico1',
                         agn.cl1,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
+                        'http://%s:%d/comm' % (hostname, portCentreLogistic),
+                        'http://%s:%d/Stop' % (hostname, portCentreLogistic))
 CentroLogistico2 = Agent('CentroLogistico2',
                         agn.cl2,
                         'http://%s:%d/comm' % (hostname, port),
@@ -262,9 +263,25 @@ def comunicacion():
                 missatgeEnviament = build_message(envGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=centreReciever.uri, content=env_obj)
                 response = send_message(missatgeEnviament, centreReciever.address)
                 
-                preuEnv = 0 #obtenir de response
+                query = """
+                      SELECT ?nombre ?precio 
+                      WHERE {
+                      ?a REQ:NomEmpresa ?nombre .
+                      ?a REQ:Preu ?precio .
+                      }
+                      """
+                qres = response.query(query, initNs = {'REQ': REQ})
+                
+                nomE = None
+                preuEnv = None
+                
+                for row in qres:
+                    nomE = row['nombre']
+                    preuEnv = row['precio']
                 preuProducte = buscarPreuProducte(nombreProd)
                 preuTot = Literal(float(preuEnv)+float(preuProducte))
+                
+                print('Preparant factura...')
                 
                 contentFactura = Graph()
                 contentFactura.bind('req', REQ)
@@ -274,6 +291,9 @@ def comunicacion():
                 contentFactura.add((factura_obj, REQ.preuEnviament, Literal(preuEnv)))
                 contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
                 contentFactura.add((factura_obj, REQ.preuTotal, preuTot))
+                contentFactura.add((factura_obj, REQ.nomEmpresa, nomE))
+                
+                print('Factura creada')
                 
                 gr = contentFactura               
             else:
@@ -325,7 +345,7 @@ if __name__ == '__main__':
     ab1.start()
 
     # Ponemos en marcha el servidor
-    app.run(host=hostname, port=port)
+    app.run(host=hostname, port=portGestorPlataforma)
 
     # Esperamos a que acaben los behaviors
     ab1.join()

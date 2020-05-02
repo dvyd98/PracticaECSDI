@@ -23,6 +23,7 @@ from FlaskServer import shutdown_server
 from Agent import Agent
 from ACLMessages import build_message, send_message
 from OntoNamespaces import ACL, DSO, RDF, PrOnt, PrOntPr, PrOntRes, REQ
+from Agent import portGestorPlataforma, portCerca
 
 # Configuration stuff
 hostname = "localhost"
@@ -38,13 +39,13 @@ mss_cnt = 0
 
 PlataformaAgent = Agent('PlataformaAgent',
                         agn.PlataformaAgent,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
+                        'http://%s:%d/comm' % (hostname, portGestorPlataforma),
+                        'http://%s:%d/Stop' % (hostname, portGestorPlataforma))
 
 AgentCercador = Agent('AgentCercador',
                        agn.AgentCercador,
-                       'http://%s:%d/comm' % (hostname, port),
-                       'http://%s:%d/Stop' % (hostname, port))
+                       'http://%s:%d/comm' % (hostname, portCerca),
+                       'http://%s:%d/Stop' % (hostname, portCerca))
 
 Client = Agent('Client', agn.Client, '', '')
 
@@ -63,6 +64,24 @@ messageCompra = build_message(contentPeticioCompra, perf=ACL.request, sender=Cli
 print('EnviemPeticioCompra')
 response = send_message(messageCompra, PlataformaAgent.address)
 print('Resposta: ', response)
+query = """
+        SELECT ?nomP ?preuEnviament ?preuProd ?preuTotal ?nomEmpresa
+        WHERE {
+            ?a REQ:nomP ?nomP .
+            ?a REQ:preuEnviament ?preuEnviament .
+            ?a REQ:preuProd ?preuProd .
+            ?a REQ:preuTotal ?preuTotal .
+            ?a REQ:nomEmpresa ?nomEmpresa .
+        }
+        """
+qres = response.query(query, initNs = {'REQ': REQ})
+print('-------------------FACTURA--------------------')
+for row in qres:
+    print('NomProducte:',row['nomP'])
+    print('PreuEnviament:',row['preuEnviament'])
+    print('PreuProducte:',row['preuProd'])
+    print('PreuTotal:',row['preuTotal'])
+    print('NomEmpresa:',row['nomEmpresa'])
 print('FinalitzemPeticioCompra')
 
 '''

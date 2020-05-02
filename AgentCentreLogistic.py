@@ -15,7 +15,7 @@ import os
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, RDF
+from rdflib import Namespace, Graph, RDF, RDFS, FOAF, Literal
 from flask import Flask, request
 
 from AgentUtil.FlaskServer import shutdown_server
@@ -24,13 +24,14 @@ from AgentUtil.Logging import config_logger
 
 from ACLMessages import build_message, get_message_properties, send_message
 from OntoNamespaces import ACL, EmOnt, EmOntPr, EmOntRes, REQ
+from Agent import portCentreLogistic, portAgentEmpresa
 
 __author__ = 'pball'
 
 
 # Configuration stuff
-hostname = socket.gethostname()
-port = 9010
+hostname = "localhost"
+ip = 'localhost'
 
 #logger = config_logger(level=1, file="./logs/AgentCentreLogistic")
 logger = config_logger(level=1)
@@ -43,12 +44,15 @@ mss_cnt = 0
 # Datos del Agente
 
 #AgentCentreLogistic = None
-AgentCentreLogistic = Agent('CentreLogistic1',
-                       agn.AgentCentreLogistic,
-                      'http://%s:%d/comm' % (hostname, port),
-                      'http://%s:%d/Stop' % (hostname, port))
+CentroLogistico1 = Agent('CentroLogistico1',
+                        agn.cl1,
+                        'http://%s:%d/comm' % (hostname, portCentreLogistic),
+                        'http://%s:%d/Stop' % (hostname, portCentreLogistic))
 
-EmpresaTransportista = Agent('EmpresaTransportista', agn.EmpresaTransportista, '', '')
+EmpresaTransportista = Agent('EmpresaTransportista',
+                             agn.EmpresaTransportista,
+                             'http://%s:%d/comm' % (hostname, portAgentEmpresa),
+                             'http://%s:%d/comm' % (hostname, portAgentEmpresa))
 
 
 # Global triplestore graph
@@ -85,6 +89,7 @@ def comunicacion():
             
         print('\n')       
         print('conjuntEmpreses:', conjuntEmpreses)
+        print('len conjuntEmpreses:', len(conjuntEmpreses))
         print('\n')  
         
         #construeix el graph per passar a l'empresa
@@ -94,12 +99,22 @@ def comunicacion():
         
         contentPeticioEmpresa.add((enviament_obj, RDF.type, REQ.PeticioEmpresa))
         contentPeticioEmpresa.add((enviament_obj, REQ.PesProductes, pes))
-        contentPeticioEmpresa.add((enviament_obj, REQ.CiutatDesti, ciutatDesti))
-        contentPeticioEmpresa.add((enviament_obj, REQ.DiaMaxim, diaMaxim))
-        contentPeticioEmpresa.add((enviament_obj, REQ.ConjuntEmpreses, conjuntEmpreses))
+        contentPeticioEmpresa.add((enviament_obj, REQ.CiutatDesti, Literal(ciutatDesti)))
+        contentPeticioEmpresa.add((enviament_obj, REQ.DiaMaxim, Literal(diaMaxim)))
+        e = str(conjuntEmpreses[0])
+        contentPeticioEmpresa.add((enviament_obj, REQ.CJE1, Literal(e)))
+        e = str(conjuntEmpreses[1])
+        contentPeticioEmpresa.add((enviament_obj, REQ.CJE2, Literal(e)))
+        e = str(conjuntEmpreses[2])
+        contentPeticioEmpresa.add((enviament_obj, REQ.CJE3, Literal(e)))
+        e = str(conjuntEmpreses[3])
+        contentPeticioEmpresa.add((enviament_obj, REQ.CJE4, Literal(e)))
+        e = str(conjuntEmpreses[4])
+        contentPeticioEmpresa.add((enviament_obj, REQ.CJE5, Literal(e)))
+        
         
         messageEmpresa = Graph()
-        messageEmpresa = build_message(contentPeticioEmpresa, perf=ACL.request, sender=AgentCentreLogistic.uri, msgcnt=0, receiver=EmpresaTransportista.uri, content=enviament_obj)
+        messageEmpresa = build_message(contentPeticioEmpresa, perf=ACL.request, sender=CentroLogistico1.uri, msgcnt=0, receiver=EmpresaTransportista.uri, content=enviament_obj)
         
         #envia missatge a l'Agent EmpresaTransportista
         response = send_message(messageEmpresa, EmpresaTransportista.address)
@@ -158,7 +173,7 @@ def comunicacion():
         logger.info('Msg no es FIPA ACL')
         gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCentreLogistic.uri,
+                           sender=CentroLogistico1.uri,
                            msgcnt=mss_cnt)
     else:
         #Si ho es obtenim la performativa
@@ -167,39 +182,43 @@ def comunicacion():
             logger.info('Msg no es una request')
             gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCentreLogistic.uri,
+                           sender=CentroLogistico1.uri,
                            msgcnt=mss_cnt)
         else:
             #Mirem tipus request
             content = msgdic['content']
             action = gm.value(subject=content, predicate=RDF.type)
+            print('La action es:', action)
+            print('La action hauria de ser:', REQ.PeticioEmpresa)
             
             if action == REQ.PeticioEnviament:
                 logger.info('Es delega enviament')
-                
+                print('Rebut peticio de delegar enviament')
+
                 #obtenir info per passar empresa HARDCODED DE MOMENT
-                pes = 2
+                #pes = 2
                 ciutatDesti = 'Barcelona'
                 diaMaxim = '15/10/2021'
                 
-                #Encara no es pot fer
-#               content = msgdic['content']
-#               pes = gm.value(subject=content, predicate=REQ.PesProducte)
-#               ciutatDesti = gm.value(subject=content, predicate=REQ.CiutatDesti)
-#               diaMaxim = gm.value(subject=content, predicate=REQ.DiaMaxim)
+                content = msgdic['content']
+                pes = gm.value(subject=content, predicate=REQ.quant)
+                #ciutatDesti = gm.value(subject=content, predicate=REQ.CiutatDesti)
+                #diaMaxim = gm.value(subject=content, predicate=REQ.DiaMaxim)
             
                 #escollir millor empresa
+                print('El pes rebut es: ', pes, '\n')
+                print('Preparar enviar peticio a empresa transportista')
                 gResposta = negociarTransport(pes, ciutatDesti, diaMaxim)
                 
                 gr = build_message(gResposta,
                            ACL['inform-done'],
-                           sender=AgentCentreLogistic.uri,
+                           sender=CentroLogistico1.uri,
                            msgcnt=mss_cnt)
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCentreLogistic.uri,
+                           sender=CentroLogistico1.uri,
                            msgcnt=mss_cnt)
                 
         mss_cnt += 1
@@ -252,7 +271,7 @@ if __name__ == '__main__':
     #ab2.start()
 
     # Ponemos en marcha el servidor
-    app.run(host=hostname, port=port)
+    app.run(host=hostname, port=portCentreLogistic)
 
     # Esperamos a que acaben los behaviors
     ab1.join()

@@ -32,6 +32,7 @@ from OntoNamespaces import ACL, DSO, RDF, XSD, OWL, PrOnt, PrOntPr, PrOntRes, RE
 from AgentUtil.Logging import config_logger
 from urllib.parse import urlparse
 from pathlib import PurePosixPath
+from Agent import portCerca
 
 __author__ = 'javier'
 
@@ -39,7 +40,6 @@ __author__ = 'javier'
 # Configuration stuff
 hostname = "localhost"
 ip = 'localhost'
-port = 9000
 
 #logger = config_logger(level=1, file="./logs/AgentCercador")
 logger = config_logger(level=1)
@@ -53,8 +53,8 @@ mss_cnt = 0
 
 AgentCercador = Agent('AgentCercador',
                        agn.AgentCercador,
-                       'http://%s:%d/comm' % (hostname, port),
-                       'http://%s:%d/Stop' % (hostname, port))
+                       'http://%s:%d/comm' % (hostname, portCerca),
+                       'http://%s:%d/Stop' % (hostname, portCerca))
 
 # placeholder, to be completed
 DirectoryAgent = Agent('DirectoryAgent',
@@ -257,7 +257,7 @@ if __name__ == '__main__':
     ab1.start()
 
     # Ponemos en marcha el servidor
-    app.run(host=hostname, port=port)
+    app.run(host=hostname, port=portCerca)
 
     # Esperamos a que acaben los behaviors
     ab1.join()

@@ -11,6 +11,11 @@ Agent
 
 __author__ = 'bejar'
 
+portClient = 9000
+portGestorPlataforma = 9001
+portCentreLogistic = 9002
+portAgentEmpresa = 9003
+portCerca = 9050
 
 class Agent():
     def __init__(self, name, uri, address, stop):
