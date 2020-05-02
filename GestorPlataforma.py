@@ -73,6 +73,27 @@ dsgraph = Graph()
 
 cola1 = Queue()
 
+def buscarPreuProducte(nombreProd):
+    preu = Literal(0)
+    g=rdflib.Graph()
+    g.parse("./Ontologies/product.owl", format="xml")
+    
+    query = """SELECT ?nombre ?precio
+              WHERE {
+              ?a PrOntPr:nombre ?nombre .
+              ?a PrOntPr:precio ?precio .
+              
+              }
+              """
+    
+    qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
+    for row in qres:
+        if row['nombre'] == nombreProd:
+            preu = row['precio']
+            break
+    
+    return preu
+
 def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
     centresDisponibles = []
     #buscar els centres logistics que tinguin el producte disponible
@@ -235,50 +256,26 @@ def comunicacion():
                 elif str(cl) == 'cl5':
                     centreReciever = CentroLogistico5
                     
+                #per ara enviarem sempre al mateix centre (segona entrega)
+                centreReciever = CentroLogistico1
+                    
                 missatgeEnviament = build_message(envGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=centreReciever.uri, content=env_obj)
                 response = send_message(missatgeEnviament, centreReciever.address)
                 
-                #mirar el preu que envia centre logistic a la response i enviarlo al client
-                message = request.args['content']
-                gm = Graph()
-                gm.parse(data=message)
-                msgdic = get_message_properties(gm)
+                preuEnv = 0 #obtenir de response
+                preuProducte = buscarPreuProducte(nombreProd)
+                preuTot = Literal(float(preuEnv)+float(preuProducte))
                 
-                #Mirem si es un msg FIPA ACL
-                if not msgdic:
-                    #Si no ho es, responem not understood
-                    logger.info('Msg no es FIPA ACL')
-                    gr = build_message(Graph(),
-                                       ACL['not-understood'],
-                                       sender=PlataformaAgent.uri,
-                                       msgcnt=mss_cnt)
-                else:
-                    #Si ho es obtenim la performativa
-                    if msgdic['performative'] != ACL.request:
-                        #No es un request, not understood
-                        logger.info('Msg no es una request')
-                        gr = build_message(Graph(),
-                                       ACL['not-understood'],
-                                       sender=PlataformaAgent.uri,
-                                       msgcnt=mss_cnt)
-                    else:
-                        #Mirem tipus request
-                        content = msgdic['content']
-                        action = gm.value(subject=content, predicate=RDF.type)
-                        print('La action es:', action)
-                        print('La action hauria de ser:', REQ.PeticioCompra)
-                        
-                        #placeholder
-                        if action == REQ.confirmarEnviament:
-                            content = msgdic['content']
-                            preuEnvio = gm.value(subject=content, predicate=REQ.preuEnvioProd)
-                            #enviar factura a client
-                        else:
-                            logger.info('Es una request que no entenem')
-                            gr = build_message(Graph(),
-                                       ACL['not-understood'],
-                                       sender=PlataformaAgent.uri,
-                                       msgcnt=mss_cnt)
+                contentFactura = Graph()
+                contentFactura.bind('req', REQ)
+                factura_obj = agn['factura']
+                contentFactura.add((factura_obj, RDF.type, REQ.confirmacioAmbFactura))
+                contentFactura.add((factura_obj, REQ.nomP, nombreProd))
+                contentFactura.add((factura_obj, REQ.preuEnviament, Literal(preuEnv)))
+                contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
+                contentFactura.add((factura_obj, REQ.preuTotal, preuTot))
+                
+                gr = contentFactura               
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
@@ -320,8 +317,8 @@ def agentbehavior1(cola):
 
 if __name__ == '__main__':
       
-    #print('BuscarCentreLogistic:')
-    #print(buscarCentreLogistic('nombre_Blender_0FUO3Q', 1, 42.20064, 2.19033))
+    #print('BUSCAR PREU PRODUCTE:')
+    #print(buscarPreuProducte(Literal('nombre_Blender_4ARQ13')))
     
     # Ponemos en marcha los behaviors
     ab1 = Process(target=agentbehavior1, args=(cola1,))
