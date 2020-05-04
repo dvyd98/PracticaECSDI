@@ -1,456 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
-   xmlns:acl="http://www.nuin.org/ontology/fipa/acl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
-<<<<<<< HEAD
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_C09WLE">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Blender_K27OOM</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</req:Precio>
-    <req:Nombre>nombre_Blender_C09WLE</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_49EV8O">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">53</req:Precio>
-    <req:Nombre>nombre_Blender_49EV8O</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_D5RFWM">
     <req:Categoria>Blender</req:Categoria>
     <req:Marca>Marca_Blender_J40YC5</req:Marca>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">70</req:Precio>
+    <req:Nombre>nombre_Blender_D5RFWM</req:Nombre>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_OMJJ01">
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</req:Precio>
+    <req:Categoria>Blender</req:Categoria>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
     <req:Marca>Marca_Blender_J40YC5</req:Marca>
     <req:Nombre>nombre_Blender_OMJJ01</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_D5RFWM">
-    <req:Nombre>nombre_Blender_D5RFWM</req:Nombre>
-    <req:Marca>Marca_Blender_J40YC5</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">70</req:Precio>
-    <req:Categoria>Blender</req:Categoria>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_1F3CND">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_1F3CND</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">89</req:Precio>
-    <req:Marca>Marca_Blender_M3KE9H</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_2VFR6C">
-    <req:Nombre>nombre_Blender_2VFR6C</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">63</req:Precio>
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_974KI5">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_D6OHVV</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">47</req:Precio>
-    <req:Nombre>nombre_Blender_974KI5</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_1FU0NR">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_1FU0NR</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">92</req:Precio>
-    <req:Marca>Marca_Blender_D6OHVV</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_J4QXBT">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Blender_K27OOM</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">33</req:Precio>
-    <req:Nombre>nombre_Blender_J4QXBT</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_Z8VNWB">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">92</req:Precio>
-    <req:Nombre>nombre_Blender_Z8VNWB</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_0H184J</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_8DZMMO">
-    <req:Nombre>nombre_Blender_8DZMMO</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">71</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_L6B8K3">
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">61</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Blender_L6B8K3</req:Nombre>
-    <req:Marca>Marca_Blender_K27OOM</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_V2IY42">
-    <req:Marca>Marca_Blender_YQOAXN</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_V2IY42</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">98</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_BGY1S7">
-    <req:Marca>Marca_Blender_K27OOM</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">48</req:Precio>
-    <req:Nombre>nombre_Blender_BGY1S7</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_CJRWQV">
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</req:Precio>
-    <req:Marca>Marca_Blender_PSOPGX</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Blender_CJRWQV</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_5XG48M">
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Blender_5XG48M</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_P8TFKU">
-    <req:Nombre>nombre_Blender_P8TFKU</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">35</req:Precio>
-    <req:Marca>Marca_Blender_D6OHVV</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_YRCI4O">
-    <req:Nombre>nombre_Blender_YRCI4O</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</req:Precio>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_PSOPGX</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_T12EG3">
-    <req:Nombre>nombre_Blender_T12EG3</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</req:Precio>
-    <req:Marca>Marca_Blender_M3KE9H</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_21SHBG">
-    <req:Nombre>nombre_Blender_21SHBG</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56</req:Precio>
-    <req:Marca>Marca_Blender_J40YC5</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_AHKRNC">
-    <req:Nombre>nombre_Blender_AHKRNC</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_0H184J</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Peso">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_X9PYQC">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">67</req:Precio>
-    <req:Nombre>nombre_Blender_X9PYQC</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Blender_1C4JKF</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Categoria">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_DHYMM4">
-    <req:Nombre>nombre_Blender_DHYMM4</req:Nombre>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Blender_M3KE9H</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_XD4OPP">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">48</req:Precio>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_YQOAXN</req:Marca>
-    <req:Nombre>nombre_Blender_XD4OPP</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_NTL9OT">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_NTL9OT</req:Nombre>
-    <req:Marca>Marca_Blender_D6OHVV</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_GAIC5P">
-    <req:Marca>Marca_Blender_0H184J</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Blender_GAIC5P</req:Nombre>
-    <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_RCJYEM">
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_K27OOM</req:Marca>
-    <req:Nombre>nombre_Blender_RCJYEM</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">69</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_E4FS58">
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">96</req:Precio>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Marca>Marca_Blender_J40YC5</req:Marca>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
     <req:Nombre>nombre_Blender_E4FS58</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">96</req:Precio>
-    <req:Marca>Marca_Blender_J40YC5</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_TMYO1N">
-    <req:Categoria>Blender</req:Categoria>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Blender_TMYO1N</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">89</req:Precio>
-    <req:Marca>Marca_Blender_YQOAXN</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_RP0JD0">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_RP0JD0</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">57</req:Precio>
-    <req:Marca>Marca_Blender_1C4JKF</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_4JWIW6">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">58</req:Precio>
-    <req:Marca>Marca_Blender_D6OHVV</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_4JWIW6</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_1BZM1W">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">95</req:Precio>
-    <req:Nombre>nombre_Blender_1BZM1W</req:Nombre>
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_X5WR7W">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">81</req:Precio>
-    <req:Nombre>nombre_Blender_X5WR7W</req:Nombre>
-    <req:Marca>Marca_Blender_0H184J</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_B9NMBU">
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_YQOAXN</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">65</req:Precio>
-    <req:Nombre>nombre_Blender_B9NMBU</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_X9P1C9">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">85</req:Precio>
-    <req:Marca>Marca_Blender_YQOAXN</req:Marca>
-    <req:Nombre>nombre_Blender_X9P1C9</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_8DWRG5">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">49</req:Precio>
-    <req:Nombre>nombre_Blender_8DWRG5</req:Nombre>
-    <req:Marca>Marca_Blender_0H184J</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_A7JYCZ">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">33</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-    <req:Nombre>nombre_Blender_A7JYCZ</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_ZTXHMB">
-    <req:Nombre>nombre_Blender_ZTXHMB</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">63</req:Precio>
-    <req:Marca>Marca_Blender_PSOPGX</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_S1Q39Y">
-    <req:Nombre>nombre_Blender_S1Q39Y</req:Nombre>
-    <req:Marca>Marca_Blender_1C4JKF</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">55</req:Precio>
-    <req:Categoria>Blender</req:Categoria>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_LGRSMD">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">54</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_LBDZ7J</req:Marca>
-    <req:Nombre>nombre_Blender_LGRSMD</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_Q7QQRP">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Blender_M3KE9H</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_Q7QQRP</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_HWA7E0">
-    <req:Nombre>nombre_Blender_HWA7E0</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">48</req:Precio>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_1C4JKF</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_L482M7">
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_K27OOM</req:Marca>
-    <req:Nombre>nombre_Blender_L482M7</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_3I0WDK">
-    <req:Nombre>nombre_Blender_3I0WDK</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">41</req:Precio>
-    <req:Marca>Marca_Blender_K27OOM</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_LK7C2P">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44</req:Precio>
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_LK7C2P</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_L1WR8N">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-    <req:Nombre>nombre_Blender_L1WR8N</req:Nombre>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_GIAH36">
-    <req:Nombre>nombre_Blender_GIAH36</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">73</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_7OMSXZ">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">62</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_PSOPGX</req:Marca>
-    <req:Nombre>nombre_Blender_7OMSXZ</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_4ARQ13">
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_7NOTUO</req:Marca>
-    <req:Nombre>nombre_Blender_4ARQ13</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">31</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_BYYMIU">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">49</req:Precio>
-    <req:Categoria>Blender</req:Categoria>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Blender_1C4JKF</req:Marca>
-    <req:Nombre>nombre_Blender_BYYMIU</req:Nombre>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_6KT2VI">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</req:Precio>
     <req:Categoria>Blender</req:Categoria>
     <req:Marca>Marca_Blender_J40YC5</req:Marca>
     <req:Nombre>nombre_Blender_6KT2VI</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_S6VK45">
-    <req:Nombre>nombre_Blender_S6VK45</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_PSOPGX</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_0933C0">
-    <req:Marca>Marca_Blender_YQOAXN</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_0933C0</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">77</req:Precio>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_HSDEBW">
-    <req:Nombre>nombre_Blender_HSDEBW</req:Nombre>
-    <req:Marca>Marca_Blender_PSOPGX</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">31</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_21SHBG">
+    <req:Marca>Marca_Blender_J40YC5</req:Marca>
     <req:Categoria>Blender</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Precio">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_0FUO3Q">
+    <req:Nombre>nombre_Blender_21SHBG</req:Nombre>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56</req:Precio>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_49EV8O">
+    <req:Marca>Marca_Blender_J40YC5</req:Marca>
+    <req:Nombre>nombre_Blender_49EV8O</req:Nombre>
     <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_0H184J</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">73</req:Precio>
-    <req:Nombre>nombre_Blender_0FUO3Q</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_L3P0GG">
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Blender_PSOPGX</req:Marca>
-    <req:Nombre>nombre_Blender_L3P0GG</req:Nombre>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_MYTKBL">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</req:Precio>
-    <req:Nombre>nombre_Blender_MYTKBL</req:Nombre>
-    <req:Marca>Marca_Blender_M3KE9H</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">53</req:Precio>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Marca">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_QJI1A6">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">97</req:Precio>
-    <req:Nombre>nombre_Blender_QJI1A6</req:Nombre>
-    <req:Marca>Marca_Blender_K27OOM</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Peso">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_AI840K">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</req:Precio>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Marca>Marca_Blender_0H184J</req:Marca>
-    <req:Nombre>nombre_Blender_AI840K</req:Nombre>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Blender_UQM4Q7">
-    <req:Marca>Marca_Blender_0H184J</req:Marca>
-    <req:Categoria>Blender</req:Categoria>
-    <req:Nombre>nombre_Blender_UQM4Q7</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">49</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-=======
-  <rdf:Description rdf:about="http://www.nuin.org/ontology/fipa/acl#message-3153780059455521567-0001">
-    <rdf:type rdf:resource="http://www.nuin.org/ontology/fipa/acl#FipaAclMessage"/>
-    <acl:sender rdf:resource="http://www.agentes.org#PlataformaAgent"/>
-    <acl:performative rdf:resource="http://www.nuin.org/ontology/fipa/acl#not-understood"/>
->>>>>>> 7bd48ecb44633e44b7d5ae3bc885f46785acb860
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Precio">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
   </rdf:Description>
 </rdf:RDF>
