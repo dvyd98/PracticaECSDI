@@ -98,7 +98,7 @@ def comunicacion():
         enviament_obj = agn['enviament']
         
         contentPeticioEmpresa.add((enviament_obj, RDF.type, REQ.PeticioEmpresa))
-        contentPeticioEmpresa.add((enviament_obj, REQ.PesProductes, pes))
+        contentPeticioEmpresa.add((enviament_obj, REQ.QuantProductes, pes))
         contentPeticioEmpresa.add((enviament_obj, REQ.CiutatDesti, Literal(ciutatDesti)))
         contentPeticioEmpresa.add((enviament_obj, REQ.DiaMaxim, Literal(diaMaxim)))
         e = str(conjuntEmpreses[0])

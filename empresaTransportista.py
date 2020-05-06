@@ -107,7 +107,7 @@ def comunicacion():
                 #obté pes, ciutat desti i plaç màxim d'entrega per ara HARDCODED
                 
                 content = msgdic['content']
-                pes = gm.value(subject=content, predicate=REQ.PesProductes)
+                pes = gm.value(subject=content, predicate=REQ.QuantProductes)
                 #pes = 2
                 ciutatDesti = 'Barcelona'
                 diaMaxim = '15/10/2021'
@@ -121,7 +121,7 @@ def comunicacion():
                 
                 gResposta = Graph()
                 gResposta.bind('req', REQ)
-                resposta_obj = agn['resposta']
+                resposta_empresa = agn['resposta']
         
                 xsddatatypes = {'s': XSD.string, 'i': XSD.int, 'f': XSD.float}
                 result_properties = {'Nombre': 's',
@@ -146,19 +146,19 @@ def comunicacion():
                 for i in range(0, len(conjuntEmpreses)):
                     print('Estic dins: ', i)
                     preu = int(pes) * random.uniform(limR[0], limR[1])
-                    gResposta.add((resposta_obj, RDF.type, REQ.RespostaEmpresa))
+                    gResposta.add((resposta_empresa, RDF.type, REQ.RespostaEmpresa))
                     print('Estic a dins del bucle:', conjuntEmpreses[i])
-                    gResposta.add((resposta_obj, REQ['Nombre'], Literal(conjuntEmpreses[i])))
+                    gResposta.add((resposta_empresa, REQ['Nombre'], Literal(conjuntEmpreses[i])))
                     print('Estic a dins del bucle2:', conjuntEmpreses[i])
-                    gResposta.add((resposta_obj, REQ['Precio'], Literal(preu)))
+                    gResposta.add((resposta_empresa, REQ['Precio'], Literal(preu)))
                     print(preu)
                     
 #                for row in conjuntEmpreses:
 #                    print('Estic dins bucle:', row)
 #                    preu = pes * random.uniform(limR[0], limR[1])
-#                    gResposta.add((resposta_obj, RDF.type, REQ.RespostaEmpresa))
-#                    gResposta.add((resposta_obj, REQ['Nombre'], row))
-#                    gResposta.add((resposta_obj, REQ['Precio'], preu))
+#                    gResposta.add((resposta_empresa, RDF.type, REQ.RespostaEmpresa))
+#                    gResposta.add((resposta_empresa, REQ['Nombre'], row))
+#                    gResposta.add((resposta_empresa, REQ['Precio'], preu))
                 
                 print('------------------------Preparat per retornar resposta------------------------')
                 

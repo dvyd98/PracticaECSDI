@@ -286,7 +286,7 @@ def comunicacion():
                 contentFactura = Graph()
                 contentFactura.bind('req', REQ)
                 factura_obj = agn['factura']
-                contentFactura.add((factura_obj, RDF.type, REQ.confirmacioAmbFactura))
+                contentFactura.add((factura_obj, RDF.type, REQ.ConfirmacioAmbFactura))
                 contentFactura.add((factura_obj, REQ.nomP, nombreProd))
                 contentFactura.add((factura_obj, REQ.preuEnviament, Literal(preuEnv)))
                 contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
