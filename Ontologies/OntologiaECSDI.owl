@@ -1,35 +1,26 @@
 <?xml version="1.0"?>
-
-
-<!DOCTYPE Ontology [
-    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
-    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
-    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
-    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-]>
-
-
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
      xml:base="http://www.semanticweb.org/gpoltra98/ontologies/2020/3/OntologiaECSI"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/gpoltra98/ontologies/2020/3/OntologiaECSI">
-    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="" IRI="http://www.semanticweb.org/gpoltra98/ontologies/2020/3/OntologiaECSI"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Annotation>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Ontologia de la pràctica de ECSDI Q2 2019-2020</Literal>
+        <Literal>Ontologia de la pràctica de ECSDI Q2 2019-2020</Literal>
     </Annotation>
     <Declaration>
-        <Class IRI="#BuscarProducte"/>
+        <Class IRI="#CentreLogistic"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#CentreLogistic"/>
+        <Class IRI="#CercarProducte"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ComprarProducte"/>
@@ -48,9 +39,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Filtre"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#OferirInformacioProducte"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Producte"/>
@@ -83,16 +71,16 @@
         <ObjectProperty IRI="#aEscollirEmpresa"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#aFiltrar"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#buscatPer"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#compostPer"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#delegarA"/>
+        <ObjectProperty IRI="#delegatA"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#demanatPer"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#enviatPer"/>
@@ -104,7 +92,7 @@
         <ObjectProperty IRI="#negociatPer"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#resultatCerca"/>
+        <ObjectProperty IRI="#utilitza"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#Categoria"/>
@@ -152,24 +140,12 @@
         <DataProperty IRI="#longitudCentreLogistic"/>
     </Declaration>
     <SubClassOf>
-        <Class IRI="#BuscarProducte"/>
-        <Class IRI="#OferirInformacioProducte"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Enviament"/>
-        <Class IRI="#ComprarProducte"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#EnviarProducte"/>
         <Class IRI="#ComprarProducte"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#EscollirEmpresaTransport"/>
         <Class IRI="#ComprarProducte"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Filtre"/>
-        <Class IRI="#OferirInformacioProducte"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#decidirCentreLogistic"/>
@@ -189,6 +165,10 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#aDelegar"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#delegatA"/>
         <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
     </SubObjectPropertyOf>
     <ObjectPropertyDomain>
@@ -212,10 +192,6 @@
         <Class IRI="#EscollirEmpresaTransport"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#aFiltrar"/>
-        <Class IRI="#BuscarProducte"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
         <ObjectProperty IRI="#buscatPer"/>
         <Class IRI="#Producte"/>
     </ObjectPropertyDomain>
@@ -224,8 +200,12 @@
         <Class IRI="#Enviament"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#delegarA"/>
-        <Class IRI="#decidirCentreLogistic"/>
+        <ObjectProperty IRI="#delegatA"/>
+        <Class IRI="#Enviament"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#demanatPer"/>
+        <Class IRI="#Producte"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#enviatPer"/>
@@ -240,8 +220,8 @@
         <Class IRI="#EscollirEmpresaTransport"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#resultatCerca"/>
-        <Class IRI="#Producte"/>
+        <ObjectProperty IRI="#utilitza"/>
+        <Class IRI="#CercarProducte"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#aComprar"/>
@@ -264,20 +244,20 @@
         <Class IRI="#EmpresaTransport"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#aFiltrar"/>
-        <Class IRI="#Filtre"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
         <ObjectProperty IRI="#buscatPer"/>
-        <Class IRI="#BuscarProducte"/>
+        <Class IRI="#Usuari"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#compostPer"/>
         <Class IRI="#Producte"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#delegarA"/>
+        <ObjectProperty IRI="#delegatA"/>
         <Class IRI="#CentreLogistic"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#demanatPer"/>
+        <Class IRI="#Usuari"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#enviatPer"/>
@@ -292,8 +272,8 @@
         <Class IRI="#CentreLogistic"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#resultatCerca"/>
-        <Class IRI="#Usuari"/>
+        <ObjectProperty IRI="#utilitza"/>
+        <Class IRI="#Filtre"/>
     </ObjectPropertyRange>
     <SubDataPropertyOf>
         <DataProperty IRI="#Categoria"/>
@@ -358,11 +338,11 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#llistaCentreLogistics</IRI>
-        <Literal datatypeIRI="&rdf;PlainLiteral">Un JSON que representa un array dels centres logisitics. Per a cada centre logistic, un array de producte-stock disponible en el centre.</Literal>
+        <Literal>Un JSON que representa un array dels centres logisitics. Per a cada centre logistic, un array de producte-stock disponible en el centre.</Literal>
     </AnnotationAssertion>
 </Ontology>
 
 
 
-<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
 
