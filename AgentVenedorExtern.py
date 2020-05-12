@@ -32,7 +32,7 @@ from OntoNamespaces import ACL, DSO, RDF, XSD, OWL, PrOnt, PrOntPr, PrOntRes, RE
 from AgentUtil.Logging import config_logger
 from urllib.parse import urlparse
 from pathlib import PurePosixPath
-from Agent import portCerca
+from Agent import portVenedorExtern
 
 __author__ = 'javier'
 
@@ -51,10 +51,10 @@ mss_cnt = 0
 
 # Datos del Agente
 
-AgentCercador = Agent('AgentCercador',
-                       agn.AgentCercador,
-                       'http://%s:%d/comm' % (hostname, portCerca),
-                       'http://%s:%d/Stop' % (hostname, portCerca))
+AgentVenedorExtern = Agent('AgentCercador',
+                       agn.AgentVenedorExtern,
+                       'http://%s:%d/comm' % (hostname, portVenedorExtern),
+                       'http://%s:%d/Stop' % (hostname, portVenedorExtern))
 
 # placeholder, to be completed
 DirectoryAgent = Agent('DirectoryAgent',
@@ -82,32 +82,33 @@ def comunicacion():
     """
     Entrypoint de comunicacion
     """
-    def getProductes():
+    def addProducte():
         global mss_cnt
-        #Obtenir parametres de cerca (filtre + keyword)
+        
         content = msgdic['content']
-        print(content)
-        filters_obj = gm.value(subject=content, predicate=REQ.Filters)
-        print(filters_obj)
-        categoria_filter = gm.value(subject=filters_obj, predicate=REQ.Categoria)
-        nombre_filter = gm.value(subject=filters_obj, predicate=REQ.Nombre)
-        precio_filter = gm.value(subject=filters_obj, predicate=REQ.Precio)
-        marca_filter = gm.value(subject=filters_obj, predicate=REQ.TieneMarca)
+        
+        properties_obj = gm.value(subject=content, predicate=REQ.Properties)
+        
+        nombre = gm.value(subject=properties_obj, predicate=REQ.Nombre)
+        precio = gm.value(subject=properties_obj, predicate=REQ.Precio)
+        peso = gm.value(subject=properties_obj, predicate=REQ.Peso)
+        marca = gm.value(subject=properties_obj, predicate=REQ.Marca)
+        categoria = gm.value(subject=properties_obj, predicate=REQ.categoria)
         
         g=Graph()
         g.parse("./Ontologies/product.owl", format="xml")
-        query = """
-              SELECT ?nombre ?precio ?nombreMarca ?categoria
-              WHERE {
-              ?a rdf:type ?categoria .
-              ?a PrOntPr:nombre ?nombre .
-              ?a PrOntPr:precio ?precio .
-              ?a PrOntPr:tieneMarca ?b .
-              ?b PrOntPr:nombre ?nombreMarca .
-              }
-              """
-        qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})  
-            
+        g.add((PrOntRes[nombre], RDF.type, PrOnt[categoria]))
+        
+        g.add((PrOntRes[nombre], PrOntPr['nombre'], nombre))
+        g.add((PrOntRes[nombre], PrOntPr['precio'], precio))
+        g.add((PrOntRes[nombre], PrOntPr['peso'], peso))
+        g.add((PrOntRes[nombre], PrOntPr['esExterno'], Literal(1)))
+        g.add((PrOntRes[nombre], PrOntPr['Marca'], PrOntRes[marca]))
+        
+        ofile  = open('product.owl', "w")
+        encoding = 'iso-8859-1'
+        ofile.write(str(g.serialize(), encoding))
+        ofile.close()
         
         gresult = Graph()
         gresult.bind('req', REQ)
@@ -127,52 +128,14 @@ def comunicacion():
                 gresult.add((REQ[prop], RDFS.range, REQ[result_properties[prop]]))
         
         gresult.add((REQ.Result, RDF.type, OWL.Class))
-        for row in qres:
-            result_obj = REQ[row['nombre']]
-            count = 0
-            i = 0
-            while(i < 4):
-                product_pr = row[i]
-                if (i == 0):
-                    if (nombre_filter != None):
-                        if (nombre_filter in product_pr):
-                            count += 1
-                    else:
-                        count += 1
-                if (i == 1):
-                    if (precio_filter != None):
-                        if (product_pr <= precio_filter):
-                            count += 1
-                    else:
-                        count += 1
-                if (i == 2):
-                    if (marca_filter != None):
-                        if (marca_filter in product_pr):
-                            count += 1
-                    else:
-                        count += 1
-                if (i == 3):
-                    if (categoria_filter != None):
-                        categoriaURI = urlparse(row['categoria']).path
-                        categoria = PurePosixPath(categoriaURI).parts[2]
-                        if (categoria_filter in categoria):
-                            count += 1
-                    else:
-                        count += 1
-                        
-                i += 1
-            
-            if (count == 4):
-                #print(row[0], row[1], row[2], row[3])
-                #t = term.URIRef(PrOntPr.nombre + "_" + row[0])
-                #gresult.add((cerca_obj, REQ.Results, result_obj))
-                gresult.add((result_obj, RDF.type, REQ.Result))
-                gresult.add((result_obj, REQ['Nombre'], row[0]))
-                gresult.add((result_obj, REQ['Precio'], row[1]))
-                gresult.add((result_obj, REQ['Marca'], row[2]))
-                gresult.add((result_obj, REQ['Categoria'], Literal(PurePosixPath(urlparse(row[3]).path).parts[2])))
-            
-            
+        
+        result_obj = REQ[nombre]
+        gresult.add((result_obj, RDF.type, REQ.Result))
+        gresult.add((result_obj, REQ['Nombre'], nombre))
+        gresult.add((result_obj, REQ['Precio'], precio))
+        gresult.add((result_obj, REQ['Peso'], peso))
+        gresult.add((result_obj, REQ['esExterno'], Literal(1)))
+        gresult.add((result_obj, REQ['Marca'], marca))
         
         return gresult
     
@@ -190,7 +153,7 @@ def comunicacion():
         logger.info('Msg no es FIPA ACL')
         gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCercador.uri,
+                           sender=AgentVenedorExtern.uri,
                            msgcnt=mss_cnt)
     else:
         #Si ho es obtenim la performativa
@@ -199,7 +162,7 @@ def comunicacion():
             logger.info('Msg no es una request')
             gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCercador.uri,
+                           sender=AgentVenedorExtern.uri,
                            msgcnt=mss_cnt)
         else:
             #Mirem tipus request
@@ -207,14 +170,14 @@ def comunicacion():
             action = gm.value(subject=content, predicate=RDF.type)
             
             #placeholder
-            if action == REQ.PeticioCerca:
-                logger.info('Processem la cerca')
-                gr = getProductes()
+            if action == REQ.AfegirProducteExtern:
+                logger.info('Processem la peticio')
+                gr = addProducte()
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=AgentCercador.uri,
+                           sender=AgentVenedorExtern.uri,
                            msgcnt=mss_cnt)
     mss_cnt += 1
     return gr.serialize(format='xml')
@@ -256,7 +219,7 @@ if __name__ == '__main__':
     ab1.start()
 
     # Ponemos en marcha el servidor
-    app.run(host=hostname, port=portCerca)
+    app.run(host=hostname, port=AgentVenedorExtern)
 
     # Esperamos a que acaben los behaviors
     ab1.join()

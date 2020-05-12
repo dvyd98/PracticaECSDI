@@ -3,11 +3,11 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
-    <req:TieneMarca>Marca_Blender_J40YC5</req:TieneMarca>
-  </rdf:Description>
   <rdf:Description rdf:about="http://www.agentes.org#cerca">
     <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/PeticioCerca"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
+    <req:Nombre>nombre</req:Nombre>
   </rdf:Description>
 </rdf:RDF>
