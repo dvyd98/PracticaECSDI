@@ -145,7 +145,8 @@ def comunicacion():
                 
                 for i in range(0, len(conjuntEmpreses)):
                     print('Estic dins: ', i)
-                    preu = int(pes) * random.uniform(limR[0], limR[1])
+                    preu = float(pes) * random.uniform(limR[0], limR[1])
+                    print('PES CALCULAT')
                     gResposta.add((resposta_empresa, RDF.type, REQ.RespostaEmpresa))
                     print('Estic a dins del bucle:', conjuntEmpreses[i])
                     gResposta.add((resposta_empresa, REQ['Nombre'], Literal(conjuntEmpreses[i])))

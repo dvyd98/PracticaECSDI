@@ -3,6 +3,7 @@
 Created on Mon Apr 20 18:32:44 2020
 
 @author: gpoltra98
+
 """
 
 from multiprocessing import Process, Queue
@@ -24,7 +25,7 @@ from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ, PrOntPr, PrOntRes, CenOntR
 from OntoNamespaces import LocCenOntRes, LocCenOntPr, LocCenOnt
 from AgentUtil.Logging import config_logger
 from math import sin, cos, sqrt, atan2, radians
-from Agent import portGestorPlataforma, portCentreLogistic
+from Agent import portGestorPlataforma, portCentreLogistic, portClient
 
 # Configuration stuff
 hostname = "localhost"
@@ -44,6 +45,11 @@ PlataformaAgent = Agent('PlataformaAgent',
                         agn.PlataformaAgent,
                         'http://%s:%d/comm' % (hostname, portGestorPlataforma),
                         'http://%s:%d/Stop' % (hostname, portGestorPlataforma))
+
+Client = Agent('Client', 
+               agn.Client,
+               'http://%s:%d/comm' % (hostname, portClient), 
+               'http://%s:%d/Stop' % (hostname, portClient))
 
 #Cargar los centros logisticos
 CentroLogistico1 = Agent('CentroLogistico1',
@@ -73,6 +79,27 @@ CentroLogistico5 = Agent('CentroLogistico5',
 dsgraph = Graph()
 
 cola1 = Queue()
+
+def buscarPesProducte(nombreProd):
+    pes = Literal(float(0))
+    g=rdflib.Graph()
+    g.parse("./Ontologies/product.owl", format="xml")
+    
+    query = """SELECT ?nombre ?peso
+              WHERE {
+              ?a PrOntPr:nombre ?nombre .
+              ?a PrOntPr:peso ?peso .
+              
+              }
+              """
+    
+    qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
+    for row in qres:
+        if row['nombre'] == nombreProd:
+            pes = row['peso']
+            break
+    
+    return pes
 
 def buscarPreuProducte(nombreProd):
     preu = Literal(0)
@@ -112,6 +139,8 @@ def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
     qres = gProd.query(query, initNs = {'CenOnt': CenOnt, 'CenOntPr': CenOntPr, 'CenOntRes' : CenOntRes})
     for row in qres:
         if row['nombre'] == nombreProd and row['stock'] >= quant:
+            centresDisponibles.append(row['nombreCentreLogistic'])
+        elif str(row['nombre']) == nombreProd and int(row['stock']) >= quant:
             centresDisponibles.append(row['nombreCentreLogistic'])
     print('\n')       
     print('CentresDisponibles:', centresDisponibles)
@@ -162,6 +191,7 @@ def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
             candidat = row['nombreCentreLogistic']
             if candidat in centresDisponibles:
                 cl = candidat
+    print("El definitiu:", cl)
     return cl
 
 # Flask stuff
@@ -216,10 +246,17 @@ def comunicacion():
                 #agafar el nom del producte i la quantitat, i la localitzacio del client
                 content = msgdic['content']
                 nombreProd = gm.value(subject=content, predicate=REQ.NombreProducte)
-                print('HE agafat el nomProducte:', nombreProd)
                 quant = gm.value(subject=content, predicate=REQ.QuantitatProducte)
                 latClient = gm.value(subject=content, predicate=REQ.LatitudClient)
                 longClient = gm.value(subject=content, predicate=REQ.LongitudClient)
+#                nombreProd = Literal(nombreProd)
+#                quant = Literal(quant)
+#                latClient = Literal(latClient)
+#                longClient = Literal(longClient)
+#                print("Busco el producte:", nombreProd)
+#                print("La quantitat:", quant)
+#                print("La latitud:", latClient)
+#                print("La longitud:", longClient)
                 
                 #cercar el millor centre logistic que tingui aquest producte
                 cl = buscarCentreLogistic(nombreProd, quant, latClient, longClient)
@@ -230,6 +267,7 @@ def comunicacion():
                            ACL['not-understood'],
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
+                    return gr.serialize(format='xml')
                 else:
                     print('El millor centre logistic es:', cl)
                     
@@ -240,9 +278,10 @@ def comunicacion():
                 envGraph = Graph()
                 envGraph.bind('req', REQ)
                 env_obj = agn['delegarEnviament']
+                pes = buscarPesProducte(nombreProd)
                 envGraph.add((env_obj, RDF.type, REQ.PeticioEnviament)) 
                 envGraph.add((env_obj, REQ.prod, nombreProd))
-                envGraph.add((env_obj, REQ.quant, quant))
+                envGraph.add((env_obj, REQ.quant, pes))
                 
                 missatgeEnviament = Graph()
                 centreReciever = None
@@ -260,8 +299,15 @@ def comunicacion():
                 #per ara enviarem sempre al mateix centre (segona entrega)
                 centreReciever = CentroLogistico1
                     
+                print('\n')
+                print('PREPAREM PER DELEGAR ENVIAMENT')
+                print('\n')
                 missatgeEnviament = build_message(envGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=centreReciever.uri, content=env_obj)
                 response = send_message(missatgeEnviament, centreReciever.address)
+                #-------------------------------AIXO PASARA A ESTAR A ACTION==REQ.INICIARENVIAMENT---------
+                print('\n')
+                print('REBEM PREU ENVIAMENT')
+                print('\n')
                 
                 query = """
                       SELECT ?nombre ?precio 
@@ -278,8 +324,16 @@ def comunicacion():
                 for row in qres:
                     nomE = row['nombre']
                     preuEnv = row['precio']
+                
+                print('El preu enviament es:', preuEnv)
+                print('El preu enviament es:', nomE)
+                
                 preuProducte = buscarPreuProducte(nombreProd)
-                preuTot = Literal(float(preuEnv)+float(preuProducte))
+                
+                print('El preu producte es:', preuProducte)
+                
+                preuProducte = Literal(int(preuProducte)*int(quant))
+                preuTot = Literal(float(preuEnv)+int(preuProducte*int(quant)))
                 
                 print('Preparant factura...')
                 
@@ -296,6 +350,59 @@ def comunicacion():
                 print('Factura creada')
                 
                 gr = contentFactura               
+            
+            elif action == REQ.IniciarEnviament:
+                content = msgdic['content']
+                
+                response = gm.value(subject=content, predicate=REQ.PreuEnviament)
+                
+                print('\n')
+                print('REBEM PREU ENVIAMENT')
+                print('\n')
+                
+                query = """
+                      SELECT ?nombre ?precio 
+                      WHERE {
+                      ?a REQ:NomEmpresa ?nombre .
+                      ?a REQ:Preu ?precio .
+                      }
+                      """
+                qres = response.query(query, initNs = {'REQ': REQ})
+                
+                nomE = None
+                preuEnv = None
+                
+                for row in qres:
+                    nomE = row['nombre']
+                    preuEnv = row['precio']
+                
+                print('El preu enviament es:', preuEnv)
+                print('El preu enviament es:', nomE)
+                
+                preuProducte = buscarPreuProducte(nombreProd)
+                
+                print('El preu producte es:', preuProducte)
+                
+                preuProducte = Literal(int(preuProducte)*int(quant))
+                preuTot = Literal(float(preuEnv)+int(preuProducte*int(quant)))
+                
+                print('Preparant factura...')
+                
+                contentFactura = Graph()
+                contentFactura.bind('req', REQ)
+                factura_obj = agn['factura']
+                contentFactura.add((factura_obj, RDF.type, REQ.ConfirmacioAmbFactura))
+                contentFactura.add((factura_obj, REQ.nomP, nombreProd))
+                contentFactura.add((factura_obj, REQ.preuEnviament, Literal(preuEnv)))
+                contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
+                contentFactura.add((factura_obj, REQ.preuTotal, preuTot))
+                contentFactura.add((factura_obj, REQ.nomEmpresa, nomE))
+                
+                print('Factura creada')
+                
+                missatgeFactura = build_message(contentFactura,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=factura_obj)
+                response = send_message(missatgeFactura, Client.address)
+            
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
@@ -339,6 +446,7 @@ if __name__ == '__main__':
       
     #print('BUSCAR PREU PRODUCTE:')
     #print(buscarPreuProducte(Literal('nombre_Blender_4ARQ13')))
+    #buscarCentreLogistic(Literal("nombre_Blender_4ARQ13"), Literal(1), Literal(42.2), Literal(2.19))
     
     # Ponemos en marcha los behaviors
     ab1 = Process(target=agentbehavior1, args=(cola1,))
