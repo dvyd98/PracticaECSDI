@@ -119,6 +119,8 @@ def comunicacion():
         #envia missatge a l'Agent EmpresaTransportista
         response = send_message(messageEmpresa, EmpresaTransportista.address)
         
+        print('REBEM RESPOSTA DE EMPRESA TRANSPORTISTA')
+        
         #obtenir la resposta de l'Agent EmpresaTransportista
         query = """
               SELECT ?nombre ?precio 
@@ -145,6 +147,9 @@ def comunicacion():
                     preuMesBaix = row['precio']
             
                     
+                    
+        print('El preu mes baix:', preuMesBaix)
+        print('Nom de la empresa:', nomEmpresaAmbPreuMesBaix)
         result = Graph()
         result.bind('req', REQ)
         result_obj = agn['result']
@@ -209,6 +214,8 @@ def comunicacion():
                 print('El pes rebut es: ', pes, '\n')
                 print('Preparar enviar peticio a empresa transportista')
                 gResposta = negociarTransport(pes, ciutatDesti, diaMaxim)
+                
+                print('-----------REBEM RESPOSTA TRANSPORTISTA-------------')
                 
                 gr = build_message(gResposta,
                            ACL['inform-done'],
