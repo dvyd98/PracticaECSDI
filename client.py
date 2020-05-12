@@ -104,7 +104,19 @@ def comunicacion():
             
             #placeholder
             if action == REQ.ConfirmacioAmbFactura:
-                a = 0
+                content = msgdic['content']
+                print('-------------------FACTURA--------------------')
+                nombreProd = gm.value(subject=content, predicate=REQ.nomP)
+                preuProd = gm.value(subject=content, predicate=REQ.preuProd)
+                preuEnv = gm.value(subject=content, predicate=REQ.preuEnviament)
+                preuTotal = gm.value(subject=content, predicate=REQ.preuTotal)
+                nomEmpresa = gm.value(subject=content, predicate=REQ.nomEmpresa)
+                print('NomProducte:',nombreProd)
+                print('PreuEnviament:',preuEnv)
+                print('PreuProducte:',preuProd)
+                print('PreuTotal:',preuTotal)
+                print('NomEmpresa:',nomEmpresa)
+                print('FinalitzemPeticioCompra')
             
             else:
                 logger.info('Es una request que no entenem')
@@ -230,7 +242,10 @@ def agentbehavior1(q, fileno):
         messageCompra = build_message(contentPeticioCompra, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=compra_obj)
         print('EnviemPeticioCompra')
         response = send_message(messageCompra, PlataformaAgent.address)
-        #(aixo haura d'anar en el commm del client)
+        
+        
+        #--------------------------Aixo haura d'estar en el comm del client----------------------------
+        
         print('Resposta: ', response)
         query = """
         SELECT ?nomP ?preuEnviament ?preuProd ?preuTotal ?nomEmpresa

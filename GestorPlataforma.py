@@ -304,7 +304,7 @@ def comunicacion():
                 print('\n')
                 missatgeEnviament = build_message(envGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=centreReciever.uri, content=env_obj)
                 response = send_message(missatgeEnviament, centreReciever.address)
-                
+                #-------------------------------AIXO PASARA A ESTAR A ACTION==REQ.INICIARENVIAMENT---------
                 print('\n')
                 print('REBEM PREU ENVIAMENT')
                 print('\n')
