@@ -3,11 +3,15 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
-  <rdf:Description rdf:about="http://www.agentes.org#cerca">
-    <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/PeticioCerca"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Properties_properties">
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</req:Precio>
+    <req:Peso rdf:datatype="http://www.w3.org/2001/XMLSchema#double">50.1</req:Peso>
+    <req:Nombre>Test</req:Nombre>
+    <req:Marca>Marca_Computer_RSBDXK</req:Marca>
+    <req:Categoria>Blender</req:Categoria>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
-    <req:Nombre>nombre</req:Nombre>
+  <rdf:Description rdf:about="http://www.agentes.org#producte">
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/AfegirProducteExtern"/>
+    <req:Properties rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Properties_properties"/>
   </rdf:Description>
 </rdf:RDF>

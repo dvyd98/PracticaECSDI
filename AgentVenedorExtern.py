@@ -93,7 +93,7 @@ def comunicacion():
         precio = gm.value(subject=properties_obj, predicate=REQ.Precio)
         peso = gm.value(subject=properties_obj, predicate=REQ.Peso)
         marca = gm.value(subject=properties_obj, predicate=REQ.Marca)
-        categoria = gm.value(subject=properties_obj, predicate=REQ.categoria)
+        categoria = gm.value(subject=properties_obj, predicate=REQ.Categoria)
         
         g=Graph()
         g.parse("./Ontologies/product.owl", format="xml")
@@ -103,9 +103,9 @@ def comunicacion():
         g.add((PrOntRes[nombre], PrOntPr['precio'], precio))
         g.add((PrOntRes[nombre], PrOntPr['peso'], peso))
         g.add((PrOntRes[nombre], PrOntPr['esExterno'], Literal(1)))
-        g.add((PrOntRes[nombre], PrOntPr['Marca'], PrOntRes[marca]))
+        g.add((PrOntRes[nombre], PrOntPr['tieneMarca'], PrOntRes[marca]))
         
-        ofile  = open('product.owl', "w")
+        ofile  = open('./Ontologies/product.owl', "w")
         encoding = 'iso-8859-1'
         ofile.write(str(g.serialize(), encoding))
         ofile.close()
@@ -219,7 +219,7 @@ if __name__ == '__main__':
     ab1.start()
 
     # Ponemos en marcha el servidor
-    app.run(host=hostname, port=AgentVenedorExtern)
+    app.run(host=hostname, port=portVenedorExtern)
 
     # Esperamos a que acaben los behaviors
     ab1.join()
