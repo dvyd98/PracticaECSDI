@@ -12,6 +12,10 @@ import socket
 import sys
 import os
 import datetime
+import random
+import string
+import json
+
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
@@ -79,6 +83,30 @@ CentroLogistico5 = Agent('CentroLogistico5',
 dsgraph = Graph()
 
 cola1 = Queue()
+
+idCompra = Literal("0")
+
+def registrarCompra(idCompra, nombreProd, preuTot):
+    registreCompres = {}
+    idCompra = str(idCompra)
+    
+    print('Preparat per el registre')
+    
+    with open('registreCompres.txt') as json_file:
+        registreCompres = json.load(json_file)
+        
+    print('Registre obert')
+    
+    registreCompres[idCompra] = []
+    registreCompres[idCompra].append({
+            'nomP': str(nombreProd),
+            'preuT': str(preuTot)
+            })
+
+    with open('registreCompres.txt', 'w') as outfile:
+        json.dump(registreCompres, outfile)
+    
+    print('Registre reescrit')
 
 def buscarPesProducte(nombreProd):
     pes = Literal(float(0))
@@ -249,6 +277,7 @@ def comunicacion():
                 quant = gm.value(subject=content, predicate=REQ.QuantitatProducte)
                 latClient = gm.value(subject=content, predicate=REQ.LatitudClient)
                 longClient = gm.value(subject=content, predicate=REQ.LongitudClient)
+                idCompra = gm.value(subject=content, predicate=REQ.idCompra)
 #                nombreProd = Literal(nombreProd)
 #                quant = Literal(quant)
 #                latClient = Literal(latClient)
@@ -282,6 +311,7 @@ def comunicacion():
                 envGraph.add((env_obj, RDF.type, REQ.PeticioEnviament)) 
                 envGraph.add((env_obj, REQ.prod, nombreProd))
                 envGraph.add((env_obj, REQ.quant, pes))
+                envGraph.add((env_obj, REQ.idCompra, idCompra))
                 
                 missatgeEnviament = Graph()
                 centreReciever = None
@@ -320,10 +350,12 @@ def comunicacion():
                 
                 nomE = None
                 preuEnv = None
+                idCompra = "dsjndsfo"
                 
                 for row in qres:
                     nomE = row['nombre']
                     preuEnv = row['precio']
+                    #idCompra = row['idCompra']
                 
                 print('El preu enviament es:', preuEnv)
                 print('El preu enviament es:', nomE)
@@ -334,6 +366,9 @@ def comunicacion():
                 
                 preuProducte = Literal(int(preuProducte)*int(quant))
                 preuTot = Literal(float(preuEnv)+int(preuProducte*int(quant)))
+                
+                print('Registrant compra...')
+                registrarCompra(idCompra, nombreProd, preuTot)
                 
                 print('Preparant factura...')
                 
@@ -346,6 +381,7 @@ def comunicacion():
                 contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
                 contentFactura.add((factura_obj, REQ.preuTotal, preuTot))
                 contentFactura.add((factura_obj, REQ.nomEmpresa, nomE))
+                contentFactura.add((factura_obj, REQ.idCompra, Literal(idCompra)))
                 
                 print('Factura creada')
                 
@@ -371,10 +407,12 @@ def comunicacion():
                 
                 nomE = None
                 preuEnv = None
+                idCompra = "dsfdsfsdf"
                 
                 for row in qres:
                     nomE = row['nombre']
                     preuEnv = row['precio']
+                    #idCompra = row['idCompra']
                 
                 print('El preu enviament es:', preuEnv)
                 print('El preu enviament es:', nomE)
@@ -385,6 +423,9 @@ def comunicacion():
                 
                 preuProducte = Literal(int(preuProducte)*int(quant))
                 preuTot = Literal(float(preuEnv)+int(preuProducte*int(quant)))
+                
+                print('Registrant compra...')
+                registrarCompra(idCompra, nombreProd, preuTot)
                 
                 print('Preparant factura...')
                 
@@ -397,6 +438,8 @@ def comunicacion():
                 contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
                 contentFactura.add((factura_obj, REQ.preuTotal, preuTot))
                 contentFactura.add((factura_obj, REQ.nomEmpresa, nomE))
+                #El centre logistic hauria de passar el idCompra!!!!!!!!!!!!!!
+                contentFactura.add((factura_obj, REQ.idCompra, Literal(idCompra)))
                 
                 print('Factura creada')
                 

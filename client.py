@@ -9,6 +9,8 @@ Created on Wed Apr 22 02:43:59 2020
 from multiprocessing import Process, Queue
 import sys
 import os
+import random
+import string
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
@@ -111,11 +113,13 @@ def comunicacion():
                 preuEnv = gm.value(subject=content, predicate=REQ.preuEnviament)
                 preuTotal = gm.value(subject=content, predicate=REQ.preuTotal)
                 nomEmpresa = gm.value(subject=content, predicate=REQ.nomEmpresa)
+                idCompra = gm.value(subject=content, predicate=REQ.idCompra)
                 print('NomProducte:',nombreProd)
                 print('PreuEnviament:',preuEnv)
                 print('PreuProducte:',preuProd)
                 print('PreuTotal:',preuTotal)
                 print('NomEmpresa:',nomEmpresa)
+                print('idCompra:', idCompra)
                 print('FinalitzemPeticioCompra')
             
             else:
@@ -159,6 +163,9 @@ def agentbehavior1(q, fileno):
     print("1 - Buscar un producte")
     print("2 - Comprar un producte")
     print("3 - Modificar localitzacio client (Predefinida: 42.2, 2.19)")
+
+    letters = string.ascii_lowercase
+    
     latClient = 42.2
     longClient = 2.19
     var_input = input("Introdueix instruccio:")
@@ -223,6 +230,7 @@ def agentbehavior1(q, fileno):
         ofile.close()
         
     if (var_input == "2"):
+        idCompra = ''.join(random.choice(letters) for i in range(32))
         print("Introdueix el nom del producte i la quantitat que vols comprar")
         #enviar peticio compra
     
@@ -238,6 +246,7 @@ def agentbehavior1(q, fileno):
             contentPeticioCompra.add((compra_obj, REQ.QuantitatProducte, Literal(int(var_Q))))
         contentPeticioCompra.add((compra_obj, REQ.LatitudClient, Literal(float(latClient))))
         contentPeticioCompra.add((compra_obj, REQ.LongitudClient, Literal(float(longClient))))
+        contentPeticioCompra.add((compra_obj, REQ.idCompra, Literal(str(idCompra))))
         messageCompra = Graph()
         messageCompra = build_message(contentPeticioCompra, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=compra_obj)
         print('EnviemPeticioCompra')
@@ -248,13 +257,14 @@ def agentbehavior1(q, fileno):
         
         print('Resposta: ', response)
         query = """
-        SELECT ?nomP ?preuEnviament ?preuProd ?preuTotal ?nomEmpresa
+        SELECT ?nomP ?preuEnviament ?preuProd ?preuTotal ?nomEmpresa ?idCompra
         WHERE {
                 ?a REQ:nomP ?nomP .
                 ?a REQ:preuEnviament ?preuEnviament .
                 ?a REQ:preuProd ?preuProd .
                 ?a REQ:preuTotal ?preuTotal .
                 ?a REQ:nomEmpresa ?nomEmpresa .
+                ?a REQ:idCompra ?idCompra
                 }
         """
         qres = response.query(query, initNs = {'REQ': REQ})
@@ -265,6 +275,7 @@ def agentbehavior1(q, fileno):
             print('PreuProducte:',row['preuProd'])
             print('PreuTotal:',row['preuTotal'])
             print('NomEmpresa:',row['nomEmpresa'])
+            print('idCompra:', row['idCompra'])
             print('FinalitzemPeticioCompra')
     if var_input == "3":
         print("Introdueix la latitud i longitud usant punts i no comes (ex: 40.4555).")
@@ -280,8 +291,8 @@ def agentbehavior1(q, fileno):
 if __name__ == '__main__':
       
     #print('BUSCAR PREU PRODUCTE:')
-    #print(buscarPreuProducte(Literal('nombre_Blender_4ARQ13')))
-    #buscarCentreLogistic(Literal("nombre_Blender_4ARQ13"), Literal(1), Literal(42.2), Literal(2.19))
+    #print(buscarPreuProducte(Literal('nombre_Blender_0XF8I9')))
+    #buscarCentreLogistic(Literal("nombre_Blender_0XF8I9"), Literal(1), Literal(42.2), Literal(2.19))
     q = Queue()
     fn = sys.stdin.fileno()
     # Ponemos en marcha los behaviors
