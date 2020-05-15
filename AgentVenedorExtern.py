@@ -82,6 +82,26 @@ def comunicacion():
     """
     Entrypoint de comunicacion
     """
+    def addMarca():
+        content = msgdic['content']
+        
+        properties_obj = gm.value(subject=content, predicate=REQ.Properties)
+        
+        nombre = gm.value(subject=properties_obj, predicate=REQ.Nombre)
+        
+        g=Graph()
+        g.parse("./Ontologies/product.owl", format="xml")
+        g.add((PrOntRes[nombre], RDF.type, PrOnt.Marca))
+        
+        g.add((PrOntRes[nombre], PrOntPr.nombre, nombre))
+        
+        ofile  = open('./Ontologies/product.owl', "w")
+        encoding = 'iso-8859-1'
+        ofile.write(str(g.serialize(), encoding))
+        ofile.close()
+        
+        return g
+    
     def addProducte():
         global mss_cnt
         
@@ -173,6 +193,10 @@ def comunicacion():
             if action == REQ.AfegirProducteExtern:
                 logger.info('Processem la peticio')
                 gr = addProducte()
+                
+            elif action == REQ.AfegirMarca:
+                gr = addMarca()
+                
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
