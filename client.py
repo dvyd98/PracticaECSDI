@@ -168,10 +168,10 @@ def agentbehavior1(q, fileno):
     
     latClient = 42.2
     longClient = 2.19
-    var_input = input("Introdueix instruccio:")
+    var_input = input("Introdueix instruccio: ")
     while(var_input != "1" and var_input != "2" and var_input != "3"):
         print ("Instruccio desconeguda")
-        var_input = input("Introdueix instruccio:")
+        var_input = input("Introdueix instruccio: ")
         
     if (var_input == "1"):
         content = Graph()
@@ -184,16 +184,16 @@ def agentbehavior1(q, fileno):
         content.add((cerca_obj, REQ.Filters, filters_obj))
         
         print("Introdueix els filtres desitjats, apreta enter sense escriure res per no filtrar")
-        var_filtre = input("Introdueix categoria del producte:")
+        var_filtre = input("Introdueix categoria del producte: ")
         if (var_filtre != ""):   
             content.add((filters_obj, REQ.Categoria, Literal(var_filtre)))
-        var_filtre = input("Introdueix nom del producte:")
+        var_filtre = input("Introdueix nom del producte: ")
         if (var_filtre != ""): 
             content.add((filters_obj, REQ.Nombre, Literal(var_filtre)))
-        var_filtre = input("Introdueix preu maxim del producte:")
+        var_filtre = input("Introdueix preu maxim del producte: ")
         if (var_filtre != ""): 
             content.add((filters_obj, REQ.Precio, Literal(int(var_filtre))))
-        var_filtre = input("Introdueix marca del producte:")
+        var_filtre = input("Introdueix marca del producte: ")
         if (var_filtre != ""): 
             content.add((filters_obj, REQ.TieneMarca, Literal(var_filtre)))
         ofile  = open('request.owl', "w")
@@ -238,10 +238,10 @@ def agentbehavior1(q, fileno):
         contentPeticioCompra.bind('req', REQ)
         compra_obj = agn['compra']
         contentPeticioCompra.add((compra_obj, RDF.type, REQ.PeticioCompra))
-        var_nomP = input("Introdueix el nom del producte:")
+        var_nomP = input("Introdueix el nom del producte: ")
         if (var_nomP != ""):
             contentPeticioCompra.add((compra_obj, REQ.NombreProducte, Literal(str(var_nomP))))
-        var_Q = input("Introdueix quantitat del producte (0-5):")
+        var_Q = input("Introdueix quantitat del producte (0-5): ")
         if (var_Q != ""):
             contentPeticioCompra.add((compra_obj, REQ.QuantitatProducte, Literal(int(var_Q))))
         contentPeticioCompra.add((compra_obj, REQ.LatitudClient, Literal(float(latClient))))
@@ -279,10 +279,10 @@ def agentbehavior1(q, fileno):
             print('FinalitzemPeticioCompra')
     if var_input == "3":
         print("Introdueix la latitud i longitud usant punts i no comes (ex: 40.4555).")
-        var_lat = input("Introdueix la latitud:")
+        var_lat = input("Introdueix la latitud: ")
         if var_lat != "":
             latClient = float(var_lat)
-        var_long = input("Introdueix la longitud:")
+        var_long = input("Introdueix la longitud: ")
         if var_long != "":
             longClient = float(var_long)
              

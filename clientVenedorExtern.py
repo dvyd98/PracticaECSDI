@@ -44,7 +44,7 @@ AgentVenedorExtern = Agent('AgentCercador',
                        'http://%s:%d/Stop' % (hostname, portVenedorExtern))
 
 Client = Agent('Client', agn.Client, '', '')
-
+'''
 content = Graph()
 content.bind('req', REQ)
 cerca_obj = agn['producte']
@@ -76,22 +76,95 @@ g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiv
 #enviem el msg
 response = send_message(g, AgentVenedorExtern.address)
 '''
-#mirem que hem rebut
-query = """
-              SELECT ?nombre ?precio ?marca ?categoria
-              WHERE {
-              ?a REQ:Nombre ?nombre .
-              ?a REQ:Precio ?precio .
-              ?a REQ:Marca ?marca .
-              ?a REQ:Categoria ?categoria .
-              }
-              """
-qres = response.query(query, initNs = {'REQ': REQ})  
-for row in qres:
-    print(row['nombre'])
-#ho guardem
-ofile  = open('output.owl', "w")
-encoding = 'iso-8859-1'
-ofile.write(str(response.serialize(), encoding))
-ofile.close()
-'''
+print("Instruccions disponibles")
+print("1 - Afegir un producte extern a la botiga")
+print("2 - Afegir una marca a la botiga")
+var_input = input("Introdueix instruccio: ")
+while(var_input != "1" and var_input != "2" and var_input != "3"):
+    print ("Instruccio desconeguda")
+    var_input = input("Introdueix instruccio: ")
+
+if (var_input == "1"):
+    content = Graph()
+    content.bind('req', REQ)
+    cerca_obj = agn['producte']
+    
+    product_obj = REQ.Properties + '_properties'
+    
+    content.add((cerca_obj, RDF.type, REQ.AfegirProducteExtern))
+    content.add((cerca_obj, REQ.Properties, product_obj))
+    
+    print("Introdueix les propietats del producte que vols afegir")
+    var_filtre = input("Introdueix nom del producte: ")
+    content.add((product_obj, REQ.Nombre, Literal(var_filtre)))
+    var_filtre = input("Introdueix preu del producte: ")
+    content.add((product_obj, REQ.Precio, Literal(int(var_filtre))))
+    var_filtre = input("Introdueix pes del producte:")
+    content.add((product_obj, REQ.Peso, Literal(float(var_filtre))))
+    var_filtre = input("Introdueix marca del producte (Ha d`existir a la base de dades): ")
+    content.add((product_obj, REQ.Marca, Literal(var_filtre)))
+    var_filtre = input("Introdueix categoria del producte: ")
+    content.add((product_obj, REQ.Categoria, Literal(var_filtre)))
+    
+    g = Graph()
+    #construim el missatge com una req al agent cercador
+    g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentVenedorExtern.uri, content=cerca_obj)
+    #enviem el msg
+    response = send_message(g, AgentVenedorExtern.address)
+    
+if (var_input == "2"):
+    content = Graph()
+    content.bind('req', REQ)
+    cerca_obj = agn['producte']
+    
+    product_obj = REQ.Properties + '_properties'
+        
+    content.add((cerca_obj, RDF.type, REQ.AfegirMarca))
+    content.add((cerca_obj, REQ.Properties, product_obj))
+    
+    print("Introdueix les propietats de la marca que vols afegir")
+    var_filtre = input("Introdueix nom de la marca: ")
+    content.add((product_obj, REQ.Nombre, Literal(var_filtre)))
+    
+    g = Graph()
+    #construim el missatge com una req al agent cercador
+    g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentVenedorExtern.uri, content=cerca_obj)
+    #enviem el msg
+    response = send_message(g, AgentVenedorExtern.address)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
