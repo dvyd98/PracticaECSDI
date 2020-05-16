@@ -121,6 +121,12 @@ def comunicacion():
                 print('NomEmpresa:',nomEmpresa)
                 print('idCompra:', idCompra)
                 print('FinalitzemPeticioCompra')
+                
+                gr = build_message(Graph(),
+                           ACL['inform-done'],
+                           sender=PlataformaAgent.uri,
+                           msgcnt=mss_cnt)
+                
             
             else:
                 logger.info('Es una request que no entenem')
@@ -255,28 +261,28 @@ def agentbehavior1(q, fileno):
         
         #--------------------------Aixo haura d'estar en el comm del client----------------------------
         
-        print('Resposta: ', response)
-        query = """
-        SELECT ?nomP ?preuEnviament ?preuProd ?preuTotal ?nomEmpresa ?idCompra
-        WHERE {
-                ?a REQ:nomP ?nomP .
-                ?a REQ:preuEnviament ?preuEnviament .
-                ?a REQ:preuProd ?preuProd .
-                ?a REQ:preuTotal ?preuTotal .
-                ?a REQ:nomEmpresa ?nomEmpresa .
-                ?a REQ:idCompra ?idCompra
-                }
-        """
-        qres = response.query(query, initNs = {'REQ': REQ})
-        print('-------------------FACTURA--------------------')
-        for row in qres:
-            print('NomProducte:',row['nomP'])
-            print('PreuEnviament:',row['preuEnviament'])
-            print('PreuProducte:',row['preuProd'])
-            print('PreuTotal:',row['preuTotal'])
-            print('NomEmpresa:',row['nomEmpresa'])
-            print('idCompra:', row['idCompra'])
-            print('FinalitzemPeticioCompra')
+#        print('Resposta: ', response)
+#        query = """
+#        SELECT ?nomP ?preuEnviament ?preuProd ?preuTotal ?nomEmpresa ?idCompra
+#        WHERE {
+#                ?a REQ:nomP ?nomP .
+#                ?a REQ:preuEnviament ?preuEnviament .
+#                ?a REQ:preuProd ?preuProd .
+#                ?a REQ:preuTotal ?preuTotal .
+#                ?a REQ:nomEmpresa ?nomEmpresa .
+#                ?a REQ:idCompra ?idCompra
+#                }
+#        """
+#        qres = response.query(query, initNs = {'REQ': REQ})
+#        print('-------------------FACTURA--------------------')
+#        for row in qres:
+#            print('NomProducte:',row['nomP'])
+#            print('PreuEnviament:',row['preuEnviament'])
+#            print('PreuProducte:',row['preuProd'])
+#            print('PreuTotal:',row['preuTotal'])
+#            print('NomEmpresa:',row['nomEmpresa'])
+#            print('idCompra:', row['idCompra'])
+#            print('FinalitzemPeticioCompra')
     if var_input == "3":
         print("Introdueix la latitud i longitud usant punts i no comes (ex: 40.4555).")
         var_lat = input("Introdueix la latitud: ")

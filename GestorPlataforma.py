@@ -310,8 +310,9 @@ def comunicacion():
                 pes = buscarPesProducte(nombreProd)
                 envGraph.add((env_obj, RDF.type, REQ.PeticioEnviament)) 
                 envGraph.add((env_obj, REQ.prod, nombreProd))
-                envGraph.add((env_obj, REQ.quant, pes))
+                envGraph.add((env_obj, REQ.pes, pes))
                 envGraph.add((env_obj, REQ.idCompra, idCompra))
+                envGraph.add((env_obj, REQ.quant, quant))
                 
                 missatgeEnviament = Graph()
                 centreReciever = None
@@ -334,88 +335,94 @@ def comunicacion():
                 print('\n')
                 missatgeEnviament = build_message(envGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=centreReciever.uri, content=env_obj)
                 response = send_message(missatgeEnviament, centreReciever.address)
+                
+                gr = build_message(Graph(),
+                           ACL['inform-done'],
+                           sender=PlataformaAgent.uri,
+                           msgcnt=mss_cnt)
+                        
                 #-------------------------------AIXO PASARA A ESTAR A ACTION==REQ.INICIARENVIAMENT---------
-                print('\n')
-                print('REBEM PREU ENVIAMENT')
-                print('\n')
-                
-                query = """
-                      SELECT ?nombre ?precio 
-                      WHERE {
-                      ?a REQ:NomEmpresa ?nombre .
-                      ?a REQ:Preu ?precio .
-                      }
-                      """
-                qres = response.query(query, initNs = {'REQ': REQ})
-                
-                nomE = None
-                preuEnv = None
-                idCompra = "dsjndsfo"
-                
-                for row in qres:
-                    nomE = row['nombre']
-                    preuEnv = row['precio']
-                    #idCompra = row['idCompra']
-                
-                print('El preu enviament es:', preuEnv)
-                print('El preu enviament es:', nomE)
-                
-                preuProducte = buscarPreuProducte(nombreProd)
-                
-                print('El preu producte es:', preuProducte)
-                
-                preuProducte = Literal(int(preuProducte)*int(quant))
-                preuTot = Literal(float(preuEnv)+int(preuProducte*int(quant)))
-                
-                print('Registrant compra...')
-                registrarCompra(idCompra, nombreProd, preuTot)
-                
-                print('Preparant factura...')
-                
-                contentFactura = Graph()
-                contentFactura.bind('req', REQ)
-                factura_obj = agn['factura']
-                contentFactura.add((factura_obj, RDF.type, REQ.ConfirmacioAmbFactura))
-                contentFactura.add((factura_obj, REQ.nomP, nombreProd))
-                contentFactura.add((factura_obj, REQ.preuEnviament, Literal(preuEnv)))
-                contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
-                contentFactura.add((factura_obj, REQ.preuTotal, preuTot))
-                contentFactura.add((factura_obj, REQ.nomEmpresa, nomE))
-                contentFactura.add((factura_obj, REQ.idCompra, Literal(idCompra)))
-                
-                print('Factura creada')
-                
-                gr = contentFactura               
+#                print('\n')
+#                print('REBEM PREU ENVIAMENT')
+#                print('\n')
+#                
+#                query = """
+#                      SELECT ?nombre ?precio 
+#                      WHERE {
+#                      ?a REQ:NomEmpresa ?nombre .
+#                      ?a REQ:Preu ?precio .
+#                      }
+#                      """
+#                qres = response.query(query, initNs = {'REQ': REQ})
+#                
+#                nomE = None
+#                preuEnv = None
+#                idCompra = "dsjndsfo"
+#                
+#                for row in qres:
+#                    nomE = row['nombre']
+#                    preuEnv = row['precio']
+#                    #idCompra = row['idCompra']
+#                
+#                print('El preu enviament es:', preuEnv)
+#                print('El nom empresa es:', nomE)
+#                
+#                preuProducte = buscarPreuProducte(nombreProd)
+#                
+#                print('El preu producte es:', preuProducte)
+#                
+#                preuProducte = Literal(int(preuProducte)*int(quant))
+#                preuTot = Literal(float(preuEnv)+int(preuProducte*int(quant)))
+#                
+#                print('Registrant compra...')
+#                registrarCompra(idCompra, nombreProd, preuTot)
+#                
+#                print('Preparant factura...')
+#                
+#                contentFactura = Graph()
+#                contentFactura.bind('req', REQ)
+#                factura_obj = agn['factura']
+#                contentFactura.add((factura_obj, RDF.type, REQ.ConfirmacioAmbFactura))
+#                contentFactura.add((factura_obj, REQ.nomP, nombreProd))
+#                contentFactura.add((factura_obj, REQ.preuEnviament, Literal(preuEnv)))
+#                contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
+#                contentFactura.add((factura_obj, REQ.preuTotal, preuTot))
+#                contentFactura.add((factura_obj, REQ.nomEmpresa, nomE))
+#                contentFactura.add((factura_obj, REQ.idCompra, Literal(idCompra)))
+#                
+#                print('Factura creada')
+#                
+#                gr = contentFactura  
+
+
             
             elif action == REQ.IniciarEnviament:
                 content = msgdic['content']
                 
-                response = gm.value(subject=content, predicate=REQ.PreuEnviament)
+                #response = gm.value(subject=content, predicate=REQ.PreuEnviament)
                 
                 print('\n')
                 print('REBEM PREU ENVIAMENT')
                 print('\n')
                 
-                query = """
-                      SELECT ?nombre ?precio 
-                      WHERE {
-                      ?a REQ:NomEmpresa ?nombre .
-                      ?a REQ:Preu ?precio .
-                      }
-                      """
-                qres = response.query(query, initNs = {'REQ': REQ})
+                nomE = gm.value(subject=content, predicate=REQ.NomEmpresa)
+                preuEnv = gm.value(subject=content, predicate=REQ.Preu)
+                idCompra = gm.value(subject=content, predicate=REQ.idCompra)
+                nombreProd = gm.value(subject=content, predicate=REQ.NomProd)
+                quant = gm.value(subject=content, predicate=REQ.quant)
                 
-                nomE = None
-                preuEnv = None
-                idCompra = "dsfdsfsdf"
+               
                 
-                for row in qres:
-                    nomE = row['nombre']
-                    preuEnv = row['precio']
-                    #idCompra = row['idCompra']
+#                nomE = None
+#                preuEnv = None
+#                idCompra = "dsfdsfsdf"
+                
                 
                 print('El preu enviament es:', preuEnv)
-                print('El preu enviament es:', nomE)
+                print('El nom empresa es:', nomE)
+                print('El idCompra es:', idCompra)
+                print('El nom prod es:', nombreProd)
+                print('La quant del producte es:', quant)
                 
                 preuProducte = buscarPreuProducte(nombreProd)
                 
@@ -445,6 +452,11 @@ def comunicacion():
                 
                 missatgeFactura = build_message(contentFactura,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=factura_obj)
                 response = send_message(missatgeFactura, Client.address)
+                
+                gr = build_message(Graph(),
+                           ACL['inform-done'],
+                           sender=PlataformaAgent.uri,
+                           msgcnt=mss_cnt)
             
             else:
                 logger.info('Es una request que no entenem')
