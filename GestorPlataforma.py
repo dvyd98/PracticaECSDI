@@ -86,6 +86,34 @@ cola1 = Queue()
 
 idCompra = Literal("0")
 
+def eliminarRegistreCerca(idCompra):
+    registreCompres = {}
+    idCompra = str(idCompra)
+    with open('registreCompres.txt') as json_file:
+        registreCompres = json.load(json_file)
+        
+    dic = dict(registreCompres)
+    del dic[idCompra]
+    
+    with open('registreCompres.txt', 'w') as outfile:
+        json.dump(dic, outfile)
+        
+    
+def cercarCompra(idCompra):
+    registreCompres = {}
+    idCompra = str(idCompra)
+    preu = -1.0
+    
+    with open('registreCompres.txt') as json_file:
+        registreCompres = json.load(json_file)
+    
+    for idC in registreCompres:
+        if idC == idCompra:
+            for infoC in registreCompres[idC]:
+                preu = float(infoC['preuT'])
+    
+    return preu
+
 def registrarCompra(idCompra, nombreProd, preuTot):
     registreCompres = {}
     idCompra = str(idCompra)
@@ -446,6 +474,36 @@ def comunicacion():
                 missatgeFactura = build_message(contentFactura,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=factura_obj)
                 response = send_message(missatgeFactura, Client.address)
             
+            elif action == REQ.PeticioDevolucio:
+                content = msgdic['content']
+                idCompra = gm.value(subject=content, predicate=REQ.idCompra)
+                dies = gm.value(subject=content, predicate=REQ.dies)
+                
+                resposta = ""
+                
+                print("Preparat per gestionar peticio devolucio")
+                
+                if int(dies) >= 0 and int(dies) <= 15:
+                    preu = cercarCompra(idCompra)
+                    print("Compra cercada")
+                    if preu < 0.0:
+                        resposta = "NO es possible procedir amb la devolució ja que no existeix un registre d'aquesta compra"
+                    else:
+                        eliminarRegistreCerca(idCompra)
+                        preu = str(preu)
+                        resposta = "Peticio ACCEPTADA. L'empresa transportista recollirà el producte en el mateix lloc que l'entrega en un plaç màxim de 3 dies. Es procedirà a fer un reembolsament de "+preu
+                else:
+                    resposta = "NO es possible procedir amb la devolució, el període màxim per a la devolució és de 15 dies."
+                    
+                contentDev = Graph()
+                contentDev.bind('req', REQ)
+                devo_obj = agn['dev']
+                contentDev.add((devo_obj, RDF.type, REQ.RespostaDevolucio))
+                contentDev.add((devo_obj, REQ.respostaDev, Literal(resposta)))
+                
+                print('Resposta devolucio preparada per enviar')
+                
+                gr = contentDev               
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),

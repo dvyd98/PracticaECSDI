@@ -163,16 +163,17 @@ def agentbehavior1(q, fileno):
     print("1 - Buscar un producte")
     print("2 - Comprar un producte")
     print("3 - Modificar localitzacio client (Predefinida: 42.2, 2.19)")
+    print("4 - Devolucio de un producte")
 
     letters = string.ascii_lowercase
     
     latClient = 42.2
     longClient = 2.19
     var_input = input("Introdueix instruccio: ")
-    while(var_input != "1" and var_input != "2" and var_input != "3"):
+    while(var_input != "1" and var_input != "2" and var_input != "3" and var_input != "4"):
         print ("Instruccio desconeguda")
         var_input = input("Introdueix instruccio: ")
-        
+    
     if (var_input == "1"):
         content = Graph()
         content.bind('req', REQ)
@@ -285,6 +286,41 @@ def agentbehavior1(q, fileno):
         var_long = input("Introdueix la longitud: ")
         if var_long != "":
             longClient = float(var_long)
+    if var_input == "4":
+        idC = ""
+        dies = 0
+        print("Introdueix el id de compra, rao de devolucio i quants dies fa que et va arribar el producte")
+        var_id = input("Introduir el id de compra:")
+        if var_id != "":
+            idC = var_id
+        var_dies = input("Si la rao de devolucio es un producte defectuos o equivocat, introdueix un 0. Si la rao es que el producte no satisà les vostres espectatives, introdueix el numero de dies que fa des de que us va arribar el producte.")
+        if var_dies != "":
+            dies = var_dies
+        
+        contentDevolucio = Graph()
+        contentDevolucio.bind('req', REQ)
+        dev_obj = agn['devolucio']
+        contentDevolucio.add((dev_obj, RDF.type, REQ.PeticioDevolucio))
+        contentDevolucio.add((dev_obj, REQ.idCompra, Literal(str(idC))))
+        contentDevolucio.add((dev_obj, REQ.dies, Literal(dies)))
+        
+        messagePeticio = Graph()
+        messagePeticio = build_message(contentDevolucio, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=dev_obj)
+        print('EnviemPeticioDevolucio')
+        response = send_message(messagePeticio, PlataformaAgent.address)
+        
+        query = """
+                      SELECT ?respostaDev
+                      WHERE {
+                      ?a REQ:respostaDev ?respostaDev .
+                      }
+                      """
+        qres = response.query(query, initNs = {'REQ': REQ})
+        
+        for row in qres:
+            print(row['respostaDev'])
+        
+    var_input = input("Introdueix instruccio: ")
              
     pass
 
