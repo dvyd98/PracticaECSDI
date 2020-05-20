@@ -16,6 +16,7 @@ Asume que el agente de registro esta en el puerto 9000
 
 from multiprocessing import Process, Queue
 import socket
+import json
 import sys
 import os
 import datetime
@@ -70,6 +71,28 @@ cola1 = Queue()
 
 # Flask stuff
 app = Flask(__name__)
+
+
+def registrarCerca(nomP, marcaP):
+    registreCerca = {}
+    nomP = str(nomP)
+    
+    print('Preparat per el registre')
+    
+    with open('registreCerca.txt') as json_file:
+        registreCerca = json.load(json_file)
+        
+    print('Registre obert')
+    
+    registreCerca[nomP] = []
+    registreCerca[nomP].append({
+            'marca': str(marcaP)
+            })
+
+    with open('registreCerca.txt', 'w') as outfile:
+        json.dump(registreCerca, outfile)
+    
+    print('Registre reescrit')
 
 
 @app.route("/")
@@ -172,7 +195,7 @@ def comunicacion():
                 gresult.add((result_obj, REQ['Marca'], row[2]))
                 gresult.add((result_obj, REQ['Categoria'], Literal(PurePosixPath(urlparse(row[3]).path).parts[2])))
             
-            
+                registrarCerca(row[0], row[2])
         
         return gresult
     

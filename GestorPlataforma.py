@@ -5,8 +5,7 @@ Created on Mon Apr 20 18:32:44 2020
 @author: gpoltra98
 
 """
-
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, Value
 import rdflib
 import socket
 import sys
@@ -15,6 +14,7 @@ import datetime
 import random
 import string
 import json
+import threading
 
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
@@ -85,6 +85,89 @@ dsgraph = Graph()
 cola1 = Queue()
 
 idCompra = Literal("0")
+
+def obtenirProducteRandom(marca):
+    g=Graph()
+    g.parse("./Ontologies/product.owl", format="xml")
+    query = """
+              SELECT ?nombre ?precio ?nombreMarca ?categoria
+              WHERE {
+              ?a rdf:type ?categoria .
+              ?a PrOntPr:nombre ?nombre .
+              ?a PrOntPr:precio ?precio .
+              ?a PrOntPr:tieneMarca ?b .
+              ?b PrOntPr:nombre ?nombreMarca .
+              }
+              """
+    qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
+    
+    productes = []
+    for row in qres:
+        if str(row['nombreMarca']).find(str(marca)) >= 0:
+            productes.append(str(row['nombre']))
+        
+    return random.choice(productes)
+    
+
+def obtenirRecomenacio():
+    registreCompres = {}
+    registreCerca = {}
+    marquesComprades = {
+            "Blender": 0,
+            "Computer": 0,
+            "Phone": 0}
+    
+    with open('registreCompres.txt') as json_file:
+        registreCompres = json.load(json_file)
+    
+    for idC in registreCompres:
+        for infoC in registreCompres[idC]:
+            nomP = str(infoC['nomP'])
+            if nomP.find("Blender") >= 0:
+                marquesComprades["Blender"] = marquesComprades["Blender"] + 1
+            elif nomP.find("Computer") >= 0:
+                marquesComprades["Computer"] = marquesComprades["Computer"] + 1
+            elif nomP.find("Phone") >= 0:
+                marquesComprades["Phone"] = marquesComprades["Phone"] + 1
+    
+    with open('registreCerca.txt') as json_file:
+        registreCerca = json.load(json_file)
+    
+    print("MARQUES:", marquesComprades)
+    for np in registreCerca:
+        for infoC in registreCerca[np]:
+            marca = str(infoC['marca'])
+            if marca.find("Blender") >= 0:
+                marquesComprades["Blender"] = marquesComprades["Blender"] + 1
+            elif marca.find("Computer") >= 0:
+                marquesComprades["Computer"] = marquesComprades["Computer"] + 1
+            elif marca.find("Phone") >= 0:
+                marquesComprades["Phone"] = marquesComprades["Phone"] + 1
+            
+    print("MARQUES:", marquesComprades)
+    if len(marquesComprades) > 0:
+        sorted_mc = sorted(marquesComprades.items(), key=lambda kv: kv[1])
+        return sorted_mc[len(marquesComprades)-1][0]
+    else:
+        return "Blender"
+
+def enviarRecomenacio(connexioClientIniciada):
+    print('Intent de connexio: ', connexioClientIniciada.value)
+    if connexioClientIniciada.value > 0:
+        marca = obtenirRecomenacio()
+        
+        producteRec = obtenirProducteRandom(marca)
+        
+        recGraph = Graph()
+        recGraph.bind('req', REQ)
+        rec_obj = agn['recomanacio']
+        recGraph.add((rec_obj, RDF.type, REQ.PeticioRecomanacio)) 
+        recGraph.add((rec_obj, REQ.prod, Literal(producteRec)))
+        
+        missatgeEnviament = build_message(recGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=rec_obj)
+        response = send_message(missatgeEnviament, Client.address)  
+    threading.Timer(30.0, enviarRecomenacio, args=(connexioClientIniciada,)).start()
+            
 
 def eliminarRegistreCerca(idCompra):
     registreCompres = {}
@@ -515,7 +598,20 @@ def comunicacion():
                 
                 print('Resposta devolucio preparada per enviar')
                 
-                gr = contentDev               
+                gr = contentDev
+            elif action == REQ.PeticioIniciarConnexio:
+                iniC = gm.value(subject=content, predicate=REQ.iniciar)
+                
+#                global connexiolientIniciada
+                if iniC:
+                    connexioClientIniciada.value = 1
+                print('ESTAT DE CONNEXIO: ', connexioClientIniciada.value)
+                
+                gr = build_message(Graph(),
+                           ACL['inform-done'],
+                           sender=PlataformaAgent.uri,
+                           msgcnt=mss_cnt)
+                
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
@@ -546,13 +642,14 @@ def tidyup():
     pass
 
 
-def agentbehavior1(cola):
+def agentbehavior1(cola, connexioClientIniciada):
     """
     Un comportamiento del agente
 
     :return:
     """
-    print('Hola')
+    
+    enviarRecomenacio(connexioClientIniciada)
     pass
 
 if __name__ == '__main__':
@@ -561,8 +658,10 @@ if __name__ == '__main__':
     #print(buscarPreuProducte(Literal('nombre_Blender_4ARQ13')))
     #buscarCentreLogistic(Literal("nombre_Blender_4ARQ13"), Literal(1), Literal(42.2), Literal(2.19))
     
+    connexioClientIniciada = Value('i', 0)
+    
     # Ponemos en marcha los behaviors
-    ab1 = Process(target=agentbehavior1, args=(cola1,))
+    ab1 = Process(target=agentbehavior1, args=(cola1,connexioClientIniciada))
     ab1.start()
 
     # Ponemos en marcha el servidor

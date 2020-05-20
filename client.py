@@ -61,6 +61,16 @@ cola1 = Queue()
 # Flask stuff
 app = Flask(__name__)
 
+def iniciarConnexioAmbPlataforma():
+    conGraph = Graph()
+    conGraph.bind('req', REQ)
+    con_obj = agn['recomanacio']
+    conGraph.add((con_obj, RDF.type, REQ.PeticioIniciarConnexio)) 
+    conGraph.add((con_obj, REQ.iniciar, Literal(True)))
+        
+    missatgeEnviament = build_message(conGraph,perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=con_obj)
+    response = send_message(missatgeEnviament, PlataformaAgent.address)
+
 @app.route("/")
 def testing():
     return "testing connection"
@@ -101,8 +111,8 @@ def comunicacion():
             #Mirem tipus request
             content = msgdic['content']
             action = gm.value(subject=content, predicate=RDF.type)
-            print('La action es:', action)
-            print('La action hauria de ser:', REQ.PeticioCompra)
+#            print('La action es:', action)
+#            print('La action hauria de ser:', REQ.PeticioCompra)
             
             #placeholder
             if action == REQ.ConfirmacioAmbFactura:
@@ -127,6 +137,16 @@ def comunicacion():
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
                 
+            elif action == REQ.PeticioRecomanacio:
+                content = msgdic['content']
+                print('-------------------RECOMANACIO--------------------')
+                nombreProd = gm.value(subject=content, predicate=REQ.prod)
+                print("Potser t'interessa el producte " + str(nombreProd))
+                
+                gr = build_message(Graph(),
+                           ACL['inform-done'],
+                           sender=PlataformaAgent.uri,
+                           msgcnt=mss_cnt)
             
             else:
                 logger.info('Es una request que no entenem')
@@ -165,6 +185,7 @@ def agentbehavior1(q, fileno):
     :return:
     """
     sys.stdin = os.fdopen(fileno)
+    iniciarConnexioAmbPlataforma()
     print("Instruccions disponibles")
     print("1 - Buscar un producte")
     print("2 - Comprar un producte")
@@ -338,7 +359,7 @@ if __name__ == '__main__':
     q = Queue()
     fn = sys.stdin.fileno()
     # Ponemos en marcha los behaviors
-    ab1 = Process(target=agentbehavior1, args=(q,fn))
+    ab1 = Process(target=agentbehavior1, args=(q,fn,))
     ab1.start()
 
     # Ponemos en marcha el servidor
