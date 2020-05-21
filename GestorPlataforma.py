@@ -29,7 +29,7 @@ from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ, PrOntPr, PrOntRes, CenOntR
 from OntoNamespaces import LocCenOntRes, LocCenOntPr, LocCenOnt
 from AgentUtil.Logging import config_logger
 from math import sin, cos, sqrt, atan2, radians
-from Agent import portGestorPlataforma, portCentreLogistic, portClient
+from Agent import portGestorPlataforma, portCentreLogistic,  portCentreLogistic2,  portCentreLogistic3,  portCentreLogistic4,  portCentreLogistic5, portClient
 
 # Configuration stuff
 hostname = "localhost"
@@ -62,21 +62,21 @@ CentroLogistico1 = Agent('CentroLogistico1',
                         'http://%s:%d/Stop' % (hostname, portCentreLogistic))
 CentroLogistico2 = Agent('CentroLogistico2',
                         agn.cl2,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
+                        'http://%s:%d/comm' % (hostname, portCentreLogistic2),
+                        'http://%s:%d/Stop' % (hostname, portCentreLogistic2))
 CentroLogistico3 = Agent('CentroLogistico3',
                         agn.cl3,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
+                        'http://%s:%d/comm' % (hostname, portCentreLogistic3),
+                        'http://%s:%d/Stop' % (hostname, portCentreLogistic3))
 CentroLogistico4 = Agent('CentroLogistico4',
                         agn.cl4,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
+                        'http://%s:%d/comm' % (hostname, portCentreLogistic4),
+                        'http://%s:%d/Stop' % (hostname, portCentreLogistic4))
 
 CentroLogistico5 = Agent('CentroLogistico5',
                         agn.cl5,
-                        'http://%s:%d/comm' % (hostname, port),
-                        'http://%s:%d/Stop' % (hostname, port))
+                        'http://%s:%d/comm' % (hostname, portCentreLogistic5),
+                        'http://%s:%d/Stop' % (hostname, portCentreLogistic5))
 
 
 # Global triplestore graph
@@ -439,7 +439,7 @@ def comunicacion():
                     centreReciever = CentroLogistico5
                     
                 #per ara enviarem sempre al mateix centre (segona entrega)
-                centreReciever = CentroLogistico1
+                centreReciever = CentroLogistico3
                     
                 print('\n')
                 print('PREPAREM PER DELEGAR ENVIAMENT')
