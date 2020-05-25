@@ -11,10 +11,11 @@ import sys
 import os
 import random
 import string
+import jocsDeProva
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, RDF, RDFS, FOAF, Literal
+from rdflib import Namespace, Graph, RDF, RDFS, Literal
 from flask import Flask, request
 
 from ACLMessages import build_message, send_message, get_message_properties
@@ -223,7 +224,7 @@ def agentbehavior1(q, fileno):
     latClient = 42.2
     longClient = 2.19
     var_input = input("Introdueix instruccio: ")
-    while(var_input != "1" and var_input != "2" and var_input != "3" and var_input != "4"):
+    while(var_input != "1" and var_input != "2" and var_input != "3" and var_input != "4" and var_input != "5"):
         print ("Instruccio desconeguda")
         var_input = input("Introdueix instruccio: ")
     
@@ -383,22 +384,25 @@ def agentbehavior1(q, fileno):
             var_input = input("Introdueix instruccio: ")
             
         if var_input == "1":
-            print("Jocs de prova disponibles")
-            print("1 - Joc de prova 1")
+            print("Jocs de prova disponibles: 1-5")
             var_input = input("Introdueix instruccio: ")
             while(var_input != "1" and var_input != "2" and var_input != "3"):
                 print ("Instruccio desconeguda")
                 var_input = input("Introdueix instruccio: ")
                 
             content = Graph()
+            content.bind('req', REQ)
+            cerca_obj = agn['cerca']
             
-            #if var_input == "1":
-            #    content = jocDeProva.test_search_1
+            filters_obj = REQ.Filters + '_filters'
+            
+            content = jocsDeProva.test_search(var_input, content, cerca_obj, filters_obj)
                 
             g = Graph()
             #construim el missatge com una req al agent cercador
             g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentCercador.uri, content=cerca_obj)
             #enviem el msg
+            input("Prem ENTER per continuar...")
             response = send_message(g, AgentCercador.address)
             #mirem que hem rebut
             query = """
