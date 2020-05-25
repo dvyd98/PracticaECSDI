@@ -216,6 +216,7 @@ def agentbehavior1(q, fileno):
     print("2 - Comprar un producte")
     print("3 - Modificar localitzacio client (Predefinida: 42.2, 2.19)")
     print("4 - Devolucio de un producte")
+    print("5 - Executar jocs de prova")
 
     letters = string.ascii_lowercase
     
@@ -371,6 +372,51 @@ def agentbehavior1(q, fileno):
         
         for row in qres:
             print(row['respostaDev'])
+            
+    if var_input == "5":
+        print("Instruccions disponibles")
+        print("1 - Jocs de prova buscar Producte")
+        print("2 - Altres jocs de prova")
+        var_input = input("Introdueix instruccio: ")
+        while(var_input != "1" and var_input != "2" and var_input != "3"):
+            print ("Instruccio desconeguda")
+            var_input = input("Introdueix instruccio: ")
+            
+        if var_input == "1":
+            print("Jocs de prova disponibles")
+            print("1 - Joc de prova 1")
+            var_input = input("Introdueix instruccio: ")
+            while(var_input != "1" and var_input != "2" and var_input != "3"):
+                print ("Instruccio desconeguda")
+                var_input = input("Introdueix instruccio: ")
+                
+            content = Graph()
+            
+            #if var_input == "1":
+            #    content = jocDeProva.test_search_1
+                
+            g = Graph()
+            #construim el missatge com una req al agent cercador
+            g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentCercador.uri, content=cerca_obj)
+            #enviem el msg
+            response = send_message(g, AgentCercador.address)
+            #mirem que hem rebut
+            query = """
+                          SELECT ?nombre ?precio ?marca ?categoria
+                          WHERE {
+                          ?a REQ:Nombre ?nombre .
+                          ?a REQ:Precio ?precio .
+                          ?a REQ:Marca ?marca .
+                          ?a REQ:Categoria ?categoria .
+                          }
+                          """
+            qres = response.query(query, initNs = {'REQ': REQ})  
+            for row in qres:
+                print("-------------------------------------------")
+                print("Nom: " + row['nombre'])
+                print("Preu:" + row['precio'])
+                print("Marca: " + row['marca'])
+                print("Categoria: " + row['categoria'])
         
     var_input = input("Introdueix instruccio: ")
              
