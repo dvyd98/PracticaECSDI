@@ -148,6 +148,31 @@ def comunicacion():
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
             
+            elif action == REQ.PeticioFeedback:
+                content = msgdic['content']
+                pucObtenirFeedback = gm.value(subject=content, predicate=REQ.obtenirFeedcack)
+                
+                if pucObtenirFeedback == True:
+                    print('-------------------FEEDBACK D\'USUARI--------------------')
+                    print("0 - Phone")
+                    print("1 - Blender")
+                    print("2 - Computer")
+                    var_marca = input("Introdueix la marca que has comprat recentment")
+                    while var_marca != "0" and var_marca != "1" and var_marca != "2":
+                        var_marca = input("No es una marca. Introdueix una marca:")
+                    
+                    var_puntuacio = input("Introdueix una valoracio del 1 al 10")
+                    while int(var_puntuacio) >= 1 and int(var_puntuacio) <= 10:
+                        var_puntuacio = input("Valor invalid: Introdueix la puntuacio una altre vegada:")
+                    
+                    contentFeed = Graph()
+                    contentFeed.bind('req', REQ)
+                    feed_obj = agn['feed']
+                    contentFeed.add((feed_obj, RDF.type, REQ.RespostaFeedback))
+                    contentFeed.add((feed_obj, REQ.marca, Literal(var_marca)))
+                    contentFeed.add((feed_obj, REQ.puntuacio, Literal(var_puntuacio)))
+                    
+                    gr = contentFeed
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),

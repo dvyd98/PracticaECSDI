@@ -6,6 +6,7 @@ Created on Mon Apr 20 18:32:44 2020
 
 """
 from multiprocessing import Process, Queue, Value
+from time import sleep
 import rdflib
 import socket
 import sys
@@ -86,6 +87,47 @@ cola1 = Queue()
 
 idCompra = Literal("0")
 
+def obtenirFeedback():
+    sleep(20)
+    
+    feedGraph = Graph()
+    feedGraph.bind('req', REQ)
+    feed_obj = agn['recomanacio']
+    feedGraph.add((feed_obj, RDF.type, REQ.PeticioFeedback)) 
+    feedGraph.add((feed_obj, REQ.obtenirFeedcack, Literal(True)))
+        
+    missatgeEnviament = build_message(feedGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=feed_obj)
+    response = send_message(missatgeEnviament, Client.address) 
+    
+    query = """
+                      SELECT ?marca ?puntuacio 
+                      WHERE {
+                      ?a REQ:marca ?marca .
+                      ?a REQ:puntuacio ?puntuacio .
+                      }
+                      """
+    qres = response.query(query, initNs = {'REQ': REQ})
+    
+    marca = ""
+    puntuacio = 1
+    
+    for row in qres:
+        marca = str(row['marca'])
+        puntuacio = int(row['puntuacio'])
+
+    print("Marca:", marca)
+    print("Puntuacio: ", puntuacio)
+    
+    feedback = {}
+    with open('registreFeedback.txt') as json_file:
+        feedback = json.load(json_file)
+    
+    feedback[marca] = int(feedback[marca]) + puntuacio
+    
+    with open('registreFeedback.txt', 'w') as outfile:
+        json.dump(feedback, outfile)
+    
+
 def obtenirProducteRandom(marca):
     g=Graph()
     g.parse("./Ontologies/product.owl", format="xml")
@@ -112,10 +154,10 @@ def obtenirProducteRandom(marca):
 def obtenirRecomenacio():
     registreCompres = {}
     registreCerca = {}
-    marquesComprades = {
-            "Blender": 0,
-            "Computer": 0,
-            "Phone": 0}
+    marques = {}
+    
+    with open('registreFeedback.txt') as json_file:
+        marques = json.load(json_file)
     
     with open('registreCompres.txt') as json_file:
         registreCompres = json.load(json_file)
@@ -124,30 +166,30 @@ def obtenirRecomenacio():
         for infoC in registreCompres[idC]:
             nomP = str(infoC['nomP'])
             if nomP.find("Blender") >= 0:
-                marquesComprades["Blender"] = marquesComprades["Blender"] + 1
+                marques["Blender"] = marques["Blender"] + 1
             elif nomP.find("Computer") >= 0:
-                marquesComprades["Computer"] = marquesComprades["Computer"] + 1
+                marques["Computer"] = marques["Computer"] + 1
             elif nomP.find("Phone") >= 0:
-                marquesComprades["Phone"] = marquesComprades["Phone"] + 1
+                marques["Phone"] = marques["Phone"] + 1
     
     with open('registreCerca.txt') as json_file:
         registreCerca = json.load(json_file)
     
-    print("MARQUES:", marquesComprades)
+    print("MARQUES:", marques)
     for np in registreCerca:
         for infoC in registreCerca[np]:
             marca = str(infoC['marca'])
             if marca.find("Blender") >= 0:
-                marquesComprades["Blender"] = marquesComprades["Blender"] + 1
+                marques["Blender"] = marques["Blender"] + 1
             elif marca.find("Computer") >= 0:
-                marquesComprades["Computer"] = marquesComprades["Computer"] + 1
+                marques["Computer"] = marques["Computer"] + 1
             elif marca.find("Phone") >= 0:
-                marquesComprades["Phone"] = marquesComprades["Phone"] + 1
+                marques["Phone"] = marques["Phone"] + 1
             
-    print("MARQUES:", marquesComprades)
-    if len(marquesComprades) > 0:
-        sorted_mc = sorted(marquesComprades.items(), key=lambda kv: kv[1])
-        return sorted_mc[len(marquesComprades)-1][0]
+    print("MARQUES:", marques)
+    if len(marques) > 0:
+        sorted_mc = sorted(marques.items(), key=lambda kv: kv[1])
+        return sorted_mc[len(marques)-1][0]
     else:
         return "Blender"
 
@@ -564,6 +606,8 @@ def comunicacion():
                 missatgeFactura = build_message(contentFactura,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=factura_obj)
                 response = send_message(missatgeFactura, Client.address)
                 
+                obtenirFeedback()
+                
                 gr = build_message(Graph(),
                            ACL['inform-done'],
                            sender=PlataformaAgent.uri,
@@ -657,7 +701,6 @@ if __name__ == '__main__':
     #print('BUSCAR PREU PRODUCTE:')
     #print(buscarPreuProducte(Literal('nombre_Blender_4ARQ13')))
     #buscarCentreLogistic(Literal("nombre_Blender_4ARQ13"), Literal(1), Literal(42.2), Literal(2.19))
-    
     connexioClientIniciada = Value('i', 0)
     
     # Ponemos en marcha los behaviors
