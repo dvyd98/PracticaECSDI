@@ -4,8 +4,7 @@
    xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
-    <req:Categoria>Phone</req:Categoria>
-    <req:TieneMarca>Phone</req:TieneMarca>
+    <req:Categoria>BLENDER</req:Categoria>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.agentes.org#cerca">
     <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>

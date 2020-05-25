@@ -158,7 +158,7 @@ def comunicacion():
                 product_pr = row[i]
                 if (i == 0):
                     if (nombre_filter != None):
-                        if (nombre_filter in product_pr):
+                        if (nombre_filter.lower() in product_pr.lower()):
                             count += 1
                     else:
                         count += 1
@@ -170,7 +170,7 @@ def comunicacion():
                         count += 1
                 if (i == 2):
                     if (marca_filter != None):
-                        if (marca_filter in product_pr):
+                        if (marca_filter.lower() in product_pr.lower()):
                             count += 1
                     else:
                         count += 1
@@ -178,7 +178,7 @@ def comunicacion():
                     if (categoria_filter != None):
                         categoriaURI = urlparse(row['categoria']).path
                         categoria = PurePosixPath(categoriaURI).parts[2]
-                        if (categoria_filter in categoria):
+                        if (categoria_filter.lower() in categoria.lower()):
                             count += 1
                     else:
                         count += 1

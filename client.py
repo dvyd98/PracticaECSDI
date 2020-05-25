@@ -418,7 +418,7 @@ def agentbehavior1(q, fileno):
             for row in qres:
                 print("-------------------------------------------")
                 print("Nom: " + row['nombre'])
-                print("Preu:" + row['precio'])
+                print("Preu: " + row['precio'])
                 print("Marca: " + row['marca'])
                 print("Categoria: " + row['categoria'])
         
