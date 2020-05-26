@@ -162,7 +162,7 @@ if __name__ == '__main__':
                     val = Literal(random_attribute(prop, attr[1:]))
                 # el atributo es string
                 elif prop == 's':
-                    val = Literal(random_name(attr[0] + '_' + prc))
+                    val = Literal(random_name('Nombre' + '_' + prc))
                 elif prop == 'b':
                     val = Literal(0)
                 else:

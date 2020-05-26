@@ -11,10 +11,11 @@ import sys
 import os
 import random
 import string
+import jocsDeProva
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
-from rdflib import Namespace, Graph, RDF, RDFS, FOAF, Literal
+from rdflib import Namespace, Graph, RDF, RDFS, Literal
 from flask import Flask, request
 
 from ACLMessages import build_message, send_message, get_message_properties
@@ -239,9 +240,11 @@ def agentbehavior1(q, fileno):
     
     latClient = 42.2
     longClient = 2.19
+
     while True:
+
         var_input = input("Introdueix instruccio: ")
-        while(var_input != "1" and var_input != "2" and var_input != "3" and var_input != "4"):
+        while(var_input != "1" and var_input != "2" and var_input != "3" and var_input != "4" and var_input != "5"):
             print ("Instruccio desconeguda")
             var_input = input("Introdueix instruccio: ")
         

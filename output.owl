@@ -4,167 +4,167 @@
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
    xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_IJOUAO">
-    <req:Categoria>Phone</req:Categoria>
-    <req:Marca>Marca_Phone_QLSX2E</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Phone_IJOUAO</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">207</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_5K7DBR">
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">187</req:Precio>
-    <req:Nombre>nombre_Phone_5K7DBR</req:Nombre>
-    <req:Categoria>Phone</req:Categoria>
-    <req:Marca>Marca_Phone_RYWZIN</req:Marca>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_ISH1C4">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">403</req:Precio>
-    <req:Categoria>Phone</req:Categoria>
-    <req:Marca>Marca_Phone_QLSX2E</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Phone_ISH1C4</req:Nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_KWB681">
-    <req:Marca>Marca_Phone_WCAFU6</req:Marca>
-    <req:Categoria>Phone</req:Categoria>
-    <req:Nombre>nombre_Phone_KWB681</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">118</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_IYCXRQ">
-    <req:Nombre>nombre_Phone_IYCXRQ</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">350</req:Precio>
-    <req:Marca>Marca_Phone_H6HBZL</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Categoria>Phone</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_T6204K">
-    <req:Nombre>nombre_Phone_T6204K</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Phone_1K1KR9</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">245</req:Precio>
-    <req:Categoria>Phone</req:Categoria>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_UZC19Q">
-    <req:Categoria>Phone</req:Categoria>
-    <req:Nombre>nombre_Phone_UZC19Q</req:Nombre>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Phone_RYWZIN</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">528</req:Precio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_MWQ5OL">
-    <req:Categoria>Phone</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75</req:Precio>
-    <req:Nombre>nombre_Phone_MWQ5OL</req:Nombre>
-    <req:Marca>Marca_Phone_MYHE59</req:Marca>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_JTHBXM">
+    <req:Nombre>Nombre_Blender_JTHBXM</req:Nombre>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">68</req:Precio>
+    <req:Marca>Marca_Blender_IXYJ1W</req:Marca>
+    <req:Categoria>Blender</req:Categoria>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_WYUUM8">
-    <req:Marca>Marca_Phone_LQOCN2</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">163</req:Precio>
-    <req:Categoria>Phone</req:Categoria>
-    <req:Nombre>nombre_Phone_WYUUM8</req:Nombre>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_GZMQPA">
+    <req:Categoria>Blender</req:Categoria>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Nombre>Nombre_Blender_GZMQPA</req:Nombre>
+    <req:Marca>Marca_Blender_RKOFCA</req:Marca>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">93</req:Precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_CU4PYY">
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</req:Precio>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Nombre>Nombre_Blender_CU4PYY</req:Nombre>
+    <req:Marca>Marca_Blender_KNTB1R</req:Marca>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_SQ9HBY">
-    <req:Nombre>nombre_Phone_SQ9HBY</req:Nombre>
-    <req:Categoria>Phone</req:Categoria>
-    <req:Marca>Marca_Phone_RYWZIN</req:Marca>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_BG1VKO">
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">525</req:Precio>
+    <req:Nombre>Nombre_Blender_BG1VKO</req:Nombre>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Marca>Marca_Blender_QZEXM2</req:Marca>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</req:Precio>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_ZVCVVT">
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_OGDZH8">
+    <req:Marca>Marca_Blender_RKOFCA</req:Marca>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">202</req:Precio>
-    <req:Nombre>nombre_Phone_ZVCVVT</req:Nombre>
-    <req:Categoria>Phone</req:Categoria>
-    <req:Marca>Marca_Phone_9SW9FV</req:Marca>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Nombre>Nombre_Blender_OGDZH8</req:Nombre>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">64</req:Precio>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_ZPT0DU">
-    <req:Categoria>Phone</req:Categoria>
-    <req:Nombre>nombre_Phone_ZPT0DU</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">55</req:Precio>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_5KLNXR">
+    <req:Nombre>Nombre_Blender_5KLNXR</req:Nombre>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</req:Precio>
+    <req:Marca>Marca_Blender_75DXQK</req:Marca>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Marca>Marca_Phone_F65W1I</req:Marca>
+    <req:Categoria>Blender</req:Categoria>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_8ZF6SQ">
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_1FCR9K">
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">77</req:Precio>
+    <req:Nombre>Nombre_Blender_1FCR9K</req:Nombre>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Phone_8ZF6SQ</req:Nombre>
-    <req:Categoria>Phone</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">95</req:Precio>
-    <req:Marca>Marca_Phone_9SW9FV</req:Marca>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Marca>Marca_Blender_O6KULU</req:Marca>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_HBE70A">
-    <req:Categoria>Phone</req:Categoria>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">341</req:Precio>
-    <req:Nombre>nombre_Phone_HBE70A</req:Nombre>
-    <req:Marca>Marca_Phone_7TF9SW</req:Marca>
-    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_KY1QM3">
-    <req:Categoria>Phone</req:Categoria>
-    <req:Marca>Marca_Phone_LQOCN2</req:Marca>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">285</req:Precio>
-    <req:Nombre>nombre_Phone_KY1QM3</req:Nombre>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_LOQUAC">
+    <req:Marca>Marca_Blender_IXYJ1W</req:Marca>
+    <req:Nombre>Nombre_Blender_LOQUAC</req:Nombre>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">52</req:Precio>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_NOUYKE">
-    <req:Marca>Marca_Phone_LQOCN2</req:Marca>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_QW66EJ">
+    <req:Nombre>Nombre_Blender_QW66EJ</req:Nombre>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">191</req:Precio>
-    <req:Categoria>Phone</req:Categoria>
-    <req:Nombre>nombre_Phone_NOUYKE</req:Nombre>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">83</req:Precio>
+    <req:Marca>Marca_Blender_75DXQK</req:Marca>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_D718HB">
-    <req:Categoria>Phone</req:Categoria>
-    <req:Marca>Marca_Phone_9SW9FV</req:Marca>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_JCSE58">
+    <req:Marca>Marca_Blender_EKG1XG</req:Marca>
+    <req:Nombre>Nombre_Blender_JCSE58</req:Nombre>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">41</req:Precio>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Phone_D718HB</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">327</req:Precio>
+    <req:Categoria>Blender</req:Categoria>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Categoria">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_0ISB7Z">
-    <req:Marca>Marca_Phone_MYHE59</req:Marca>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_14QXA0">
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">41</req:Precio>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Phone_0ISB7Z</req:Nombre>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">501</req:Precio>
-    <req:Categoria>Phone</req:Categoria>
+    <req:Marca>Marca_Blender_75DXQK</req:Marca>
+    <req:Nombre>Nombre_Blender_14QXA0</req:Nombre>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_OOKDY3">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">252</req:Precio>
-    <req:Marca>Marca_Phone_F65W1I</req:Marca>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_XL0LOL">
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Nombre>nombre_Phone_OOKDY3</req:Nombre>
-    <req:Categoria>Phone</req:Categoria>
+    <req:Nombre>Nombre_Blender_XL0LOL</req:Nombre>
+    <req:Marca>Marca_Blender_RKOFCA</req:Marca>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32</req:Precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_907GHZ">
+    <req:Nombre>Nombre_Blender_907GHZ</req:Nombre>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Marca>Marca_Blender_EJEA43</req:Marca>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">87</req:Precio>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_JJXTVD">
+    <req:Marca>Marca_Blender_EKG1XG</req:Marca>
+    <req:Nombre>Nombre_Blender_JJXTVD</req:Nombre>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56</req:Precio>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Peso">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_ITT9L2">
+    <req:Categoria>Blender</req:Categoria>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">43</req:Precio>
+    <req:Nombre>Nombre_Blender_ITT9L2</req:Nombre>
+    <req:Marca>Marca_Blender_QZEXM2</req:Marca>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Precio">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_JAFS73">
+    <req:Nombre>Nombre_Blender_JAFS73</req:Nombre>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86</req:Precio>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Marca>Marca_Blender_QZEXM2</req:Marca>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_V6TAUK">
+    <req:Marca>Marca_Blender_RKOFCA</req:Marca>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">31</req:Precio>
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Nombre>Nombre_Blender_V6TAUK</req:Nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_IJNHPX">
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">85</req:Precio>
+    <req:Nombre>Nombre_Blender_IJNHPX</req:Nombre>
+    <req:Marca>Marca_Blender_75DXQK</req:Marca>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_ZIQ60V">
+    <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
+    <req:Nombre>Nombre_Blender_ZIQ60V</req:Nombre>
+    <req:Marca>Marca_Blender_EJEA43</req:Marca>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">26</req:Precio>
+  </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Marca">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/nombre_Phone_6G9750">
-    <req:Nombre>nombre_Phone_6G9750</req:Nombre>
-    <req:Marca>Marca_Phone_9SW9FV</req:Marca>
-    <req:Categoria>Phone</req:Categoria>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Nombre_Blender_5CO0VM">
+    <req:Marca>Marca_Blender_IXYJ1W</req:Marca>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">94</req:Precio>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result"/>
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">455</req:Precio>
+    <req:Categoria>Blender</req:Categoria>
+    <req:Nombre>Nombre_Blender_5CO0VM</req:Nombre>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Precio">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Result">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Categoria">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
   </rdf:Description>
 </rdf:RDF>
