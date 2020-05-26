@@ -88,17 +88,20 @@ cola1 = Queue()
 idCompra = Literal("0")
 
 def obtenirFeedback():
+    print("Esperant temps per enviar feedback")
     sleep(20)
     
+    print("Ha passat el temps, preparant peticio feedback...")
     feedGraph = Graph()
     feedGraph.bind('req', REQ)
-    feed_obj = agn['recomanacio']
+    feed_obj = agn['feedback']
     feedGraph.add((feed_obj, RDF.type, REQ.PeticioFeedback)) 
     feedGraph.add((feed_obj, REQ.obtenirFeedcack, Literal(True)))
         
-    missatgeEnviament = build_message(feedGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=feed_obj)
-    response = send_message(missatgeEnviament, Client.address) 
+    missatgeFeedback = build_message(feedGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=feed_obj)
+    response = send_message(missatgeFeedback, Client.address) 
     
+    print("Rebem resposta feedback del client")
     query = """
                       SELECT ?marca ?puntuacio 
                       WHERE {
@@ -108,11 +111,12 @@ def obtenirFeedback():
                       """
     qres = response.query(query, initNs = {'REQ': REQ})
     
-    marca = ""
+    marca = ''
     puntuacio = 1
     
+    print("Guardant el feedback per millorar recomanacions...")
     for row in qres:
-        marca = str(row['marca'])
+        marca = marca + str(row['marca'])
         puntuacio = int(row['puntuacio'])
 
     print("Marca:", marca)
@@ -122,6 +126,7 @@ def obtenirFeedback():
     with open('registreFeedback.txt') as json_file:
         feedback = json.load(json_file)
     
+    print('El feedback guardat es:', feedback)
     feedback[marca] = int(feedback[marca]) + puntuacio
     
     with open('registreFeedback.txt', 'w') as outfile:
@@ -208,7 +213,7 @@ def enviarRecomenacio(connexioClientIniciada):
         
         missatgeEnviament = build_message(recGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=rec_obj)
         response = send_message(missatgeEnviament, Client.address)  
-    threading.Timer(30.0, enviarRecomenacio, args=(connexioClientIniciada,)).start()
+    threading.Timer(80.0, enviarRecomenacio, args=(connexioClientIniciada,)).start()
             
 
 def eliminarRegistreCerca(idCompra):
@@ -302,6 +307,14 @@ def buscarPreuProducte(nombreProd):
             break
     
     return preu
+
+def crearRespostaPeticioCompra(cl):
+    res = ""
+    if cl is None:
+        res = "Aquest producte amb aquesta quantitat no es troben disponibles en ningun centre logístic"
+    else:
+        res = "S'ha enviat el producte al centre logistic: " + str(cl)
+    return res
 
 def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
     centresDisponibles = []
@@ -442,11 +455,17 @@ def comunicacion():
                 
                 #cercar el millor centre logistic que tingui aquest producte
                 cl = buscarCentreLogistic(nombreProd, quant, latClient, longClient)
+                resCL = crearRespostaPeticioCompra(cl)
                 if cl is None:
                     logger.info('No hi ha aquest producte en ningun centre')
                     print('No hi ha aquest producte en ningun centre')
-                    gr = build_message(Graph(),
-                           ACL['not-understood'],
+                    resGraph = Graph()
+                    resGraph.bind('req', REQ)
+                    res_obj = agn['factura']
+                    resGraph.add((res_obj, RDF.type, REQ.ConfirmacioAmbResposta))
+                    resGraph.add((res_obj, REQ.resposta, Literal(resCL)))
+                    gr = build_message(resGraph,
+                           ACL['inform-done'],
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
                     return gr.serialize(format='xml')
@@ -481,7 +500,7 @@ def comunicacion():
                     centreReciever = CentroLogistico5
                     
                 #per ara enviarem sempre al mateix centre (segona entrega)
-                centreReciever = CentroLogistico3
+                #centreReciever = CentroLogistico3
                     
                 print('\n')
                 print('PREPAREM PER DELEGAR ENVIAMENT')
@@ -489,10 +508,16 @@ def comunicacion():
                 missatgeEnviament = build_message(envGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=centreReciever.uri, content=env_obj)
                 response = send_message(missatgeEnviament, centreReciever.address)
                 
-                gr = build_message(Graph(),
+                resGraph = Graph()
+                resGraph.bind('req', REQ)
+                res_obj = agn['factura']
+                resGraph.add((res_obj, RDF.type, REQ.ConfirmacioAmbResposta))
+                resGraph.add((res_obj, REQ.resposta, Literal(resCL)))
+                gr = build_message(resGraph,
                            ACL['inform-done'],
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
+                return gr.serialize(format='xml')
                         
                 #-------------------------------AIXO PASARA A ESTAR A ACTION==REQ.INICIARENVIAMENT---------
 #                print('\n')
@@ -606,6 +631,7 @@ def comunicacion():
                 missatgeFactura = build_message(contentFactura,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=Client.uri, content=factura_obj)
                 response = send_message(missatgeFactura, Client.address)
                 
+                print("Cridar obtenir feedback...")
                 obtenirFeedback()
                 
                 gr = build_message(Graph(),
