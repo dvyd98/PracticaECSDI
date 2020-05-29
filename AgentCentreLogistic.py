@@ -337,7 +337,7 @@ def comprovarLotComplet(pesTotal, LotProductes, NomsLot, Quantitats, centre):
       
   print("El pes del centre",centre, "és: ", pesTotal.value)
   #De moment sempre que hi hagi un producte al lot ja fa la petició
-  if pesTotal.value > 800:
+  if pesTotal.value > 700:
       ciutatDesti = 'Barcelona'
       diaMaxim = '15/10/2021'
       

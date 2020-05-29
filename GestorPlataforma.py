@@ -30,7 +30,7 @@ from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ, PrOntPr, PrOntRes, CenOntR
 from OntoNamespaces import LocCenOntRes, LocCenOntPr, LocCenOnt
 from AgentUtil.Logging import config_logger
 from math import sin, cos, sqrt, atan2, radians
-from Agent import portGestorPlataforma, portCentreLogistic,  portCentreLogistic2,  portCentreLogistic3,  portCentreLogistic4,  portCentreLogistic5, portClient
+from Agent import portGestorPlataforma, portCentreLogistic,  portCentreLogistic2,  portCentreLogistic3,  portCentreLogistic4,  portCentreLogistic5, portClient, portAgentTesorer
 
 # Configuration stuff
 hostname = "localhost"
@@ -78,6 +78,11 @@ CentroLogistico5 = Agent('CentroLogistico5',
                         agn.cl5,
                         'http://%s:%d/comm' % (hostname, portCentreLogistic5),
                         'http://%s:%d/Stop' % (hostname, portCentreLogistic5))
+
+AgentTesorer = Agent('AgentTesorer',
+                             agn.AgentTesorer,
+                             'http://%s:%d/comm' % (hostname, portAgentTesorer),
+                             'http://%s:%d/comm' % (hostname, portAgentTesorer))
 
 
 # Global triplestore graph
@@ -444,14 +449,6 @@ def comunicacion():
                 latClient = gm.value(subject=content, predicate=REQ.LatitudClient)
                 longClient = gm.value(subject=content, predicate=REQ.LongitudClient)
                 idCompra = gm.value(subject=content, predicate=REQ.idCompra)
-#                nombreProd = Literal(nombreProd)
-#                quant = Literal(quant)
-#                latClient = Literal(latClient)
-#                longClient = Literal(longClient)
-#                print("Busco el producte:", nombreProd)
-#                print("La quantitat:", quant)
-#                print("La latitud:", latClient)
-#                print("La longitud:", longClient)
                 
                 #cercar el millor centre logistic que tingui aquest producte
                 cl = buscarCentreLogistic(nombreProd, quant, latClient, longClient)
@@ -518,62 +515,7 @@ def comunicacion():
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
                 return gr.serialize(format='xml')
-                        
-                #-------------------------------AIXO PASARA A ESTAR A ACTION==REQ.INICIARENVIAMENT---------
-#                print('\n')
-#                print('REBEM PREU ENVIAMENT')
-#                print('\n')
-#                
-#                query = """
-#                      SELECT ?nombre ?precio 
-#                      WHERE {
-#                      ?a REQ:NomEmpresa ?nombre .
-#                      ?a REQ:Preu ?precio .
-#                      }
-#                      """
-#                qres = response.query(query, initNs = {'REQ': REQ})
-#                
-#                nomE = None
-#                preuEnv = None
-#                idCompra = "dsjndsfo"
-#                
-#                for row in qres:
-#                    nomE = row['nombre']
-#                    preuEnv = row['precio']
-#                    #idCompra = row['idCompra']
-#                
-#                print('El preu enviament es:', preuEnv)
-#                print('El nom empresa es:', nomE)
-#                
-#                preuProducte = buscarPreuProducte(nombreProd)
-#                
-#                print('El preu producte es:', preuProducte)
-#                
-#                preuProducte = Literal(int(preuProducte)*int(quant))
-#                preuTot = Literal(float(preuEnv)+int(preuProducte*int(quant)))
-#                
-#                print('Registrant compra...')
-#                registrarCompra(idCompra, nombreProd, preuTot)
-#                
-#                print('Preparant factura...')
-#                
-#                contentFactura = Graph()
-#                contentFactura.bind('req', REQ)
-#                factura_obj = agn['factura']
-#                contentFactura.add((factura_obj, RDF.type, REQ.ConfirmacioAmbFactura))
-#                contentFactura.add((factura_obj, REQ.nomP, nombreProd))
-#                contentFactura.add((factura_obj, REQ.preuEnviament, Literal(preuEnv)))
-#                contentFactura.add((factura_obj, REQ.preuProd, preuProducte))
-#                contentFactura.add((factura_obj, REQ.preuTotal, preuTot))
-#                contentFactura.add((factura_obj, REQ.nomEmpresa, nomE))
-#                contentFactura.add((factura_obj, REQ.idCompra, Literal(idCompra)))
-#                
-#                print('Factura creada')
-#                
-#                gr = contentFactura  
-
-
-            
+        
             elif action == REQ.IniciarEnviament:
                 content = msgdic['content']
                 
@@ -588,13 +530,6 @@ def comunicacion():
                 idCompra = gm.value(subject=content, predicate=REQ.idCompra)
                 nombreProd = gm.value(subject=content, predicate=REQ.NomProd)
                 quant = gm.value(subject=content, predicate=REQ.quant)
-                
-               
-                
-#                nomE = None
-#                preuEnv = None
-#                idCompra = "dsfdsfsdf"
-                
                 
                 print('El preu enviament es:', preuEnv)
                 print('El nom empresa es:', nomE)
@@ -657,6 +592,15 @@ def comunicacion():
                         eliminarRegistreCerca(idCompra)
                         preu = str(preu)
                         resposta = "Peticio ACCEPTADA. L'empresa transportista recollirà el producte en el mateix lloc que l'entrega en un plaç màxim de 3 dies. Es procedirà a fer un reembolsament de "+preu
+                        
+                        recGraph = Graph()
+                        recGraph.bind('req', REQ)
+                        rec_obj = agn['recomanacio']
+                        recGraph.add((rec_obj, RDF.type, REQ.PeticioTransferenciaAClient)) 
+                        recGraph.add((rec_obj, REQ.diners, Literal(preu)))
+                        
+                        missatgeEnviament = build_message(recGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=AgentTesorer.uri, content=rec_obj)
+                        response = send_message(missatgeEnviament, AgentTesorer.address)
                 else:
                     resposta = "NO es possible procedir amb la devolució, el període màxim per a la devolució és de 15 dies."
                     
@@ -668,7 +612,10 @@ def comunicacion():
                 
                 print('Resposta devolucio preparada per enviar')
                 
-                gr = contentDev
+                gr = build_message(contentDev,
+                           ACL['inform-done'],
+                           sender=PlataformaAgent.uri,
+                           msgcnt=mss_cnt)
             elif action == REQ.PeticioIniciarConnexio:
                 iniC = gm.value(subject=content, predicate=REQ.iniciar)
                 
@@ -681,7 +628,17 @@ def comunicacion():
                            ACL['inform-done'],
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
+            
+            elif action == REQ.rebreDiners:
+                content = msgdic['content']
+                diners = gm.value(subject=content, predicate=REQ.diners)
                 
+                print("Hem rebut diners: ", diners)
+
+                gr = build_message(Graph(),
+                           ACL['inform-done'],
+                           sender=PlataformaAgent.uri,
+                           msgcnt=mss_cnt)
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),

@@ -21,6 +21,7 @@ portCentreLogistic5 = 9007
 portAgentEmpresa = 9003
 portCerca = 9050
 portVenedorExtern = 9060
+portAgentTesorer = 9070
 
 class Agent():
     def __init__(self, name, uri, address, stop):
