@@ -25,7 +25,7 @@ from OntoNamespaces import ACL, DSO, RDF, PrOnt, REQ, PrOntPr, PrOntRes, CenOntR
 from OntoNamespaces import LocCenOntRes, LocCenOntPr, LocCenOnt
 from AgentUtil.Logging import config_logger
 from math import sin, cos, sqrt, atan2, radians
-from Agent import portGestorPlataforma, portCerca, portClient
+from Agent import portGestorPlataforma, portCerca, portClient, portAgentTesorer
 
 # Configuration stuff
 hostname = "localhost"
@@ -54,6 +54,11 @@ AgentCercador = Agent('AgentCercador',
                        agn.AgentCercador,
                        'http://%s:%d/comm' % (hostname, portCerca),
                        'http://%s:%d/Stop' % (hostname, portCerca))
+
+AgentTesorer = Agent('AgentTesorer',
+                             agn.AgentTesorer,
+                             'http://%s:%d/comm' % (hostname, portAgentTesorer),
+                             'http://%s:%d/comm' % (hostname, portAgentTesorer))
 
 dsgraph = Graph()
 
@@ -97,7 +102,7 @@ def comunicacion():
         logger.info('Msg no es FIPA ACL')
         gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=PlataformaAgent.uri,
+                           sender=Client.uri,
                            msgcnt=mss_cnt)
     else:
         #Si ho es obtenim la performativa
@@ -106,7 +111,7 @@ def comunicacion():
             logger.info('Msg no es una request')
             gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=PlataformaAgent.uri,
+                           sender=Client.uri,
                            msgcnt=mss_cnt)
         else:
             #Mirem tipus request
@@ -133,6 +138,22 @@ def comunicacion():
                 print('idCompra:', idCompra)
                 print('FinalitzemPeticioCompra')
                 
+                print("Proces pagament")
+                compte = ""
+                compte = input("Introdueix el teu compte")
+                while compte == "":
+                    compte = input("Introdueix un compte vàlid")
+                
+                conGraph = Graph()
+                conGraph.bind('req', REQ)
+                con_obj = agn['transferencia']
+                conGraph.add((con_obj, RDF.type, REQ.PeticioTransferenciaAPlataforma)) 
+                conGraph.add((con_obj, REQ.diners, Literal(preuTotal)))
+                conGraph.add((con_obj, REQ.compte, Literal(compte)))
+        
+                missatgeEnviament = build_message(conGraph,perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentTesorer.uri, content=con_obj)
+                response = send_message(missatgeEnviament, AgentTesorer.address)
+                
                 gr = build_message(Graph(),
                            ACL['inform-done'],
                            sender=PlataformaAgent.uri,
@@ -146,7 +167,7 @@ def comunicacion():
                 
                 gr = build_message(Graph(),
                            ACL['inform-done'],
-                           sender=PlataformaAgent.uri,
+                           sender=Client.uri,
                            msgcnt=mss_cnt)
             
             elif action == REQ.PeticioFeedback:
@@ -185,17 +206,28 @@ def comunicacion():
                            ACL['inform-done'],
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
+                    
+                elif action == REQ.rebreDiners:
+                    content = msgdic['content']
+                    diners = gm.value(subject=content, predicate=REQ.diners)
+                    
+                    print("Hem rebut diners: ", diners)
+    
+                    gr = build_message(Graph(),
+                               ACL['inform-done'],
+                               sender=Client.uri,
+                               msgcnt=mss_cnt)
                 else:
                     gr = build_message(Graph(),
                            ACL['inform-done'],
-                           sender=PlataformaAgent.uri,
+                           sender=Client.uri,
                            msgcnt=mss_cnt)
 #                    return gr.serialize(format='xml')
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
                            ACL['not-understood'],
-                           sender=PlataformaAgent.uri,
+                           sender=Client.uri,
                            msgcnt=mss_cnt)
 #                return gr.serialize(format='xml')
     mss_cnt += 1
@@ -421,6 +453,7 @@ if __name__ == '__main__':
     #print('BUSCAR PREU PRODUCTE:')
     #print(buscarPreuProducte(Literal('nombre_Blender_0XF8I9')))
     #buscarCentreLogistic(Literal("nombre_Blender_0XF8I9"), Literal(1), Literal(42.2), Literal(2.19))
+    #Nombre_Blender_06KF10
     q = Queue()
     fn = sys.stdin.fileno()
     # Ponemos en marcha los behaviors
