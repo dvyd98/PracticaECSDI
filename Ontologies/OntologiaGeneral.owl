@@ -102,6 +102,15 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#aRecomenar -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#aRecomenar">
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Producte"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Recomanacio"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#buscatPer -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#buscatPer">
@@ -165,11 +174,30 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#obtingutDe -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#obtingutDe">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Feedback"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#reclamatPer -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#reclamatPer">
         <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#DevolucioProducte"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#recomanatPer -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#recomanatPer">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Recomanacio"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
 
@@ -586,6 +614,12 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Feedback -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Feedback"/>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#IniciarEnviament -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#IniciarEnviament">
@@ -707,6 +741,12 @@
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PropostaEnviament">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#EntitatsRespostes-Peticions"/>
     </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Recomanacio -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Recomanacio"/>
     
 
 
