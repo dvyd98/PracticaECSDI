@@ -102,6 +102,15 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#aRecomenar -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#aRecomenar">
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Producte"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Recomanacio"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#buscatPer -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#buscatPer">
@@ -165,11 +174,41 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#obtingutDe -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#obtingutDe">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Feedback"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#pagaA -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#pagaA">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Tresorer"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Tresorer"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#reclamatPer -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#reclamatPer">
         <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#DevolucioProducte"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#recomanatPer -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#recomanatPer">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Recomanacio"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
 
@@ -528,6 +567,22 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ConfirmacioAmbFactura -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ConfirmacioAmbFactura">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Respostes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ConfirmacioAmbResposta -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ConfirmacioAmbResposta">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Respostes"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ConfirmarEnviament -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ConfirmarEnviament">
@@ -567,6 +622,12 @@
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#FacturaCompra">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#EntitatsRespostes-Peticions"/>
     </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Feedback -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Feedback"/>
     
 
 
@@ -634,6 +695,46 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioFeedback -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioFeedback">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Peticions"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioIniciarConnexio -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioIniciarConnexio">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Peticions"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioRecomanacio -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioRecomanacio">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Peticions"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioTransferenciaAClient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioTransferenciaAClient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Peticions"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioTransferenciaAPlataforma -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#PeticioTransferenciaAPlataforma">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Peticions"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Peticions -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Peticions"/>
@@ -654,9 +755,23 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Recomanacio -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Recomanacio"/>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#RespostaEmpresa -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#RespostaEmpresa">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Respostes"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#RespostaFeedback -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#RespostaFeedback">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Respostes"/>
     </owl:Class>
     
@@ -708,6 +823,12 @@
     
 
 
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Tresorer -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Tresorer"/>
+    
+
+
     <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Usuari">
@@ -752,6 +873,14 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#processarCompra">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#ComprarProducte"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#rebreDiners -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#rebreDiners">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests#Respostes"/>
     </owl:Class>
     
 
