@@ -78,7 +78,6 @@ response = send_message(g, AgentVenedorExtern.address)
 '''
 print("Instruccions disponibles")
 print("1 - Afegir un producte extern a la botiga")
-print("2 - Afegir una marca a la botiga")
 var_input = input("Introdueix instruccio: ")
 while(var_input != "1" and var_input != "2" and var_input != "3"):
     print ("Instruccio desconeguda")
@@ -96,14 +95,24 @@ if (var_input == "1"):
     
     print("Introdueix les propietats del producte que vols afegir")
     var_filtre = input("Introdueix nom del producte: ")
+    while(var_filtre == ""):
+        var_filtre = input("Aquest camp es obligatori: ")
     content.add((product_obj, REQ.Nombre, Literal(var_filtre)))
     var_filtre = input("Introdueix preu del producte: ")
+    while(var_filtre == ""):
+        var_filtre = input("Aquest camp es obligatori: ")
     content.add((product_obj, REQ.Precio, Literal(int(var_filtre))))
     var_filtre = input("Introdueix pes del producte:")
+    while(var_filtre == ""):
+        var_filtre = input("Aquest camp es obligatori: ")
     content.add((product_obj, REQ.Peso, Literal(float(var_filtre))))
-    var_filtre = input("Introdueix marca del producte (Ha d`existir a la base de dades): ")
+    var_filtre = input("Introdueix marca del producte: ")
+    while(var_filtre == ""):
+        var_filtre = input("Aquest camp es obligatori: ")
     content.add((product_obj, REQ.Marca, Literal(var_filtre)))
     var_filtre = input("Introdueix categoria del producte: ")
+    while(var_filtre == ""):
+        var_filtre = input("Aquest camp es obligatori: ")
     content.add((product_obj, REQ.Categoria, Literal(var_filtre)))
     
     g = Graph()

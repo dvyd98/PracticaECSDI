@@ -4,12 +4,10 @@
    xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
-    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">768678</req:Precio>
-    <req:Nombre>nombre_Blender_162ZQK</req:Nombre>
-    <req:TieneMarca>Blender</req:TieneMarca>
+    <req:TieneMarca>apel</req:TieneMarca>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.agentes.org#cerca">
-    <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/PeticioCerca"/>
+    <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
   </rdf:Description>
 </rdf:RDF>

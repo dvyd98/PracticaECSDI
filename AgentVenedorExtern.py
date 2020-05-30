@@ -125,6 +125,10 @@ def comunicacion():
         g.add((PrOntRes[nombre], PrOntPr['esExterno'], Literal(1)))
         g.add((PrOntRes[nombre], PrOntPr['tieneMarca'], PrOntRes[marca]))
         
+        g.add((PrOntRes[marca], RDF.type, PrOnt.Marca))
+        
+        g.add((PrOntRes[marca], PrOntPr.nombre, marca))
+        
         ofile  = open('./Ontologies/product.owl', "w")
         encoding = 'iso-8859-1'
         ofile.write(str(g.serialize(), encoding))
