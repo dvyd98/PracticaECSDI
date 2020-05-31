@@ -202,8 +202,9 @@ def negociarTransport(pes, ciutatDesti, diaMaxim, LotProductes, NomsLot, Quantit
         first = True
         preuMesBaix = None
         nomEmpresaAmbPreuMesBaix = None
-        
         for row in qres:
+            print('Nom empresa:', row['nombre'])
+            print('Preu empresa:', row['precio'])
             if first:
                 nomEmpresaAmbPreuMesBaix = row['nombre']
                 preuMesBaix = row['precio']
@@ -216,8 +217,32 @@ def negociarTransport(pes, ciutatDesti, diaMaxim, LotProductes, NomsLot, Quantit
                     
                     
         print('El preu mes baix:', preuMesBaix)
-        print('Nom de la empresa:', nomEmpresaAmbPreuMesBaix)
+        print('Nom de la empresa amb preu més baix:', nomEmpresaAmbPreuMesBaix)
         
+        #INFORMAR EMPRESA GUANYADORA
+        gRespostaEmp = Graph()
+        gRespostaEmp.bind('req', REQ)
+        empresa_guanyadora = agn['empresa_guany']
+        
+        gRespostaEmp.add((empresa_guanyadora, RDF.type, REQ.EmpresaGuanyadora))
+        gRespostaEmp.add((empresa_guanyadora, REQ.NomEmpresa, Literal(nomEmpresaAmbPreuMesBaix)))
+        
+        messagePerEmpresa = Graph()
+        
+        if centre == 1:
+            messagePerEmpresa = build_message(gRespostaEmp, perf=ACL.request, sender=CentroLogistico1.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=empresa_guanyadora)
+        elif centre == 2:
+            messagePerEmpresa = build_message(gRespostaEmp, perf=ACL.request, sender=CentroLogistico2.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=empresa_guanyadora)
+        elif centre == 3:
+            messagePerEmpresa = build_message(gRespostaEmp, perf=ACL.request, sender=CentroLogistico3.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=empresa_guanyadora)
+        elif centre == 4:
+            messagePerEmpresa = build_message(gRespostaEmp, perf=ACL.request, sender=CentroLogistico4.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=empresa_guanyadora)
+        else:
+            messagePerEmpresa = build_message(gRespostaEmp, perf=ACL.request, sender=CentroLogistico5.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=empresa_guanyadora)
+        
+        send_message(messagePerEmpresa, EmpresaTransportista.address)
+        
+        #PETICIONS A GESTOR PLATAFORMA
         gResposta = Graph()
         gResposta.bind('req', REQ)
         resposta_enviament = agn['resposta_env']
@@ -253,24 +278,8 @@ def negociarTransport(pes, ciutatDesti, diaMaxim, LotProductes, NomsLot, Quantit
                         
                     #envia missatge a l'Agent EmpresaTransportista
                     send_message(messagePerPlataforma, PlataformaAgent.address)
-                    print('weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
         
-#        result = Graph()
-#        result.bind('req', REQ)
-#        result_obj = agn['result']
-#        
-#        result.add((result_obj, RDF.type, REQ.IniciarEnviament))
-#        result.add((result_obj, REQ.NomEmpresa, nomEmpresaAmbPreuMesBaix))
-#        result.add((result_obj, REQ.Preu, preuMesBaix))
-        
-#        gProva = Graph()
-#        gProva.bind('req', REQ)
-#        resposta1 = agn['resposta1']
-#        gProva.add((resposta1, RDF.type, REQ.IniciarEnviament))
-#        messagePerPlataforma = Graph()
-#        messagePerPlataforma = build_message(gProva, perf=ACL.request, sender=CentroLogistico1.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=resposta1)
-#        #envia missatge a l'Agent EmpresaTransportista
-#        send_message(messagePerPlataforma, PlataformaAgent.address)
+
       
     
 def comprovarLotComplet(pesTotal, LotProductes, NomsLot, Quantitats, centre):    
@@ -414,7 +423,7 @@ def comunicacion():
                 #Afegir producte al lot
                 
                 L_centre1.append(CompraId)
-                pesTotalLot_centre1.value += float(pes)
+                pesTotalLot_centre1.value += float(pes)*float(quant)
                 NomsLot_centre1.append(nomProd)
                 Quantitats_centre1.append(quant)
                 
@@ -494,7 +503,7 @@ def comunicacion2():
                 #Afegir producte al lot
                 
                 L_centre2.append(CompraId)
-                pesTotalLot_centre2.value += float(pes)
+                pesTotalLot_centre2.value += float(pes)*float(quant)
                 NomsLot_centre2.append(nomProd)
                 Quantitats_centre2.append(quant)
                 
@@ -574,7 +583,7 @@ def comunicacion3():
                 #Afegir producte al lot
                 
                 L_centre3.append(CompraId)
-                pesTotalLot_centre3.value += float(pes)
+                pesTotalLot_centre3.value += float(pes)*float(quant)
                 NomsLot_centre3.append(nomProd)
                 Quantitats_centre3.append(quant)
                 
@@ -654,7 +663,7 @@ def comunicacion4():
                 #Afegir producte al lot
                 
                 L_centre4.append(CompraId)
-                pesTotalLot_centre4.value += float(pes)
+                pesTotalLot_centre4.value += float(pes)*float(quant)
                 NomsLot_centre4.append(nomProd)
                 Quantitats_centre4.append(quant)
                 
@@ -734,7 +743,7 @@ def comunicacion5():
                 #Afegir producte al lot
                 
                 L_centre5.append(CompraId)
-                pesTotalLot_centre5.value += float(pes)
+                pesTotalLot_centre5.value += float(pes)*float(quant)
                 NomsLot_centre5.append(nomProd)
                 Quantitats_centre5.append(quant)
                 
