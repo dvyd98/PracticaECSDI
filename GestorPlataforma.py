@@ -185,7 +185,7 @@ def obtenirRecomenacio():
     with open('registreCerca.txt') as json_file:
         registreCerca = json.load(json_file)
     
-    print("MARQUES:", marques)
+    print("CATEGORIES:", marques)
     for np in registreCerca:
         for infoC in registreCerca[np]:
             marca = str(infoC['marca'])
@@ -196,7 +196,7 @@ def obtenirRecomenacio():
             elif marca.find("Phone") >= 0:
                 marques["Phone"] = marques["Phone"] + 1
             
-    print("MARQUES:", marques)
+    print("CATEGORIES:", marques)
     if len(marques) > 0:
         sorted_mc = sorted(marques.items(), key=lambda kv: kv[1])
         return sorted_mc[len(marques)-1][0]
@@ -320,6 +320,45 @@ def crearRespostaPeticioCompra(cl):
     else:
         res = "S'ha enviat el producte al centre logistic: " + str(cl)
     return res
+
+def getStock(nombreProd):
+    stock = Literal(1)
+    g=rdflib.Graph()
+    g.parse("./Ontologies/centresProd.owl", format="xml")
+    
+    query = """SELECT ?nombre ?stock
+              WHERE {
+              ?a PrOntPr:nombre ?nombre .
+              ?a PrOntPr:stock ?stock .
+              
+              }
+              """
+    
+    qres = g.query(query, initNs = {'PrOnt': CenOnt, 'PrOntPr': CenOntPr, 'PrOntRes' : CenOntRes})
+    for row in qres:
+        if row['nombre'] == nombreProd:
+            preu = row['precio']
+            break
+    
+    return preu
+
+def actualitzarStock(cl, nombreProd):
+    cl = str(cl)
+    nombreProd = str(nombreProd)
+    instancia = nombreProd + '_' + cl[-1:]
+    
+    g=Graph()
+    g.parse("./Ontologies/centresProd.owl", format="xml")
+    gStock = g.triples((CenOntRes[instancia], CenOntPr['stock'], None))
+    stock = Literal(1)
+    for _, _, o in gStock:
+        stock = o
+    g.set((CenOntRes[instancia], CenOntPr['stock'], Literal(int(stock)-1)))
+    
+    ofile  = open('./Ontologies/centresProd.owl', "w")
+    encoding = 'iso-8859-1'
+    ofile.write(str(g.serialize(), encoding))
+    ofile.close()
 
 def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
     centresDisponibles = []
@@ -470,8 +509,8 @@ def comunicacion():
                     print('El millor centre logistic es:', cl)
                     
                 #cl sera el reciever del message
-                
                 #fer peticio enviament a centre logistic
+                actualitzarStock(cl, nombreProd)
                 
                 envGraph = Graph()
                 envGraph.bind('req', REQ)
@@ -680,6 +719,7 @@ def agentbehavior1(cola, connexioClientIniciada):
     pass
 
 if __name__ == '__main__':
+#    actualitzarStock("cl1", "Nombre_Blender_06KF10")
       
     #print('BUSCAR PREU PRODUCTE:')
     #print(buscarPreuProducte(Literal('nombre_Blender_4ARQ13')))
