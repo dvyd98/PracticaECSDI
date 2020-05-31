@@ -6,7 +6,7 @@ Created on Wed Apr 22 02:43:59 2020
 """
 
 
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, Value
 import sys
 import os
 import random
@@ -63,6 +63,7 @@ AgentTesorer = Agent('AgentTesorer',
 dsgraph = Graph()
 
 cola1 = Queue()
+consolaEnUs = Value('i', 0)
 
 # Flask stuff
 app = Flask(__name__)
@@ -139,10 +140,13 @@ def comunicacion():
                 print('FinalitzemPeticioCompra')
                 
                 print("Proces pagament")
+                consolaEnUs.value = 1
                 compte = ""
                 compte = input("Introdueix el teu compte")
                 while compte == "":
                     compte = input("Introdueix un compte vàlid")
+                
+                consolaEnUs.value = 0
                 
                 conGraph = Graph()
                 conGraph.bind('req', REQ)
@@ -161,9 +165,11 @@ def comunicacion():
                 
             elif action == REQ.PeticioRecomanacio:
                 content = msgdic['content']
+                consolaEnUs.value = 1
                 print('-------------------RECOMANACIO--------------------')
                 nombreProd = gm.value(subject=content, predicate=REQ.prod)
                 print("Potser t'interessa el producte " + str(nombreProd))
+                consolaEnUs.value = 0
                 
                 gr = build_message(Graph(),
                            ACL['inform-done'],
@@ -177,30 +183,44 @@ def comunicacion():
                 
                 if pucObtenirFeedback == True:
                     print('-------------------FEEDBACK D\'USUARI--------------------')
-                    print("0 - Phone")
-                    print("1 - Blender")
-                    print("2 - Computer")
-                    var_marca = input("Introdueix la marca que has comprat recentment")
-                    while var_marca != "0" and var_marca != "1" and var_marca != "2":
+                    print("p - Phone")
+                    print("v - Blender")
+                    print("c - Computer")
+                    
+                    consolaEnUs.value = 1
+                    
+                    var_marca = input("Introdueix la categoria que has comprat recentment")
+                    while var_marca != "p" and var_marca != "v" and var_marca != "c":
                         var_marca = input("No es una marca. Introdueix una marca:")
                     
-                    var_puntuacio = input("Introdueix una valoracio del 1 al 10")
-                    while int(var_puntuacio) < 1 and int(var_puntuacio) > 10:
+                    var_puntuacio = input("Introdueix una valoracio s, a, b")
+                    while var_puntuacio != "s" and var_puntuacio != "a" and var_puntuacio != "b":
                         var_puntuacio = input("Valor invalid: Introdueix la puntuacio una altre vegada:")
                     
-                    if var_marca == "0":
+                    consolaEnUs.value = 0
+                    
+                    if var_marca == "p":
                         var_marca = "Phone"
-                    elif var_marca == "1":
+                    elif var_marca == "v":
                         var_marca = "Blender"
                     else:
                         var_marca = "Computer"
+                        
+                    punts = 0
+                        
+                    if var_puntuacio == "s":
+                        punts = 10
+                    elif var_puntuacio == "a":
+                        punts = 5
+                    else:
+                        punts = 0
                         
                     contentFeed = Graph()
                     contentFeed.bind('req', REQ)
                     feed_obj = agn['feed']
                     contentFeed.add((feed_obj, RDF.type, REQ.RespostaFeedback))
                     contentFeed.add((feed_obj, REQ.marca, Literal(var_marca)))
-                    contentFeed.add((feed_obj, REQ.puntuacio, Literal(var_puntuacio)))
+                    contentFeed.add((feed_obj, REQ.puntuacio, Literal(punts)))
                     
                     gr = build_message(contentFeed,
                            ACL['inform-done'],
@@ -254,7 +274,7 @@ def tidyup():
     pass
 
 
-def agentbehavior1(q, fileno):
+def agentbehavior1(q, fileno, consolaEnUs):
     """
     Un comportamiento del agente
 
@@ -274,7 +294,10 @@ def agentbehavior1(q, fileno):
     longClient = 2.19
 
     while True:
-
+        while consolaEnUs.value > 0:
+            asd = 0
+        print("NO HI HA CONSOLA EN US")
+        
         var_input = input("Introdueix instruccio: ")
         while(var_input != "1" and var_input != "2" and var_input != "3" and var_input != "4" and var_input != "5"):
             print ("Instruccio desconeguda")
@@ -370,38 +393,6 @@ def agentbehavior1(q, fileno):
             for row in qres:
                 respostaCL = str(row['resposta'])
             print(respostaCL)
-                
-    #        message = request.args['content']
-    #        gm = Graph()
-    #        gm.parse(data=message)
-    #        msgdic = get_message_properties(gm)
-    #        content = msgdic['content']
-    #        resposta = response.value(subject=content, predicate=REQ.resposta)
-    #        print(resposta)
-            #--------------------------Aixo haura d'estar en el comm del client----------------------------
-            
-    #        print('Resposta: ', response)
-    #        query = """
-    #        SELECT ?nomP ?preuEnviament ?preuProd ?preuTotal ?nomEmpresa ?idCompra
-    #        WHERE {
-    #                ?a REQ:nomP ?nomP .
-    #                ?a REQ:preuEnviament ?preuEnviament .
-    #                ?a REQ:preuProd ?preuProd .
-    #                ?a REQ:preuTotal ?preuTotal .
-    #                ?a REQ:nomEmpresa ?nomEmpresa .
-    #                ?a REQ:idCompra ?idCompra
-    #                }
-    #        """
-    #        qres = response.query(query, initNs = {'REQ': REQ})
-    #        print('-------------------FACTURA--------------------')
-    #        for row in qres:
-    #            print('NomProducte:',row['nomP'])
-    #            print('PreuEnviament:',row['preuEnviament'])
-    #            print('PreuProducte:',row['preuProd'])
-    #            print('PreuTotal:',row['preuTotal'])
-    #            print('NomEmpresa:',row['nomEmpresa'])
-    #            print('idCompra:', row['idCompra'])
-    #            print('FinalitzemPeticioCompra')
         if var_input == "3":
             print("Introdueix la latitud i longitud usant punts i no comes (ex: 40.4555).")
             var_lat = input("Introdueix la latitud: ")
@@ -443,8 +434,6 @@ def agentbehavior1(q, fileno):
             
             for row in qres:
                 print(row['respostaDev'])
-        
-    #var_input = input("Introdueix instruccio: ")
              
     pass
 
@@ -457,7 +446,7 @@ if __name__ == '__main__':
     q = Queue()
     fn = sys.stdin.fileno()
     # Ponemos en marcha los behaviors
-    ab1 = Process(target=agentbehavior1, args=(q,fn,))
+    ab1 = Process(target=agentbehavior1, args=(q,fn,consolaEnUs))
     ab1.start()
 
     # Ponemos en marcha el servidor
