@@ -28,7 +28,7 @@ from ACLMessages import build_message, get_message_properties, send_message
 from OntoNamespaces import ACL, DSO, RDF, REQ, XSD, OWL
 from Agent import portAgentEmpresa
 
-limR = [1, 6]  
+limR = [0.001, 0.01]  
     
 # Configuration stuff
 hostname = "localhost"
@@ -106,7 +106,6 @@ def comunicacion():
                 
                 #obté pes, ciutat desti i plaç màxim d'entrega per ara HARDCODED
                 
-                content = msgdic['content']
                 pes = gm.value(subject=content, predicate=REQ.QuantProductes)
                 #pes = 2
                 ciutatDesti = 'Barcelona'
@@ -144,14 +143,15 @@ def comunicacion():
                 print('Tamany empreses:', len(conjuntEmpreses))
                 
                 for i in range(0, len(conjuntEmpreses)):
+                    result_obj = REQ[conjuntEmpreses[i]]
                     print('Estic dins: ', i)
                     preu = float(pes) * random.uniform(limR[0], limR[1])
                     print('PES CALCULAT')
-                    gResposta.add((resposta_empresa, RDF.type, REQ.RespostaEmpresa))
+                    gResposta.add((result_obj, RDF.type, REQ.RespostaEmpresa))
                     print('Estic a dins del bucle:', conjuntEmpreses[i])
-                    gResposta.add((resposta_empresa, REQ['Nombre'], Literal(conjuntEmpreses[i])))
+                    gResposta.add((result_obj, REQ['Nombre'], Literal(conjuntEmpreses[i])))
                     print('Estic a dins del bucle2:', conjuntEmpreses[i])
-                    gResposta.add((resposta_empresa, REQ['Precio'], Literal(preu)))
+                    gResposta.add((result_obj, REQ['Precio'], Literal(preu)))
                     print(preu)
                     
 #                for row in conjuntEmpreses:
@@ -167,6 +167,18 @@ def comunicacion():
                            ACL['inform-done'],
                            sender=EmpresaTransportista.uri,
                            msgcnt=mss_cnt)
+                
+            elif action == REQ.EmpresaGuanyadora:
+                print('------------------------Rebem Resposta Millor Empresa------------------------')
+                
+                empresaEscollida = gm.value(subject=content, predicate=REQ.NomEmpresa)
+                print('La empresa escollida és: ', empresaEscollida)
+                
+                gr = build_message(Graph(),
+                           ACL['inform-done'],
+                           sender=EmpresaTransportista.uri,
+                           msgcnt=mss_cnt)
+                
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
