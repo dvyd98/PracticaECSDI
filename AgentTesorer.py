@@ -129,15 +129,16 @@ def comunicacion():
                 diners = gm.value(subject=content, predicate=REQ.diners)
                 print("La plataforma retorna al client els diners:", diners)
                 
-                conGraph = Graph()
-                conGraph.bind('req', REQ)
-                con_obj = agn['transferencia']
-                conGraph.add((con_obj, RDF.type, REQ.rebreDiners)) 
-                conGraph.add((con_obj, REQ.diners, Literal(diners)))
-                conGraph.add((con_obj, REQ.compte, Literal(compte)))
+                transGraph = Graph()
+                transGraph.bind('req', REQ)
+                trans_obj = agn['transferencia2']
+                transGraph.add((trans_obj, RDF.type, REQ.rebreDiners)) 
+                transGraph.add((trans_obj, REQ.diners, Literal(diners)))
         
-                missatgeEnviament = build_message(conGraph,perf=ACL.request, sender=AgentTesorer.uri, msgcnt=0, receiver=Client.uri, content=con_obj)
-                response = send_message(missatgeEnviament, Client.address)
+                print("Preparat per enviar a client")
+                
+                missatgeEnviament2 = build_message(transGraph,perf=ACL.request, sender=AgentTesorer.uri, msgcnt=0, receiver=Client.uri, content=trans_obj)
+                response = send_message(missatgeEnviament2, Client.address)
                 
                 gr = build_message(Graph(),
                            ACL['inform-done'],

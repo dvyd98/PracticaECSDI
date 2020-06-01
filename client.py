@@ -227,22 +227,16 @@ def comunicacion():
                            sender=PlataformaAgent.uri,
                            msgcnt=mss_cnt)
                     
-                elif action == REQ.rebreDiners:
-                    content = msgdic['content']
-                    diners = gm.value(subject=content, predicate=REQ.diners)
-                    
-                    print("Hem rebut diners: ", diners)
+            elif action == REQ.rebreDiners:
+                content = msgdic['content']
+                diners = gm.value(subject=content, predicate=REQ.diners)
+                        
+                print("Hem rebut diners: ", diners)
     
-                    gr = build_message(Graph(),
-                               ACL['inform-done'],
-                               sender=Client.uri,
-                               msgcnt=mss_cnt)
-                else:
-                    gr = build_message(Graph(),
-                           ACL['inform-done'],
-                           sender=Client.uri,
-                           msgcnt=mss_cnt)
-#                    return gr.serialize(format='xml')
+                gr = build_message(Graph(),
+                       ACL['inform-done'],
+                       sender=Client.uri,
+                       msgcnt=mss_cnt)
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),
@@ -296,7 +290,6 @@ def agentbehavior1(q, fileno, consolaEnUs):
     while True:
         while consolaEnUs.value > 0:
             asd = 0
-        print("NO HI HA CONSOLA EN US")
         
         var_input = input("Introdueix instruccio: ")
         while(var_input != "1" and var_input != "2" and var_input != "3" and var_input != "4" and var_input != "5"):

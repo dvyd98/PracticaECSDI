@@ -628,7 +628,7 @@ def comunicacion():
                     if preu < 0.0:
                         resposta = "NO es possible procedir amb la devolució ja que no existeix un registre d'aquesta compra"
                     else:
-                        eliminarRegistreCerca(idCompra)
+                        #eliminarRegistreCerca(idCompra)
                         preu = str(preu)
                         resposta = "Peticio ACCEPTADA. L'empresa transportista recollirà el producte en el mateix lloc que l'entrega en un plaç màxim de 3 dies. Es procedirà a fer un reembolsament de "+preu
                         
@@ -637,6 +637,8 @@ def comunicacion():
                         rec_obj = agn['recomanacio']
                         recGraph.add((rec_obj, RDF.type, REQ.PeticioTransferenciaAClient)) 
                         recGraph.add((rec_obj, REQ.diners, Literal(preu)))
+                        
+                        print("Preparant comunicacio amb Tresorer...")
                         
                         missatgeEnviament = build_message(recGraph,perf=ACL.request, sender=PlataformaAgent.uri, msgcnt=0, receiver=AgentTesorer.uri, content=rec_obj)
                         response = send_message(missatgeEnviament, AgentTesorer.address)
