@@ -28,7 +28,7 @@ from flask import Flask, request
 from ACLMessages import build_message, send_message, get_message_properties
 from AgentUtil.FlaskServer import shutdown_server
 from AgentUtil.Agent import Agent
-from OntoNamespaces import ACL, DSO, RDF, XSD, OWL, PrOnt, PrOntPr, PrOntRes, REQ
+from OntoNamespaces import ACL, DSO, RDF, XSD, OWL, PrOnt, PrOntPr, PrOntRes, REQ, CenOnt, CenOntPr, CenOntRes
 from AgentUtil.Logging import config_logger
 from urllib.parse import urlparse
 from pathlib import PurePosixPath
@@ -130,6 +130,19 @@ def comunicacion():
         g.add((PrOntRes[marca], PrOntPr.nombre, marca))
         
         ofile  = open('./Ontologies/product.owl', "w")
+        encoding = 'iso-8859-1'
+        ofile.write(str(g.serialize(), encoding))
+        ofile.close()
+        
+        g=Graph()
+        g.parse("./Ontologies/centresProd.owl", format="xml")
+        g.add((CenOntRes[nombre], RDF.type, CenOnt['Producte_CentreLogistic1']))
+        
+        g.add((CenOntRes[nombre], CenOntPr['nombre'], nombre))
+        g.add((CenOntRes[nombre], CenOntPr['nombreCentreLogistic'], Literal('cl1')))
+        g.add((CenOntRes[nombre], CenOntPr['stock'], Literal(5)))
+        
+        ofile  = open('./Ontologies/centresProd.owl', "w")
         encoding = 'iso-8859-1'
         ofile.write(str(g.serialize(), encoding))
         ofile.close()
