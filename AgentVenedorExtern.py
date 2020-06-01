@@ -213,7 +213,16 @@ def comunicacion():
                 
             elif action == REQ.AfegirMarca:
                 gr = addMarca()
+            elif action == REQ.rebreDiners:
+                content = msgdic['content']
+                diners = gm.value(subject=content, predicate=REQ.diners)
                 
+                print("Hem rebut diners: ", diners)
+
+                gr = build_message(Graph(),
+                           ACL['inform-done'],
+                           sender=AgentVenedorExtern.uri,
+                           msgcnt=mss_cnt)
             else:
                 logger.info('Es una request que no entenem')
                 gr = build_message(Graph(),

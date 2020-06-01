@@ -154,6 +154,7 @@ def comunicacion():
                 conGraph.add((con_obj, RDF.type, REQ.PeticioTransferenciaAPlataforma)) 
                 conGraph.add((con_obj, REQ.diners, Literal(preuTotal)))
                 conGraph.add((con_obj, REQ.compte, Literal(compte)))
+                conGraph.add((con_obj, REQ.np, Literal(nombreProd)))
         
                 missatgeEnviament = build_message(conGraph,perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentTesorer.uri, content=con_obj)
                 response = send_message(missatgeEnviament, AgentTesorer.address)

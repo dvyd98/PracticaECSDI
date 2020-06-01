@@ -24,8 +24,8 @@ from FlaskServer import shutdown_server
 from Agent import Agent
 from AgentUtil.Logging import config_logger
 from ACLMessages import build_message, get_message_properties, send_message
-from OntoNamespaces import ACL, DSO, RDF, REQ, XSD, OWL
-from Agent import portAgentTesorer, portGestorPlataforma, portClient
+from OntoNamespaces import ACL, DSO, RDF, REQ, XSD, OWL, PrOnt, PrOntRes, PrOntPr
+from Agent import portAgentTesorer, portGestorPlataforma, portClient, portVenedorExtern
 
 limR = [1, 6]  
     
@@ -65,6 +65,25 @@ cola1 = Queue()
 # Flask stuff
 app = Flask(__name__)
 
+def esProducteExtern(nombreProd):
+    g=Graph()
+    g.parse("./Ontologies/product.owl", format="xml")
+    query = """
+              SELECT ?nombre ?esExterno
+              WHERE {
+              ?a PrOntPr:nombre ?nombre .
+              ?a PrOntPr:esExterno ?esExterno .
+              }
+              """
+    qres = g.query(query, initNs = {'PrOnt': PrOnt, 'PrOntPr': PrOntPr, 'PrOntRes' : PrOntRes})
+    
+    extern = False
+    for row in qres:
+        if str(row['nombre']) == str(nombreProd):
+            if int(row['esExterno']) == 1:
+                extern = True
+    
+    return extern
 
 @app.route("/comm")
 def comunicacion():
@@ -108,17 +127,36 @@ def comunicacion():
                 content = msgdic['content']
                 diners = gm.value(subject=content, predicate=REQ.diners)
                 compte = gm.value(subject=content, predicate=REQ.compte)
-                print("El client paga a la plataforma ", diners, " usant el compte ", compte)
+                nombreProd = gm.value(subject=content, predicate=REQ.np)
                 
-                conGraph = Graph()
-                conGraph.bind('req', REQ)
-                con_obj = agn['transferencia']
-                conGraph.add((con_obj, RDF.type, REQ.rebreDiners)) 
-                conGraph.add((con_obj, REQ.diners, Literal(diners)))
-                conGraph.add((con_obj, REQ.compte, Literal(compte)))
-        
-                missatgeEnviament = build_message(conGraph,perf=ACL.request, sender=AgentTesorer.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=con_obj)
-                response = send_message(missatgeEnviament, PlataformaAgent.address)
+                esExtern = esProducteExtern(nombreProd)
+                
+                if esExtern == False:
+                
+                    print("El client paga a la plataforma ", diners, " usant el compte ", compte)
+                    
+                    conGraph = Graph()
+                    conGraph.bind('req', REQ)
+                    con_obj = agn['transferencia']
+                    conGraph.add((con_obj, RDF.type, REQ.rebreDiners)) 
+                    conGraph.add((con_obj, REQ.diners, Literal(diners)))
+                    conGraph.add((con_obj, REQ.compte, Literal(compte)))
+            
+                    missatgeEnviament = build_message(conGraph,perf=ACL.request, sender=AgentTesorer.uri, msgcnt=0, receiver=PlataformaAgent.uri, content=con_obj)
+                    response = send_message(missatgeEnviament, PlataformaAgent.address)
+                else:
+                    
+                    print("El client paga al agent extern")
+                    
+                    tGraph = Graph()
+                    tGraph.bind('req', REQ)
+                    t_obj = agn['transferencia']
+                    tGraph.add((t_obj, RDF.type, REQ.rebreDiners)) 
+                    tGraph.add((t_obj, REQ.diners, Literal(diners)))
+                    tGraph.add((t_obj, REQ.compte, Literal(compte)))
+            
+                    missatgeEnviament2 = build_message(tGraph,perf=ACL.request, sender=AgentTesorer.uri, msgcnt=0, receiver=portVenedorExtern.uri, content=t_obj)
+                    response = send_message(missatgeEnviament2, portVenedorExtern.address)
                 
                 gr = build_message(Graph(),
                            ACL['inform-done'],
