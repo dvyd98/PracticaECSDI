@@ -52,6 +52,11 @@ PlataformaAgent = Agent('PlataformaAgent',
                         'http://%s:%d/comm' % (hostname, portGestorPlataforma),
                         'http://%s:%d/Stop' % (hostname, portGestorPlataforma))
 
+AgentVenedorExtern = Agent('AgentCercador',
+                       agn.AgentVenedorExtern,
+                       'http://%s:%d/comm' % (hostname, portVenedorExtern),
+                       'http://%s:%d/Stop' % (hostname, portVenedorExtern))
+
 Client = Agent('Client', 
                agn.Client,
                'http://%s:%d/comm' % (hostname, portClient), 
@@ -155,8 +160,8 @@ def comunicacion():
                     tGraph.add((t_obj, REQ.diners, Literal(diners)))
                     tGraph.add((t_obj, REQ.compte, Literal(compte)))
             
-                    missatgeEnviament2 = build_message(tGraph,perf=ACL.request, sender=AgentTesorer.uri, msgcnt=0, receiver=portVenedorExtern.uri, content=t_obj)
-                    response = send_message(missatgeEnviament2, portVenedorExtern.address)
+                    missatgeEnviament2 = build_message(tGraph,perf=ACL.request, sender=AgentTesorer.uri, msgcnt=0, receiver=AgentVenedorExtern.uri, content=t_obj)
+                    response = send_message(missatgeEnviament2, AgentVenedorExtern.address)
                 
                 gr = build_message(Graph(),
                            ACL['inform-done'],
