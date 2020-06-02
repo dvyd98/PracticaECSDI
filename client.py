@@ -307,18 +307,18 @@ def agentbehavior1(q, fileno, consolaEnUs):
             content.add((cerca_obj, RDF.type, REQ.PeticioCerca))
             content.add((cerca_obj, REQ.Filters, filters_obj))
             
-            print("Introdueix els filtres desitjats, apreta enter sense escriure res per no filtrar")
+            print("Introdueix els filtres desitjats, apreta enter sense escriure res per no filtrar (Tambe pots escrire un '-' per no filtrar)")
             var_filtre = input("Introdueix categoria del producte: ")
-            if (var_filtre != ""):   
+            if (var_filtre != "" and var_filtre != "-"):   
                 content.add((filters_obj, REQ.Categoria, Literal(var_filtre)))
             var_filtre = input("Introdueix nom del producte: ")
-            if (var_filtre != ""): 
+            if (var_filtre != "" and var_filtre != "-"): 
                 content.add((filters_obj, REQ.Nombre, Literal(var_filtre)))
             var_filtre = input("Introdueix preu maxim del producte: ")
-            if (var_filtre != ""): 
+            if (var_filtre != "" and var_filtre != "-"): 
                 content.add((filters_obj, REQ.Precio, Literal(int(var_filtre))))
             var_filtre = input("Introdueix marca del producte: ")
-            if (var_filtre != ""): 
+            if (var_filtre != "" and var_filtre != "-"): 
                 content.add((filters_obj, REQ.TieneMarca, Literal(var_filtre)))
             ofile  = open('request.owl', "w")
             encoding = 'iso-8859-1'
