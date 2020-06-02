@@ -11,7 +11,7 @@ import sys
 import os
 import random
 import string
-import jocsDeProva
+import json
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
@@ -67,6 +67,25 @@ consolaEnUs = Value('i', 0)
 
 # Flask stuff
 app = Flask(__name__)
+
+def eliminarRegistres():
+    registreCompres = {}
+    with open('registreCompres.txt', 'w') as outfile:
+        json.dump(registreCompres, outfile)
+    print("registres de compres eliminats...")
+    
+    registreCerca = {}
+    with open('registreCerca.txt', 'w') as outfile:
+        json.dump(registreCerca, outfile)
+    print("registres de cerques eliminats...")
+    
+    registreFeedback = {}
+    registreFeedback['Blender'] = 0
+    registreFeedback['Computer'] = 0
+    registreFeedback['Phone'] = 0
+    with open('registreFeedback.txt', 'w') as outfile:
+        json.dump(registreFeedback, outfile)
+    print("registres de feedback eliminats...")
 
 def iniciarConnexioAmbPlataforma():
     conGraph = Graph()
@@ -282,6 +301,7 @@ def agentbehavior1(q, fileno, consolaEnUs):
     print("2 - Comprar un producte")
     print("3 - Modificar localitzacio client (Predefinida: 42.2, 2.19)")
     print("4 - Devolucio de un producte")
+    print("5 - Eliminar registres de compra, cerca i feedback")
 
     letters = string.ascii_lowercase
     
@@ -428,6 +448,8 @@ def agentbehavior1(q, fileno, consolaEnUs):
             
             for row in qres:
                 print(row['respostaDev'])
+        if var_input == "5":
+            eliminarRegistres()
              
     pass
 
