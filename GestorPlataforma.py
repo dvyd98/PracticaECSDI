@@ -91,8 +91,6 @@ dsgraph = Graph()
 
 cola1 = Queue()
 
-idCompra = Literal("0")
-
 def obtenirFeedback():
     print("Esperant temps per enviar feedback")
     sleep(20)

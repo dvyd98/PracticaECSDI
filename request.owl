@@ -4,7 +4,10 @@
    xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
   <rdf:Description rdf:about="http://www.agentes.org#cerca">
-    <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/PeticioCerca"/>
+    <req:Filters rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
+    <req:Nombre>Nombre_Computer_2AXJ7Q</req:Nombre>
   </rdf:Description>
 </rdf:RDF>
