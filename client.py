@@ -30,6 +30,7 @@ from Agent import portGestorPlataforma, portCerca, portClient, portAgentTesorer
 # Configuration stuff
 hostname = "localhost"
 ip = 'localhost'
+
 port = portClient
 
 logger = config_logger(level=1)

@@ -617,7 +617,8 @@ def comunicacion():
                 content = msgdic['content']
                 idCompra = gm.value(subject=content, predicate=REQ.idCompra)
                 dies = gm.value(subject=content, predicate=REQ.dies)
-                
+                print("SENSE TRANSFORMACIO: ", dies)
+                print("AMB TRANSFORMACIO: ", int(dies))
                 resposta = ""
                 
                 print("Preparat per gestionar peticio devolucio")
