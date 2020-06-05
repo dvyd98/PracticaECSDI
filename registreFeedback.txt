@@ -1,1 +1,1 @@
-{"Blender": 20, "Computer": 0, "Phone": 0}
+{"Blender": 15, "Computer": 0, "Phone": 0}

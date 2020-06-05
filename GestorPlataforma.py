@@ -16,6 +16,7 @@ import random
 import string
 import json
 import threading
+import mpu
 
 sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
@@ -359,6 +360,12 @@ def actualitzarStock(cl, nombreProd):
     encoding = 'iso-8859-1'
     ofile.write(str(g.serialize(), encoding))
     ofile.close()
+    
+def distance(point1, point2):
+    return mpu.haversine_distance(point1, point2)
+
+def closest(data, this_point):
+    return min(data, key=lambda x: distance(this_point, x))
 
 def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
     centresDisponibles = []
@@ -384,6 +391,9 @@ def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
     print('CentresDisponibles:', centresDisponibles)
     print('\n') 
     
+    if len(centresDisponibles) == 0:
+        return None
+    
     #dels disponibles, retornar el que estigui mes aprop del client
     gCent = rdflib.Graph()
     gCent.parse("./Ontologies/locCentres.owl", format="xml")
@@ -396,39 +406,25 @@ def buscarCentreLogistic(nombreProd, quant, latClient, longClient):
                   }
                   """
     qres2 = gCent.query(query2, initNs = {'LocCenOnt': LocCenOnt, 'LocCenOntPr': LocCenOntPr, 'LocCenOntRes' : LocCenOntRes})
-    d = 9999999.0
-    R = 6373.0 #radi terra
-    cl = None
-    first = True
-    #inicialitzar cl amb el primer element
+    allLocations = []
     for row in qres2:
-        if first:
-            candidat = row['nombreCentreLogistic']
-            if candidat in centresDisponibles:
-                cl = row['nombreCentreLogistic']
-                first = False
-                break
+        if row['nombreCentreLogistic'] in centresDisponibles:
+            auxPoint2 = []
+            auxPoint2.append(float(row['latitud']))
+            auxPoint2.append(float(row['longitud']))
+            allLocations.append(auxPoint2)
     
+    locClient2 = []
+    locClient2.append(float(latClient))
+    locClient2.append(float(longClient))
+    matchPoint = closest(allLocations, locClient2)
+    
+    cl = None
     for row in qres2:
-        latAux = row['latitud']
-        longAux = row['longitud']
-        lat1 = radians(float(latAux))
-        lon1 = radians(float(longAux))
-        lat2 = radians(float(latClient))
-        lon2 = radians(float(longClient))
+        if float(row['latitud']) == matchPoint[0] and float(row['longitud']) == matchPoint[1]:
+            cl = row['nombreCentreLogistic']
+            break
         
-        dlon = lon2 - lon1
-        dlat = lat2 - lat1
-        
-        a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-        c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        
-        distance = R * c
-        if distance < d:
-            d = distance
-            candidat = row['nombreCentreLogistic']
-            if candidat in centresDisponibles:
-                cl = candidat
     print("El definitiu:", cl)
     return cl
 
