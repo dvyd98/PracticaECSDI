@@ -120,6 +120,7 @@ if (var_input == "1"):
     g = build_message(content, perf=ACL.request, sender=Client.uri, msgcnt=0, receiver=AgentVenedorExtern.uri, content=cerca_obj)
     #enviem el msg
     response = send_message(g, AgentVenedorExtern.address)
+    print("Producte afegit correctament")
     
 if (var_input == "2"):
     content = Graph()

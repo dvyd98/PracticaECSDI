@@ -20,7 +20,7 @@ sys.path.append(os.path.relpath("./AgentUtil"))
 sys.path.append(os.path.relpath("./Utils"))
 
 from ctypes import c_char_p
-from rdflib import Namespace, Graph, RDF, RDFS, FOAF, Literal
+from rdflib import Namespace, Graph, RDF, RDFS, Literal
 from flask import Flask, request
 
 from AgentUtil.FlaskServer import shutdown_server

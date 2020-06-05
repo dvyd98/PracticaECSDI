@@ -4,7 +4,7 @@
    xmlns:req="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/"
 >
   <rdf:Description rdf:about="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/Filters_filters">
-    <req:TieneMarca>apel</req:TieneMarca>
+    <req:Precio rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50000</req:Precio>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.agentes.org#cerca">
     <rdf:type rdf:resource="http://www.semanticweb.org/dvyd/ontologies/2020/3/OntologiaRequests/PeticioCerca"/>
